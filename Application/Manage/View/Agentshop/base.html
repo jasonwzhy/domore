@@ -130,15 +130,38 @@
 
 		$("#sprovice").change(function(){
 			var getzcode = $("#sprovice").find("option:selected").attr("zcode");
-			var getscity = getregion(getzcode,2);
-			alert(getzcode);
+			alert($(this).val());
+			if ($(this).val() == "") {
+				return 
+			} else{
+				getregion(getzcode,2);
+			};			
+			
+
 		});
+		var optiontpl = "<option>"
+		"<option value="+region_id+"zcode="+zipcode+"><"+areaname+"></option>"
 		function getregion(pzcode,alevel){
 			$.ajax({
 				url: "__ROOT__/agentshop/getregion/pzcode/"+pzcode+"/alevel/"+alevel,
 				success: function(ret){
 					console.log(ret);
-					
+					if (alevel == 2) {
+						alert(alevel);
+						if (ret == null) {
+
+							$("#scity").append("<option value="+1+"zcode="+1+"><"+21+"></option>");
+						} else{
+							alert("here");
+							$.each(ret,function(n,val){
+								$("#scity").append("<option value="+val.region_id+"zcode="+val.zipcode+">"+val.areaname+"</option>");	
+							});
+						};
+						changesciyt();
+					}else{
+						changesarea();
+					};
+
 				}
 			});
 		};

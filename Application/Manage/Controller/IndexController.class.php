@@ -11,5 +11,6 @@ class IndexController extends Controller {
     public function getshoptype(){
     	$stype = M('shoptype');
     	$stypedata = $stype->select();
+    	
     }
 }
