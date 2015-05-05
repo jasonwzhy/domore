@@ -62,13 +62,11 @@
 							<div class="form-group col-xs-4 form-group-nopadding">
 								<select class="form-control" id="scity">
 									<option value="">-市区-</option>
-									<option value="1">健身房</option>
 								</select>
 							</div>
 							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control">
+								<select class="form-control" id="sarea">
 									<option value="">-区-</option>
-									<option value="1">健身房</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -102,6 +100,7 @@
 	</div>
     <script type="text/javascript" src="__PUBLIC__/manage/js/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/manage/js/bootstrap.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/manage/js/region.js"></script>
 	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=ac8dc3ed6052d2d27fc0b1c97266d1a0"></script>
 	<script type="text/javascript">
 		(function(exports){
@@ -127,49 +126,26 @@
 				}
 			);
 		})(window);
-
-		$("#sprovice").change(function(){
-			var getzcode = $("#sprovice").find("option:selected").attr("zcode");
-			alert($(this).val());
-			if ($(this).val() == "") {
-				return 
-			} else{
-				getregion(getzcode,2);
-			};			
-			
-
-		});
-		var optiontpl = "<option>"
-		"<option value="+region_id+"zcode="+zipcode+"><"+areaname+"></option>"
 		function getregion(pzcode,alevel){
 			$.ajax({
 				url: "__ROOT__/agentshop/getregion/pzcode/"+pzcode+"/alevel/"+alevel,
 				success: function(ret){
-					console.log(ret);
 					if (alevel == 2) {
-						alert(alevel);
-						if (ret == null) {
-
-							$("#scity").append("<option value="+1+"zcode="+1+"><"+21+"></option>");
-						} else{
-							alert("here");
-							$.each(ret,function(n,val){
-								$("#scity").append("<option value="+val.region_id+"zcode="+val.zipcode+">"+val.areaname+"</option>");	
-							});
-						};
-						changesciyt();
-					}else{
-						changesarea();
+						// if (ret == null) {//上级为直辖市 本级复制上级option后 disable
+						// 	changesciyt(ret);
+						// 	// $("#scity").append("<option value="+1+"zcode="+1+"><"+21+"></option>");
+						// } else{
+						// 	alert("here");
+						// 	$.each(ret,function(n,val){
+						// 		$("#scity").append("<option value="+val.region_id+"zcode="+val.zipcode+">"+val.areaname+"</option>");	
+						// 	});
+						// };
+						changesciyt(ret);
+					}else if(alevel == 3){
+						changesarea(ret);
 					};
-
 				}
 			});
-		};
-		function changesciyt(optiondata){
-
-		};
-		function changesarea(optiondata){
-
 		};
 	</script>
 	
