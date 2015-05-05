@@ -40,7 +40,7 @@
 							<div class="form-group">
 								<select class="form-control">
 									<option value="">-场馆类型-</option>
-									<option value="1">健身房</option>
+									<?php if(is_array($stypedata)): foreach($stypedata as $key=>$stype): ?><option value="<?php echo ($stype["shoptype_id"]); ?>"><?php echo ($stype["type_name"]); ?></option><?php endforeach; endif; ?>
 								</select>
 							</div>
 							<div class="form-group">
@@ -50,13 +50,13 @@
 								<input type="number" class="form-control" id="tel" name="tel" placeholder="前台电话">
 							</div>
 							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control">
+								<select class="form-control" id="sprovice">
 									<option value="">-省/直辖市-</option>
-									<option value="1">健身房</option>
+									<?php if(is_array($provicedata)): foreach($provicedata as $key=>$pdata): ?><option value="<?php echo ($pdata["region_id"]); ?>" zcode="<?php echo ($pdata["zipcode"]); ?>"><?php echo ($pdata["areaname"]); ?></option><?php endforeach; endif; ?>
 								</select>
 							</div>
 							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control">
+								<select class="form-control" id="scity">
 									<option value="">-市区-</option>
 									<option value="1">健身房</option>
 								</select>
@@ -108,7 +108,7 @@
 				//dragEnable: true,
 				//zoomEnable: true,
 				//设置可缩放的级别
-				//zooms: [3,18],
+				zooms: [9,18],
 				//传入2D视图，设置中心点和缩放级别
 				view: new AMap.View2D({
 					center: new AMap.LngLat(104.061986,30.658611),
@@ -122,26 +122,24 @@
 					$("#address").val(center);
 				}
 			);
-			// var marker = new AMap.Marker({	
-			// 	offset:new AMap.Pixel(-18,-40),
-			// 	//复杂图标
-			// 	icon: new AMap.Icon({    
-			// 		//图标大小
-			// 		// size:new AMap.Size(28,37),
-			// 		//大图地址
-			// 		// image:"img/localtion.png", 
-			// 		imageOffset:new AMap.Pixel(0,0),
-			// 		size:new AMap.Size(36,36),
-			// 		imageSize:new AMap.Size(36,36)
-			// 	}),
-			// 	//在地图上添加点
-			// 	// position:new AMap.LngLat(116.405467,39.907761)
-
-			// });
-			// marker.setMap(map);  
 		})(window);
 
-		
+		$("#sprovice").change(function(){
+			var getzcode = $("#sprovice").find("option:selected").attr("zcode");
+			var getscity = getregion(getzcode,2);
+			alert(getzcode);
+		});
+		function getregion(pzcode,alevel){
+			$.ajax({
+				url: "/agentshop/getregion/pzcode/"+pzcode+"/alevel/"+alevel,
+				success: function(ret){
+					console.log(ret);
+				}
+			});
+		};
+		function changesciyt(){
+
+		};
 	</script>
 	
 </body>
