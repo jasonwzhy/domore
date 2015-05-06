@@ -7,7 +7,6 @@ class AgentshopController extends Controller {
 		$render['stypedata'] = $this->getshoptype();
 		$render['provicedata'] = $this->getregion(0,"1",0);
 		// var_dump($render['provicedata']);
-		var_dump(date("N",time()));
 		$this->assign($render);
 		$this->display('Agentshop/base');
 	}
@@ -27,5 +26,18 @@ class AgentshopController extends Controller {
 		$stype = M('shoptype');
 		$stypedata = $stype->select();
 		return $stypedata;
+	}
+	public function createshop(){
+		// 创建店铺
+		/*
+			场馆类型
+			场馆名
+			前台电话
+			省份 城市 区域
+			详细地址
+			坐标
+			创建人
+		*/
+		
 	}
 }
