@@ -24,34 +24,6 @@ var mapcenter = "";
 	);
 })(window);
 
-var lmmapcenter = "";
-(function(exports){
-	
-	var map = new AMap.Map('lmmapContainer', {
-		//resizeEnable: true,
-		//rotateEnable: true,
-		//dragEnable: true,
-		//zoomEnable: true,
-		//设置可缩放的级别
-		zooms: [9,18],
-		//传入2D视图，设置中心点和缩放级别
-		view: new AMap.View2D({
-			center: new AMap.LngLat(104.061986,30.658611),
-			zoom: 11
-		})
-	});
-	$(".markicon").show();
-	AMap.event.addListener(map,"moveend",function callback(e)
-		{
-			var center = map.getCenter();
-			lmmapcenter = center;
-			console.log(lmmapcenter);
-			//$("#address").val(center);
-		}
-	);
-})(window);
-
-
 $("#createsub").click(function(){
 	var shoptype = $("#shoptype").val() ? $("#shoptype").val() : warring("场馆类型");
 	var shopname = $("#shopname").val() ? $("#shopname").val() : warring("场馆名");
@@ -66,8 +38,13 @@ $("#createsub").click(function(){
 		var lng = mapcenter.lng;
 		var lat = mapcenter.lat;
 	};
+	var agentid = "";
+	if($("#hasagent").attr("class") == "active"){
+		agentid = $("#sagent").val() ? $("#sagent").val() : warring("所属商户");
+	}
 	$.post("/agentshop/newshop",
 		{
+			shopagentid:agentid,
 			shoptypeid:shoptype,
 			shopname:shopname,
 			shoptel:shoptel,
@@ -85,7 +62,7 @@ $("#createsub").click(function(){
 			}
 			else{
 				alert("店铺创建成功!");
-				window.location.href="/agentshop/shopinfo/"+ret.agentshopid;
+				window.location.href="/agentshop/shopinfo/shopid/"+ret.agentshopid;
 			}
 		}
 

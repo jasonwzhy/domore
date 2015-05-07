@@ -34,17 +34,20 @@ class AgentshopController extends Controller {
 			}		
 			$retagentshop=$agentshopM->add($agentdata);
 			if ($retagentshop) {
+				$_SESSION['shopid'] = $retagentshop;
 				$render["agentshopid"] = $retagentshop;
+				$agentdir = "./Uploads/shops/".$retagentshop;
+				mkdir($agentdir);
 			} else {
 				$render["error"] = "创建店铺失败!";
 			}
 			$this->ajaxReturn($render);
 		
 		} else {
+			$agentM = M('agent');
 			$render['stypedata'] = $this->getshoptype();
 			$render['provicedata'] = $this->getregion(0,"1",0);
-			// var_dump($render['provicedata']);
-			$render['nextbtn'] = "createsub";
+			$render['agentlist'] = $agentM->select();
 			$this->assign($render);
 			$this->display('Agentshop/newshop');
 		}
@@ -66,9 +69,45 @@ class AgentshopController extends Controller {
 		$stypedata = $stype->select();
 		return $stypedata;
 	}
-	public function shopinfo($shopid){
+	public function shopinfo(){
 		// 创建店铺
-		var_dump("shopinfo");
+		// 访问时shopid在否 未加入
+		$shopid = $_SESSION['shopid'];
+		if (IS_POST) {
+			if ($_FILES != NULL) {
+				$agentshopalbumsM = M('agentshopalbums');
+				$upload = new \Think\Upload();// 实例化上传类
+				$upload->maxSize   =     3145728 ;// 设置附件上传大小
+				$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+				$upload->rootPath  =     './Uploads/shops/'; // 设置附件上传根目录
+				// $upload->savePath  =     $sid.'/';
+				$upload->subName   =     $shopid;
+				$info   =   $upload->uploadOne($_FILES['upimg']);
+				if(!$info) {
+					$this->error($upload->getError());
+				}else{
+					$imgpath = $upload->rootPath.$info["savepath"].$info["savename"];
+					$imgpath = substr($imgpath,1);
+					$albumsdata = array(
+						"agentshop_id"	=>	$shopid,
+						"img_path"	=>	$imgpath
+					);
+					$shopalbums = $agentshopalbumsM->add($albumsdata);
+					$info['albumsid'] = $shopalbums;
+					$info["imgpath"] = $imgpath;
+					$this->ajaxReturn($info);
+				}
+			}elseif(isset($_POST) && NULL != $_POST) {
+
+			}
+
+		} else {
+			$render["shopid"] = $_SESSION['shopid'];
+			$this->assign($render);
+			$this->display('Agentshop/newshopinfo');
+		}
+	}
+	public function delshoppic(){
 		
 	}
 }

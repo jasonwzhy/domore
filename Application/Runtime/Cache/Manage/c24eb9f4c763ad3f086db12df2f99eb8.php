@@ -27,123 +27,82 @@
 			<a href="#agent" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">非联盟商户</a>
 			
 		</li>
-		<li role="presentation" class="">
+		<li role="presentation" id="hasagent" class="">
 			<a href="#memberagent" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">联盟商户</a>
 			<!-- <a href="#">321</a> -->
 		</li>
 	</ul>
 	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="agent">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12">
-						<form class="">
-							<div class="form-group">
-								<select class="form-control" id="shoptype">
-									<option value="">-场馆类型-</option>
-									<?php if(is_array($stypedata)): foreach($stypedata as $key=>$stype): ?><option value="<?php echo ($stype["shoptype_id"]); ?>"><?php echo ($stype["type_name"]); ?></option><?php endforeach; endif; ?>
-								</select>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" id="shopname" name="shopname" placeholder="场馆名">
-							</div>
-							<div class="form-group">
-								<input type="number" class="form-control" id="shoptel" name="shoptel" placeholder="前台电话">
-							</div>
-							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control" id="sprovice">
-									<option value="">-省/直辖市-</option>
-									<?php if(is_array($provicedata)): foreach($provicedata as $key=>$pdata): ?><option value="<?php echo ($pdata["region_id"]); ?>" zcode="<?php echo ($pdata["zipcode"]); ?>"><?php echo ($pdata["areaname"]); ?></option><?php endforeach; endif; ?>
-								</select>
-							</div>
-							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control" id="scity">
-									<option value="">-市区-</option>
-								</select>
-							</div>
-							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control" id="sarea">
-									<option value="">-区-</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" id="address" name="address" placeholder="详细地址">
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div id="mapContainer">
-							<div class="markicon"><img src="/Public/manage/img/localtion.png" style="width: 36px; height: 36px; top: 0px; left: 0px;"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<form class="">
+						<div class="form-group">
+							<select class="form-control" id="shoptype">
+								<option value="">-场馆类型-</option>
+								<?php if(is_array($stypedata)): foreach($stypedata as $key=>$stype): ?><option value="<?php echo ($stype["shoptype_id"]); ?>"><?php echo ($stype["type_name"]); ?></option><?php endforeach; endif; ?>
+							</select>
 						</div>
-					</div>
-					<div class="col-xs-12 nextbtn">
-						<button type="button" class="col-xs-12 btn btn-default btn-block" id="<?php echo ($nextbtn); ?>">下一步</button>
-					</div>
-
+						<div class="form-group">
+							<input type="text" class="form-control" id="shopname" name="shopname" placeholder="场馆名">
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" id="shoptel" name="shoptel" placeholder="前台电话">
+						</div>
+						<div class="form-group col-xs-4 form-group-nopadding">
+							<select class="form-control" id="sprovice">
+								<option value="">-省/直辖市-</option>
+								<?php if(is_array($provicedata)): foreach($provicedata as $key=>$pdata): ?><option value="<?php echo ($pdata["region_id"]); ?>" zcode="<?php echo ($pdata["zipcode"]); ?>"><?php echo ($pdata["areaname"]); ?></option><?php endforeach; endif; ?>
+							</select>
+						</div>
+						<div class="form-group col-xs-4 form-group-nopadding">
+							<select class="form-control" id="scity">
+								<option value="">-市区-</option>
+							</select>
+						</div>
+						<div class="form-group col-xs-4 form-group-nopadding">
+							<select class="form-control" id="sarea">
+								<option value="">-区-</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" id="address" name="address" placeholder="详细地址">
+						</div>
+					</form>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="mapContainer">
+						<div class="markicon"><img src="/Public/manage/img/localtion.png" style="width: 36px; height: 36px; top: 0px; left: 0px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane active" id="agent">
+
 		</div>
 		<div role="tabpanel" class="tab-pane" id="memberagent">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12">
-						<form class="">
-							<div class="form-group">
-								<select class="form-control" id="lmshoptype">
-									<option value="">-场馆类型-</option>
-									<?php if(is_array($stypedata)): foreach($stypedata as $key=>$stype): ?><option value="<?php echo ($stype["shoptype_id"]); ?>"><?php echo ($stype["type_name"]); ?></option><?php endforeach; endif; ?>
-								</select>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" id="lmshopname" name="shopname" placeholder="场馆名">
-							</div>
-							<div class="form-group">
-								<input type="number" class="form-control" id="lmshoptel" name="shoptel" placeholder="前台电话">
-							</div>
-							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control" id="sprovice">
-									<option value="">-省/直辖市-</option>
-									<?php if(is_array($provicedata)): foreach($provicedata as $key=>$pdata): ?><option value="<?php echo ($pdata["region_id"]); ?>" zcode="<?php echo ($pdata["zipcode"]); ?>"><?php echo ($pdata["areaname"]); ?></option><?php endforeach; endif; ?>
-								</select>
-							</div>
-							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control" id="scity">
-									<option value="">-市区-</option>
-								</select>
-							</div>
-							<div class="form-group col-xs-4 form-group-nopadding">
-								<select class="form-control" id="sarea">
-									<option value="">-区-</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" id="lmaddress" name="address" placeholder="详细地址">
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div id="lmmapContainer">
-							<div class="markicon"><img src="/Public/manage/img/localtion.png" style="width: 36px; height: 36px; top: 0px; left: 0px;"></div>
-						</div>
-					</div>
-					<div class="col-xs-12">
 						<form>
 							<div class="form-group">
 								<label for="exampleInputEmail1">场馆所属商户</label>
-								<select class="form-control">
-									<option>1</option>
+								<select class="form-control" id="sagent">
+									<option value="">-请选择场馆所属商家-</option>
+									<?php if(is_array($agentlist)): foreach($agentlist as $key=>$agent): ?><option value="<?php echo ($agent["agent_id"]); ?>"><?php echo ($agent["moblie_no"]); ?> - <?php echo ($agent["agent_name"]); ?></option><?php endforeach; endif; ?>
 								</select>
 							</div>
 						</form>
 					</div>
-					<div class="col-xs-12 nextbtn">
-						<button type="button" class="col-xs-12 btn btn-default btn-block" id="<?php echo ($nextbtn); ?>">下一步</button>
-					</div>
-
+				</div>	
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 nextbtn">
+					<button type="button" class="col-xs-12 btn btn-default btn-block" id="createsub">下一步</button>
 				</div>
 			</div>
 		</div>

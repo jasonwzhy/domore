@@ -1,0 +1,33 @@
+<extend name="base1" />
+<block name="page-wrapper">
+<div class="container newshopinfo">
+	<div class="row">
+		<div class="col-xs-4" id="addimg">
+			<form id="addshoppicform">
+				<a href="#" id="upimgbtn"><img src="__PUBLIC__/manage/img/addimg.png" alt="" class="img-rounded"></a>
+				<input type="file" name="upimg" id="upimg" value="" required="required" accept="image/*"  runat="server" style="display:none;"/>
+			</form>
+		</div>
+		<div class="col-xs-4">
+			<a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);">
+			<img src="__PUBLIC__/manage/img/logo.png" alt="" id="1" class="img-rounded">
+			</a>
+		</div>
+		
+	</div>
+	<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+		<div class="modal-dialog modal-lg">
+			<div class="container">
+				<div class="row">
+					<button class="col-xs-12 btn btn-lg delshoppic btn-default btn-block" onclick="delshoppic(this);" >删除图片</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+
+<block name="page-js">
+	<script type="text/javascript" src="__PUBLIC__/manage/js/newshopinfo.js"></script>
+</block>
