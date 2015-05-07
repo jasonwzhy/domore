@@ -47,10 +47,11 @@ nav{
 	padding-left: 0;
 	padding-right: 0;
 }
-#mapContainer {
+#mapContainer ,#lmmapContainer{
 	/*height:130px;*/
 	width:100%;
 	height:auto; min-height:200px;
+	margin-bottom: 15px;
 }
 .btn-default{
 	background-color: #F47960;
@@ -58,7 +59,7 @@ nav{
 	color: #FFF;
 }
 .nextbtn{
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	margin-bottom: 10px;
 }
 .markicon{
