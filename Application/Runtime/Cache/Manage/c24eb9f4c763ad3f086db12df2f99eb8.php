@@ -19,6 +19,7 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 				</div>
+				<span class="navtext">新建场馆</span>
 			</div>
 		</nav>
 		
@@ -65,7 +66,7 @@
 								<option value="">-区-</option>
 							</select>
 						</div>
-						<div class="form-group">
+						<div class="form-group col-xs-12 form-group-nopadding">
 							<input type="text" class="form-control" id="address" name="address" placeholder="详细地址">
 						</div>
 					</form>

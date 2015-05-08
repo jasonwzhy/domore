@@ -77,7 +77,7 @@ class AgentshopController extends Controller {
 			if ($_FILES != NULL) {
 				$agentshopalbumsM = M('agentshopalbums');
 				$upload = new \Think\Upload();// 实例化上传类
-				$upload->maxSize   =     3145728 ;// 设置附件上传大小
+				$upload->maxSize   =     6145728 ;// 设置附件上传大小
 				$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
 				$upload->rootPath  =     './Uploads/shops/'; // 设置附件上传根目录
 				// $upload->savePath  =     $sid.'/';
@@ -108,6 +108,23 @@ class AgentshopController extends Controller {
 		}
 	}
 	public function delshoppic(){
-		
+		$agentshopalbumsM = M('agentshopalbums');
+		$render['error'] = "";
+		if(IS_POST && isset($_POST['albumsid']) && $_POST['albumsid'] != NULL){
+			$condition["agentshopalbums_id"] = $_POST['albumsid'];
+			$shopalbumsdata = $agentshopalbumsM->where($condition)->find();
+			if ($shopalbumsdata) {
+				unlink(".".$shopalbumsdata["img_path"]);
+				$agentshopalbumsM->where($condition)->delete();
+				$render['shopalbumsdata'] = $shopalbumsdata;
+				$this->ajaxReturn($render);
+			} else {
+				$render['error'] = "删除错误";
+				$this->ajaxReturn($render);
+			}
+		}
+	}
+	public function newagent(){
+		$this->display('Agentshop/newagent');
 	}
 }

@@ -19,11 +19,12 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 				</div>
+				<span class="navtext">新建场馆</span>
 			</div>
 		</nav>
 		
 <div class="container newshopinfo">
-	<div class="row">
+	<div class="row shopalbums">
 		<div class="col-xs-4" id="addimg">
 			<form id="addshoppicform">
 				<a href="#" id="upimgbtn"><img src="/Public/manage/img/addimg.png" alt="" class="img-rounded"></a>
@@ -37,16 +38,39 @@
 		</div>
 		
 	</div>
-	<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+	<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false" id="myModal">
 		<div class="modal-dialog modal-lg">
 			<div class="container">
 				<div class="row">
 					<button class="col-xs-12 btn btn-lg delshoppic btn-default btn-block" onclick="delshoppic(this);" >删除图片</button>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group ">
+				<textarea class="form-control" rows="6" placeholder="场馆介绍"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputEmail1">场馆负责人信息</label>
+				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="场馆经理">
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="场馆经理电话">
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="场馆经理email">
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<button type="button" class="col-xs-12 btn btn-default btn-block" id="createsub">上一步</button>
+		</div>
+		<div class="col-xs-8">
+			<button type="button" class="col-xs-12 btn btn-default btn-block" id="createsub">完 成</button>
+		</div>
+	</div>
+	
 </div>
 
 
