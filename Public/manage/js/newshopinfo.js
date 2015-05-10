@@ -33,8 +33,9 @@ $("#upimg").change(function(){
 	$("input[id=upimg]").val('');
 });
 function addpic(imgpath,albumsid){
-	$("#addimg").before('<div class="col-xs-4 shoppic" style="overflow:auto"><a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);"><img src="'+imgpath+'" id="'+albumsid+'" class="shoppic img-rounded"></a></div>');
+	$("#addimg").before('<div class="col-xs-4 shoppic" style="overflow:auto"><a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);"><img src="'+imgpath+'" id="'+albumsid+'" class="shoppic img-responsive img-rounded" alt="Responsive image"></a></div>');
 };
+
 // $(".shoppic").click(function(){
 // 	alert($(this).find('img').attr("id"));
 // });
@@ -60,5 +61,32 @@ function delshoppic(thisobj){
 			
 		}
 	);
-	
 }
+
+$("#subbtn").click(function(){
+	var shopdesc = $("#shopdesc").val();
+	var shopmanager = $("#shopGM").val();
+	var shopmanagertel = $("#shopGMtel").val();
+	var shopmanageremail = $("#shopGMemail").val();
+	$.post("/agentshop/shopinfo",
+		{
+			shopdesc:shopdesc,
+			shopmanager:shopmanager,
+			shopmanagertel:shopmanagertel,
+			shopmanageremail:shopmanageremail,
+		},
+		function(ret){
+			if (ret.error != "") {//success
+				alert(ret.error);
+				console.log(ret);
+			}else{
+				alert("提交成功!");
+				window.location.href="/agentshop/newshop/";
+			}
+		}
+	);
+});
+
+
+
+

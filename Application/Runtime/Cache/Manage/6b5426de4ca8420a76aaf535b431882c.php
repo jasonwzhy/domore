@@ -27,44 +27,164 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<form class="">
+					<div class="form-group col-xs-4 form-group-nopadding">
+						<select class="form-control" id="sprovice">
+							<option value="">-省/直辖市-</option>
+							<?php if(is_array($provicedata)): foreach($provicedata as $key=>$pdata): ?><option value="<?php echo ($pdata["region_id"]); ?>" zcode="<?php echo ($pdata["zipcode"]); ?>"><?php echo ($pdata["areaname"]); ?></option><?php endforeach; endif; ?>
+						</select>
+					</div>
+					<div class="form-group col-xs-4 form-group-nopadding">
+						<select class="form-control" id="scity">
+							<option value="">-市区-</option>
+						</select>
+					</div>
+					<div class="form-group col-xs-4 form-group-nopadding">
+						<select class="form-control" id="sarea">
+							<option value="">-区-</option>
+						</select>
+					</div>
+					<div class="form-group col-xs-12 form-group-nopadding">
+						<input type="text" class="form-control" id="address" name="address" placeholder="详细地址">
+					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">营业执照信息</label>
 						<div class="input-group">
-							<span class="input-group-addon">注册 名</span><hr width="1"  size="100">
-							<input type="text" class="form-control" id="" name="">
+							<span class="input-group-addon">注册 名</span><input type="text" class="form-control" id="agentname" name="agentname">
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon">注册 号</span>
-							<input type="text" class="form-control" id="" name="">
+							<input type="text" class="form-control" id="regno" name="regno">
 						</div>
 					</div>
+				</form>
+				<form class="form-horizontal" id="addagenticform">
 					<div class="form-group">
-						<!-- <input type="text" class="form-control" id="address" name="address" placeholder="详细地址"> -->
-						<div class="input-group">
-					    <span class="input-group-addon">姓名</span>
-					    <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
-					  </div>
-					  <div class="input-group">
-					    <span class="input-group-addon">电话</span>
-					    <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
-					  </div>
+						<div class="col-xs-6">
+							<button type="button" class="btn btn-default btn-block" id="upimgbtn">上传照片</button>
+							<input type="file" name="agentimg" id="agentimg" value="" required="required" accept="image/*"  runat="server" style="display:none;"/>
+						</div>
+						<div class="col-xs-6">
+							<label class="agentuplabel" id="agentimglabel">未上传</label>
+						</div>
 					</div>
 				</form>
-				<form class="form-horizontal">
-			
-			 		<div class="form-group">
-			 			<div class="col-xs-6">
-			 				<button type="button" class="btn btn-default btn-block">上传照片</button>
-			 			</div>
-			 			<div class="col-xs-6">
-			 				<label class="agentuplabel">未上传</label>
-			 			</div>
-			 			
-			 			
-			 		</div>
-					
 
-				</form>
+				<div class="form-group">
+					<label>负责人信息</label>
+					<div class="input-group">
+						<span class="input-group-addon"> 姓 名 </span>
+						<input type="text" class="form-control" id="manager" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"> 电 话 </span>
+						<input type="text" class="form-control" id="managertel" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"> 邮 箱 </span>
+						<input type="text" class="form-control" id="manageremail" aria-describedby="inputGroupSuccess1Status">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="btn-group" data-toggle="buttons">
+						<label class="btn btn-primary col-xs-6 active" id="accountformbtn">
+							<input type="radio" name="options" id="option1" autocomplete="off" checked>财务对接人
+						</label>
+						<label class="btn btn-primary col-xs-6" id="accountself">
+							<input type="radio" name="options" id="option2" autocomplete="off">商户本人负责
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group"  id="accountform">
+					<div class="input-group">
+						<span class="input-group-addon"> 姓 名 </span>
+						<input type="text" class="form-control" id="accountmanager" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"> 电 话 </span>
+						<input type="text" class="form-control" id="accountmanagertel" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"> 邮 箱 </span>
+						<input type="text" class="form-control" id="accountmanageremail" aria-describedby="inputGroupSuccess1Status">
+					</div>	
+				</div>
+
+				<div class="form-group firstaccount">
+					<label>默认收款方式</label>
+					<div class="btn-group" data-toggle="buttons">
+						<label class="btn btn-primary col-xs-3 active">
+							<input type="radio" name="options" id="option1" autocomplete="off" checked>公司账户
+						</label>
+						<label class="btn btn-primary col-xs-3">
+							<input type="radio" name="options" id="option2" autocomplete="off">私人帐户
+						</label>
+						<label class="btn btn-primary col-xs-3">
+							<input type="radio" name="options" id="option2" autocomplete="off">支付宝
+						</label>
+						<label class="btn btn-primary col-xs-3">
+							<input type="radio" name="options" id="option2" autocomplete="off">微信支付
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>公司账户</label>
+					<div class="input-group">
+						<span class="input-group-addon">开户行 </span>
+						<input type="text" class="form-control" id="compyaccountbank" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">账户名 </span>
+						<input type="text" class="form-control" id="compyaccountname" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">账号＃</span>
+						<input type="text" class="form-control" id="compyaccountno" aria-describedby="inputGroupSuccess1Status">
+					</div>	
+				</div>
+				<div class="form-group">
+					<label>私人账户</label>
+					<div class="input-group">
+						<span class="input-group-addon">开户行 </span>
+						<input type="text" class="form-control" id="peraccountbank" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">账户名 </span>
+						<input type="text" class="form-control" id="peraccountname" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">账号＃</span>
+						<input type="text" class="form-control" id="peraccountno" aria-describedby="inputGroupSuccess1Status">
+					</div>	
+				</div>
+
+				<div class="form-group">
+					<label>支付宝</label>
+					<div class="input-group">
+						<span class="input-group-addon">账户名 </span>
+						<input type="text" class="form-control" id="alipayname" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">账号＃</span>
+						<input type="text" class="form-control" id="alipayno" aria-describedby="inputGroupSuccess1Status">
+					</div>	
+				</div>
+
+				<div class="form-group">
+					<label>微信支付</label>
+					<div class="input-group">
+						<span class="input-group-addon">账户名 </span>
+						<input type="text" class="form-control" id="wxpayname" aria-describedby="inputGroupSuccess1Status">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">账号＃</span>
+						<input type="text" class="form-control" id="wxpayno" aria-describedby="inputGroupSuccess1Status">
+					</div>	
+				</div>
+				<label>加入的同时,同意接受动么</label><a href="">《合作协议》</a>
+				<button type="button" class="col-xs-12 btn btn-default btn-block" id="subbtn">确认创建</button>
 			</div>
 		</div>
 	</div>
@@ -75,5 +195,9 @@
 		<script type="text/javascript" src="/Public/manage/js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
 		
+	<script type="text/javascript" src="/Public/manage/js/region.js"></script>
+	<script type="text/javascript" src="/Public/manage/js/newagent.js"></script>
+
+
 	</body>
 </html>

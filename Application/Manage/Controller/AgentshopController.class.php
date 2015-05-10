@@ -73,6 +73,7 @@ class AgentshopController extends Controller {
 		// 创建店铺
 		// 访问时shopid在否 未加入
 		$shopid = $_SESSION['shopid'];
+		$render['error'] = "";
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				$agentshopalbumsM = M('agentshopalbums');
@@ -98,7 +99,19 @@ class AgentshopController extends Controller {
 					$this->ajaxReturn($info);
 				}
 			}elseif(isset($_POST) && NULL != $_POST) {
-
+				$agentshopM = M('agentshop');
+				$condition["agentshop_id"] = $shopid;
+				$shopinfodata = array(
+					"shop_desc"	=>	$_POST["shopdesc"],
+					"shop_manager" => $_POST["shopmanager"],
+					"shop_manager_tel" => $_POST["shopmanagertel"],
+					"shop_manager_email" => $_POST["shopmanageremail"]
+				);
+				$agentshopinforet =$agentshopM->where($condition)->save($shopinfodata);
+				if (!$agentshopinforet) {
+					$render['error'] = "提交失败";
+                }
+                $this->ajaxReturn($render);
 			}
 
 		} else {
@@ -125,6 +138,95 @@ class AgentshopController extends Controller {
 		}
 	}
 	public function newagent(){
-		$this->display('Agentshop/newagent');
+
+		$staffid = "1";//session 中 登录员工的id,调试赞用1
+		$create_DT = date('Y-m-d H:i:s',time());
+		if (IS_POST) {
+			if ($_FILES != NULL) {
+				// $agentshopalbumsM = M('agentshopalbums');
+				$upload = new \Think\Upload();// 实例化上传类
+				$upload->maxSize   =     6145728 ;// 设置附件上传大小
+				$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+				$upload->rootPath  =     './Uploads/agents/'; // 设置附件上传根目录
+				// $upload->savePath  =     $sid.'/';
+				$upload->subName   =     "";
+				$info   =   $upload->uploadOne($_FILES['agentimg']);
+				if(!$info) {
+					$this->error($upload->getError());
+				}else{
+					$imgpath = $upload->rootPath.$info["savepath"].$info["savename"];
+					$imgpath = substr($imgpath,1);
+					$info["imgpath"] = $imgpath;
+					$this->ajaxReturn($info);
+				}
+			}
+			elseif (isset($_POST) && NULL != $_POST) {
+				$agentM = M("agent");
+				$render["error"]="";
+				$passwd = rand(10000,99999);
+				$agentdata = array(
+					"province_id" => $_POST["sprovice"],
+					"city_id" => $_POST["scity"],
+					"area_id" => $_POST["sarea"],
+					"agent_address" => $_POST["address"],
+					"agent_name" => $_POST["agentname"],
+					"reg_no" => $_POST["regno"],
+					"license_img" => $_POST["agentimgpath"],
+					"agent_manager" => $_POST["manager"],
+					"agent_manager_tel" => $_POST["managertel"],
+					"moblie_no" => $_POST["managertel"],
+					"agent_manager_email" => $_POST["manageremail"],
+					"creator_id" => $staffid,
+					"business_status" => 1,
+					"checkstatus_id" => 1,
+					"create_dt" => $create_DT,
+					"passwd"	=>	$passwd
+					// "first_account"=>""
+				);
+				$retagent=$agentM->add($agentdata);
+				if ($retagent) {
+
+					if ($_POST["accountself"] == 1) {
+						$accountmanager = $_POST["manager"];
+						$accountmanagertel = $_POST["managertel"];
+						$accountmanageremail = $_POST["manageremail"];
+					} else {
+						$accountmanager = $_POST["accountmanager"];
+						$accountmanagertel = $_POST["accountmanager"];
+						$accountmanageremail = $_POST["accountmanageremail"];
+					}
+					$agentaccountM = M('agentaccount');
+					$agentaccountdata = array(
+						"agent_id" => $retagent,
+						"agent_accounting" => $accountmanager,
+						"agent_accounting_tel" => $accountmanagertel,
+						"agent_accounting_email" => $accountmanageremail,
+						"company_account_name" => $_POST["compyaccountname"],
+						"company_account_no" => $_POST["compyaccountno"],
+						"company_account_bank" => $_POST["compyaccountbank"],
+						"personal_account_name" => $_POST["peraccountname"],
+						"personal_account_no" => $_POST["peraccountno"],
+						"personal_account_bank" => $_POST["peraccountbank"],
+						"alipay_account_name" => $_POST["alipayname"],
+						"alipay_account" => $_POST["alipayno"],
+						"wxpayment_account_name" => $_POST["wxpayname"],
+						"wxpayment_account" => $_POST["wxpayno"]
+					);
+					$retagentaccount=$agentaccountM->add($agentaccountdata);
+					if ($retagentaccount) {
+						$this->ajaxReturn($render);
+					}
+				}
+				else
+				{
+					//创建agenterror
+				}
+			}
+		}
+		else{
+			$render['provicedata'] = $this->getregion(0,"1",0);
+			$this->assign($render);
+			$this->display('Agentshop/newagent');	
+		}
 	}
 }
