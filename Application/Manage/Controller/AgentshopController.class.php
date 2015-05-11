@@ -4,9 +4,15 @@ use Think\Controller;
 class AgentshopController extends Controller {
 	public function index(){
 		if (isset($_SESSION["staffid"])) {
-			$this->newshop();	
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/agentshop/newshop");
+			$this->success('页面跳转中...');
+			return ;
 		}else{
-			$this->signin();
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
 		}
 		
 	}
@@ -18,9 +24,10 @@ class AgentshopController extends Controller {
 				"login_name" => $_POST["mobileno"],
 				"passwd" => $_POST["passwd"]
 			);
-			$staffdata = $domorestaffM->where($staffcondition)->select();
+			$staffdata = $domorestaffM->where($staffcondition)->find();
 			if ($staffdata) {
-				$_SESSION["staffid"] = $staffdata["domorestaff_id"];
+				$_SESSION['staffid'] = $staffdata["domorestaff_id"];
+				$render['ret'] = $staffdata;
 			} else {
 				$render["error"]="用户名 或 密码错误!";
 			}
@@ -34,7 +41,7 @@ class AgentshopController extends Controller {
 	public function newshop(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/");
+			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -46,8 +53,8 @@ class AgentshopController extends Controller {
 				坐标	创建人 创建时间
 			*/
 			$agentshopM = M('agentshop');
-			$render["error"]="";
-			$staffid = $_SESSION["staffid"];//session 中 登录员工的id,调试赞用1
+			$render['error']="";
+			$staffid = $_SESSION['staffid'];//session 中 登录员工的id,调试赞用1
 			$create_DT = date('Y-m-d H:i:s',time());
 			$agentdata = array(
 				"shoptype_id"	=>	$_POST["shoptypeid"],
@@ -113,7 +120,7 @@ class AgentshopController extends Controller {
 
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/");
+			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -185,7 +192,7 @@ class AgentshopController extends Controller {
 	public function newagent(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/");
+			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -281,6 +288,8 @@ class AgentshopController extends Controller {
 	}
 	public function signout(){
 		unset($_SESSION['staffid']);
-		$this->index();
+		$this->assign('waitSecond',0);
+		$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+		$this->success('页面跳转中...');
 	}
 }

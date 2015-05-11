@@ -39,7 +39,7 @@
 					<li><a href="#">通知中心</a></li>
 					<li><a href="#">我的商户</a></li>
 					<li><a href="#">我的场馆</a></li>
-					<li><a href="/agentshop/sginout">登出</a></li>
+					<li><a href="/agentshop/signout">登出</a></li>
 				</div>
 				<div class="stmenuimg">
 					<img src="/Public/manage/img/profile.png" class="img-circle" width="80px">

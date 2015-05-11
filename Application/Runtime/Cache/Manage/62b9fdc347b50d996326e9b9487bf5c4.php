@@ -67,6 +67,7 @@
 								$(".errlabel").text(ret.error);
 							}else{
 								window.location.href="/agentshop/newshop/";
+								console.log(ret);
 							}
 						}
 					);
