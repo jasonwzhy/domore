@@ -28,10 +28,13 @@ $("#createsub").click(function(){
 	var shoptype = $("#shoptype").val() ? $("#shoptype").val() : warring("场馆类型");
 	var shopname = $("#shopname").val() ? $("#shopname").val() : warring("场馆名");
 	var shoptel	= $("#shoptel").val() ? $("#shoptel").val() : warring("场馆联系电话");
+	var shoptel2 = $("#shoptel2").val();
 	var sprovice =	$("#sprovice").val() ? $("#sprovice").val() : warring("省份");
 	var scity = $("#scity").val() ? $("#scity").val() : warring("城市");
 	var sarea = $("#sarea").val() ? $("#sarea").val() : warring("区域");
 	var address = $("#address").val() ? $("#address").val() : warring("详细地址");
+	var starttime = $("#startdtpicker").val();
+	var endtime = $("#enddtpicker").val();
 	if (mapcenter == "") {
 		warring("地图选择");
 	} else{
@@ -48,12 +51,15 @@ $("#createsub").click(function(){
 			shoptypeid:shoptype,
 			shopname:shopname,
 			shoptel:shoptel,
+			shoptel2:shoptel2,
 			sproviceid:sprovice,
 			scityid:scity,
 			sareaid:sarea,
 			address:address,
 			lng:lng,
-			lat:lat
+			lat:lat,
+			starttime:starttime,
+			endtime:endtime
 		},
 		function(ret){
 			console.log(ret);

@@ -33,7 +33,7 @@
 					<form>
 						<div class="form-group">
 							<label>手机号</label>
-							<input type="email" class="form-control" id="mobileno" placeholder="手机号">
+							<input type="number" class="form-control" id="mobileno" placeholder="手机号">
 						</div>
 						<div class="form-group">
 							<label>密码</label>

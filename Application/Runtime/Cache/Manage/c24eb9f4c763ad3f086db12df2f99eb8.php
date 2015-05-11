@@ -11,40 +11,54 @@
 	<meta name="apple-mobile-web-app-title" content="Sun">
 
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/normalize.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/Public/manage/css/demo.css"> -->
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/base.css">
-	<link rel="stylesheet" type="text/css" href="/Public/manage/css/jquery.mmenu.css">
-	<link rel="stylesheet" type="text/css" href="/Public/manage/css/simple-sidebar.css">
-</head>
-	<body>
-		<section class="sidebar">
-			<h6>Menu</h6>
-	      <ul>
-	        <li><a href="#"> Item 1 </a></li>
-	        <li><a href="#"> Item 2 </a></li>
-	        <li><a href="#"> Item 3 </a></li>
-	        <li><a href="#"> Item 4 </a></li>
-		<li><a href="#"> Item 5 </a></li>
-	      </ul>
-	      <hr>
-	      <h6>More menus</h6>
-	      <ul>
-	        <li><a href="#"> Item 6 </a></li>
-		<li><a href="#"> Item 7 </a></li>
-		<li><a href="#"> Item 8 </a></li>
-		<li><a href="#"> Item 8 </a></li>
-		<li><a href="#"> Item 10 </a></li>
-	      </ul>
-	  </section>
-		<nav class="navbar navbar-fixed-top">
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/component.css">
+	<script type="text/javascript" src="/Public/manage/js/modernizr.custom.js"></script>
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/bootstrap-datetimepicker.min.css">
+	
 
-			<div class="container-fluid">
-				<div class="navbar-header toolbar">
-					<a class="navbar-brand menu-button menu-left" href="#menu-toggle" id="open-sb"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+</head>
+	<body >
+	<div id="st-container" class="st-container">
+		<nav class="st-menu st-effect-2" id="menu-2">
+			<ul>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+    					<li><a href="/agentshop/newshop">新建场馆</a></li>
+    					<li><a href="/agentshop/newagent">新建商户</a></li>
+					</ul>
 				</div>
-				<span class="navtext">新建场馆</span>
-			</div>
+				<div class="stmenulogo">
+					<img src="/Public/manage/img/logo2.png" >
+					<li><a href="#">HOME</a></li>
+					<li><a href="#">通知中心</a></li>
+					<li><a href="#">我的商户</a></li>
+					<li><a href="#">我的场馆</a></li>
+					<li><a href="/agentshop/signout">登出</a></li>
+				</div>
+				<div class="stmenuimg">
+					<img src="/Public/manage/img/profile.png" class="img-circle" width="80px">
+				</div>
+				
+			</ul>
 		</nav>
-		
+		<div class="st-pusher">
+			<div class="st-content"><!-- this is the wrapper for the content -->
+				<div class="st-content-inner">
+					<nav class="navbar navbar-fixed-top">
+						<div class="container-fluid">
+							<div class="navbar-header toolbar" id="st-trigger-effects">
+								<a class="navbar-brand menu-button menu-left" href="" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+							</div>
+							<span class="navtext">新建场馆</span>
+						</div>
+					</nav>
+					
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="active">
 			<a href="#agent" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">非联盟商户</a>
@@ -70,7 +84,16 @@
 							<input type="text" class="form-control" id="shopname" name="shopname" placeholder="场馆名">
 						</div>
 						<div class="form-group">
-							<input type="number" class="form-control" id="shoptel" name="shoptel" placeholder="前台电话">
+							<label>场馆电话</label>
+							<input type="number" class="form-control" id="shoptel" name="shoptel" placeholder="前台电话1">
+							<input type="number" class="form-control" id="shoptel2" name="shoptel2" placeholder="前台电话2" style="margin-top:-1px;">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-4 dtpk"><label for="startdtpicker">营业时间</label></div>
+								<div class="col-xs-4 dtpk"><input id="startdtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="开业时间" readonly></div>
+								<div class="col-xs-4 dtpk"><input id="enddtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="休息时间" readonly></div>
+							</div>
 						</div>
 						<div class="form-group col-xs-4 form-group-nopadding">
 							<select class="form-control" id="sprovice">
@@ -131,35 +154,42 @@
 		</div>
 	</div>
 
+				</div>
+			</div>
+
+		</div><!--  st-pusher -->
+
+	</div><!--  st-container -->
 		<script type="text/javascript" src="/Public/manage/js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
+		<script type="text/javascript" src="/Public/manage/js/classie.js"></script>
+		<script type="text/javascript" src="/Public/manage/js/sidebarEffects.js"></script>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="/Public/manage/js/jquery.simplesidebar.min.js"></script>
 		<script type="text/javascript">
-			$( document ).ready(function() {
-
-			$( '.sidebar' ).simpleSidebar({
-				settings: {
-					opener: '#open-sb',
-					wrapper: '.wrapper',
-					animation: {
-						duration: 500,
-						easing: 'easeOutQuint'
-					}
-				},
-				sidebar: {
-					align: 'left',
-					width: 200,
-					closingLinks: 'a',
-				}
-			});
-		});
+			
 		</script>
 		
 	<script type="text/javascript" src="/Public/manage/js/region.js"></script>
+	<script type="text/javascript" src="/Public/manage/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=ac8dc3ed6052d2d27fc0b1c97266d1a0"></script>
 	<script type="text/javascript" src="/Public/manage/js/newshop.js"></script>
+	<script type="text/javascript">
+		$('#startdtpicker').datetimepicker({
+			format: "hh:ii",
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left",
+			startView: 1
+		});
+		$('#enddtpicker').datetimepicker({
+			format: "hh:ii",
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left",
+			startView: 1
+		});
+		
+	</script>
 
 	</body>
 </html>

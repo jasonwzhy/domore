@@ -2,6 +2,14 @@
 namespace Manage\Controller;
 use Think\Controller;
 class AgentshopController extends Controller {
+	public function index(){
+		if (isset($_SESSION["staffid"])) {
+			$this->newshop();	
+		}else{
+			$this->signin();
+		}
+		
+	}
 	public function signin(){
 		if (IS_POST) {
 			$render["error"]="";
@@ -12,7 +20,7 @@ class AgentshopController extends Controller {
 			);
 			$staffdata = $domorestaffM->where($staffcondition)->select();
 			if ($staffdata) {
-				$_SESSION['staffid'] = $staffdata["domorestaff_id"];
+				$_SESSION["staffid"] = $staffdata["domorestaff_id"];
 			} else {
 				$render["error"]="用户名 或 密码错误!";
 			}
@@ -24,6 +32,12 @@ class AgentshopController extends Controller {
 		
 	}
 	public function newshop(){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/agentshop/");
+			$this->success('页面跳转中...');
+			return ;
+		}
 		if (IS_POST) {
 			// 创建店铺
 			/*
@@ -33,12 +47,13 @@ class AgentshopController extends Controller {
 			*/
 			$agentshopM = M('agentshop');
 			$render["error"]="";
-			$staffid = "1";//session 中 登录员工的id,调试赞用1
+			$staffid = $_SESSION["staffid"];//session 中 登录员工的id,调试赞用1
 			$create_DT = date('Y-m-d H:i:s',time());
 			$agentdata = array(
 				"shoptype_id"	=>	$_POST["shoptypeid"],
 				"shop_name"	=>	$_POST["shopname"],
 				"shop_tel"	=>	$_POST["shoptel"],
+				"shop_tel2"	=>	$_POST["shoptel2"],
 				"province_id"	=>	$_POST["sproviceid"],
 				"city_id"	=>	$_POST["scityid"],
 				"area_id"	=>	$_POST["sareaid"],
@@ -48,7 +63,9 @@ class AgentshopController extends Controller {
 				"creator_id"	=>	$staffid,
 				"checkstatus_id"	=>	1,
 				"create_dt"	=>	$create_DT,
-				"buessiness_status"	=>	1
+				"buessiness_status"	=>	1,
+				"start_time" => $_POST["starttime"],
+				"end_time" => $_POST["endtime"]
 			);
 			if (isset($_POST['shopagentid']) && $_POST['shopagentid'] != "") {
 				$agentdata["agent_id"] = $_POST['shopagentid'];
@@ -93,6 +110,13 @@ class AgentshopController extends Controller {
 	public function shopinfo(){
 		// 创建店铺
 		// 访问时shopid在否 未加入
+
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/agentshop/");
+			$this->success('页面跳转中...');
+			return ;
+		}
 		$shopid = $_SESSION['shopid'];
 		$render['error'] = "";
 		if (IS_POST) {
@@ -159,8 +183,13 @@ class AgentshopController extends Controller {
 		}
 	}
 	public function newagent(){
-
-		$staffid = "1";//session 中 登录员工的id,调试赞用1
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/agentshop/");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$staffid = $_SESSION["staffid"];//session 中 登录员工的id,调试赞用1
 		$create_DT = date('Y-m-d H:i:s',time());
 		if (IS_POST) {
 			if ($_FILES != NULL) {
@@ -249,5 +278,9 @@ class AgentshopController extends Controller {
 			$this->assign($render);
 			$this->display('Agentshop/newagent');	
 		}
+	}
+	public function signout(){
+		unset($_SESSION['staffid']);
+		$this->index();
 	}
 }
