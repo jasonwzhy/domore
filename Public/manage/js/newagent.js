@@ -10,7 +10,7 @@ $("#agentimg").change(function(){
 		var formData = new FormData($( "#addagenticform" )[0]);
 		//console.log(formData);
 		$.ajax({
-			url: '/agentshop/newagent',
+			url: '/manage/agentshop/newagent',
 			type: 'POST',
 			data: formData,
 			async: true,
@@ -77,7 +77,7 @@ $("#subbtn").click(function(){
 	if (compyaccountno =="" && peraccountno=="" && alipayno=="" && wxpayno=="") {
 		warring("银行账户");
 	}
-	$.post("/agentshop/newagent",
+	$.post("/manage/agentshop/newagent",
 		{
 			sprovice:sprovice,
 			scity:scity,
@@ -107,7 +107,7 @@ $("#subbtn").click(function(){
 		function(ret){
 			if (ret.error == "") {//success
 				alert('success');
-				window.location.href="/agentshop/newshop/";
+				window.location.href="/manage/agentshop/newshop/";
 			}else{//err
 				alert(ret.error);
 			}

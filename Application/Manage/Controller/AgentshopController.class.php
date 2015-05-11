@@ -5,12 +5,12 @@ class AgentshopController extends Controller {
 	public function index(){
 		if (isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/newshop");
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/newshop");
 			$this->success('页面跳转中...');
 			return ;
 		}else{
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -41,7 +41,7 @@ class AgentshopController extends Controller {
 	public function newshop(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -120,7 +120,7 @@ class AgentshopController extends Controller {
 
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -192,7 +192,7 @@ class AgentshopController extends Controller {
 	public function newagent(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
@@ -289,7 +289,7 @@ class AgentshopController extends Controller {
 	public function signout(){
 		unset($_SESSION['staffid']);
 		$this->assign('waitSecond',0);
-		$this->assign("jumpUrl",__ROOT__."/agentshop/signin");
+		$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 		$this->success('页面跳转中...');
 	}
 }

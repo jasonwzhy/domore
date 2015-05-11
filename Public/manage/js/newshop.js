@@ -45,7 +45,7 @@ $("#createsub").click(function(){
 	if($("#hasagent").attr("class") == "active"){
 		agentid = $("#sagent").val() ? $("#sagent").val() : warring("所属商户");
 	}
-	$.post("/agentshop/newshop",
+	$.post("/manage/agentshop/newshop",
 		{
 			shopagentid:agentid,
 			shoptypeid:shoptype,
@@ -69,7 +69,7 @@ $("#createsub").click(function(){
 			else{
 				alert("店铺创建成功!");
 				// window.location.href="/agentshop/shopinfo/shopid/"+ret.agentshopid;
-				window.location.href="/agentshop/shopinfo/";
+				window.location.href="/manage/agentshop/shopinfo/";
 			}
 		}
 

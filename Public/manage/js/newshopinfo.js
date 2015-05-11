@@ -10,7 +10,7 @@ $("#upimg").change(function(){
 		var formData = new FormData($( "#addshoppicform" )[0]);
 		//console.log(formData);
 		$.ajax({
-			url: '__ROOT__/agentshop/shopinfo/shopid/',
+			url: '/manage/agentshop/shopinfo',
 			type: 'POST',
 			data: formData,
 			async: true,
@@ -45,7 +45,7 @@ function onshoppic(thisobj){
 };
 function delshoppic(thisobj){
 	albumsid = $(thisobj).attr("id");
-	$.post("/agentshop/delshoppic",
+	$.post("/manage/agentshop/delshoppic",
 		{
 			albumsid:albumsid
 		},
@@ -68,7 +68,7 @@ $("#subbtn").click(function(){
 	var shopmanager = $("#shopGM").val();
 	var shopmanagertel = $("#shopGMtel").val();
 	var shopmanageremail = $("#shopGMemail").val();
-	$.post("/agentshop/shopinfo",
+	$.post("/manage/agentshop/shopinfo",
 		{
 			shopdesc:shopdesc,
 			shopmanager:shopmanager,
@@ -81,7 +81,7 @@ $("#subbtn").click(function(){
 				console.log(ret);
 			}else{
 				alert("提交成功!");
-				window.location.href="/agentshop/newshop/";
+				window.location.href="/manage/agentshop/newshop/";
 			}
 		}
 	);
