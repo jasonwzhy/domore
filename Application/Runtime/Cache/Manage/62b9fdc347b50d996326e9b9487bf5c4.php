@@ -56,17 +56,18 @@
 				var passwd = $("#passwd").val();
 				if (mobileno == "" || passwd == "") {
 					$(".errlabel").text("手机号 或 密码不能为空,请重新填写!");
+					return ;
 				}else{
-					$.post("/agentshop/signin",
+					$.post("/manage/agentshop/signin",
 						{
 							mobileno:mobileno,
 							passwd:passwd
 						},
 						function(ret){
-							if (ret.error != "") {//success
+							if (ret.error != "") {
 								$(".errlabel").text(ret.error);
 							}else{
-								window.location.href="/agentshop/newshop/";
+								window.location.href="/manage/agentshop/newshop";
 								console.log(ret);
 							}
 						}

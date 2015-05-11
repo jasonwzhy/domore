@@ -27,7 +27,6 @@ class AgentshopController extends Controller {
 			$staffdata = $domorestaffM->where($staffcondition)->find();
 			if ($staffdata) {
 				$_SESSION['staffid'] = $staffdata["domorestaff_id"];
-				$render['ret'] = $staffdata;
 			} else {
 				$render["error"]="用户名 或 密码错误!";
 			}

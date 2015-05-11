@@ -69,7 +69,7 @@ $("#createsub").click(function(){
 			else{
 				alert("店铺创建成功!");
 				// window.location.href="/agentshop/shopinfo/shopid/"+ret.agentshopid;
-				window.location.href="/manage/agentshop/shopinfo/";
+				window.location.href="/manage/agentshop/shopinfo";
 			}
 		}
 

@@ -107,7 +107,7 @@ $("#subbtn").click(function(){
 		function(ret){
 			if (ret.error == "") {//success
 				alert('success');
-				window.location.href="/manage/agentshop/newshop/";
+				window.location.href="/manage/agentshop/newshop";
 			}else{//err
 				alert(ret.error);
 			}
