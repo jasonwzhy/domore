@@ -12,8 +12,14 @@
 
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/jquery.mmenu.css">
 </head>
 	<body>
+	<div id="wrapper" class="toggled">
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+			</ul>
+		</div>
 		<nav class="navbar navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -22,6 +28,7 @@
 				<span class="navtext">新建场馆</span>
 			</div>
 		</nav>
+		
 		
 <div class="container newshopinfo">
 	<div class="row shopalbums">
@@ -75,9 +82,13 @@
 
 
 		
-
+	</div>
 		<script type="text/javascript" src="/Public/manage/js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
+		
+		<script type="text/javascript">
+
+		</script>
 		
 	<script type="text/javascript" src="/Public/manage/js/newshopinfo.js"></script>
 

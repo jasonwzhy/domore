@@ -2,6 +2,27 @@
 namespace Manage\Controller;
 use Think\Controller;
 class AgentshopController extends Controller {
+	public function signin(){
+		if (IS_POST) {
+			$render["error"]="";
+			$domorestaffM = M("domorestaff");
+			$staffcondition = array(
+				"login_name" => $_POST["mobileno"],
+				"passwd" => $_POST["passwd"]
+			);
+			$staffdata = $domorestaffM->where($staffcondition)->select();
+			if ($staffdata) {
+				$_SESSION['staffid'] = $staffdata["domorestaff_id"];
+			} else {
+				$render["error"]="用户名 或 密码错误!";
+			}
+			$this->ajaxReturn($render);
+			
+		} else {
+			$this->display('Agentshop/signin');
+		}
+		
+	}
 	public function newshop(){
 		if (IS_POST) {
 			// 创建店铺

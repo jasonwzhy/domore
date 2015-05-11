@@ -1,0 +1,45 @@
+html,body{
+	width:100%;
+}
+nav{
+	background-color: #F4F4F4;
+	border-color:  #F4F4F4;
+}
+.form-control{
+	border-radius: 2px;
+}
+.form-group{
+	margin-bottom: 20px;
+}
+.navtext{
+	color: #52BBEB;
+	position: absolute;;
+	font-size: 15px;
+	top: 15px;
+	left: 18%;
+}
+.navbar-brand{
+	padding: 0px;
+	padding-left:10px;
+}
+.signinbody{
+	margin-top:100px;
+}
+.signinbody .titletext{
+	margin-bottom: 40px;
+	color: #666666;
+}
+label{
+	color: #666666;
+}
+.btn-default{
+	margin-top: 20px;
+	width: 100%;
+	margin-bottom: 20px;
+	background-color: #52BBEB;
+	border-color: #52BBEB;
+	color: #FFF;
+}
+.errlabel{
+	color: #F4A96C;
+}

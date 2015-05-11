@@ -12,12 +12,34 @@
 
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/jquery.mmenu.css">
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/simple-sidebar.css">
 </head>
 	<body>
+		<section class="sidebar">
+			<h6>Menu</h6>
+	      <ul>
+	        <li><a href="#"> Item 1 </a></li>
+	        <li><a href="#"> Item 2 </a></li>
+	        <li><a href="#"> Item 3 </a></li>
+	        <li><a href="#"> Item 4 </a></li>
+		<li><a href="#"> Item 5 </a></li>
+	      </ul>
+	      <hr>
+	      <h6>More menus</h6>
+	      <ul>
+	        <li><a href="#"> Item 6 </a></li>
+		<li><a href="#"> Item 7 </a></li>
+		<li><a href="#"> Item 8 </a></li>
+		<li><a href="#"> Item 8 </a></li>
+		<li><a href="#"> Item 10 </a></li>
+	      </ul>
+	  </section>
 		<nav class="navbar navbar-fixed-top">
+
 			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+				<div class="navbar-header toolbar">
+					<a class="navbar-brand menu-button menu-left" href="#menu-toggle" id="open-sb"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 				</div>
 				<span class="navtext">新建场馆</span>
 			</div>
@@ -109,11 +131,31 @@
 		</div>
 	</div>
 
-
-		
-
 		<script type="text/javascript" src="/Public/manage/js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/Public/manage/js/jquery.simplesidebar.min.js"></script>
+		<script type="text/javascript">
+			$( document ).ready(function() {
+
+			$( '.sidebar' ).simpleSidebar({
+				settings: {
+					opener: '#open-sb',
+					wrapper: '.wrapper',
+					animation: {
+						duration: 500,
+						easing: 'easeOutQuint'
+					}
+				},
+				sidebar: {
+					align: 'left',
+					width: 200,
+					closingLinks: 'a',
+				}
+			});
+		});
+		</script>
 		
 	<script type="text/javascript" src="/Public/manage/js/region.js"></script>
 	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=ac8dc3ed6052d2d27fc0b1c97266d1a0"></script>
