@@ -20,7 +20,7 @@ $("#scity").change(function(){
 // "<option value="+region_id+"zcode="+zipcode+"><"+areaname+"></option>"
 function getregion(pzcode,alevel){
 	$.ajax({
-		url: "/agentshop/getregion/pzcode/"+pzcode+"/alevel/"+alevel,
+		url: "/manage/agentshop/getregion/pzcode/"+pzcode+"/alevel/"+alevel,
 		success: function(ret){
 			if (alevel == 2) {
 				// if (ret == null) {//上级为直辖市 本级复制上级option后 disable
