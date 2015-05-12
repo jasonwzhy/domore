@@ -2,7 +2,7 @@ var mapcenter = "";
 (function(exports){
 	var toolBar, locationInfo;
 	var map = new AMap.Map('mapContainer', {
-		resizeEnable: true,
+		// resizeEnable: true,
 		//rotateEnable: true,
 		//dragEnable: true,
 		//zoomEnable: true,
@@ -29,8 +29,8 @@ var mapcenter = "";
 			toolBar.doLocation();
 		});
 		AMap.event.removeListener(locallisten);
-		toolBar.hideLocation();
-		toolBar.hide();
+		// toolBar.hideLocation();
+		// toolBar.hide();
 	});
 	
 
@@ -54,6 +54,13 @@ var mapcenter = "";
 	);
 })(window);
 
+$("#noappointment").click(function(){
+	$("#appointmenttype").hide();
+});
+$("#appointment").click(function(){
+	$("#appointmenttype").show();
+});
+
 $("#createsub").click(function(){
 	var shoptype = $("#shoptype").val() ? $("#shoptype").val() : warring("场馆类型");
 	var shopname = $("#shopname").val() ? $("#shopname").val() : warring("场馆名");
@@ -65,6 +72,13 @@ $("#createsub").click(function(){
 	var address = $("#address").val() ? $("#address").val() : warring("详细地址");
 	var starttime = $("#startdtpicker").val();
 	var endtime = $("#enddtpicker").val();
+	if ($("#noappointment").attr("class").indexOf("active")>=0) {
+		var isappointment = 0;
+		var appointmenttime = 0;
+	}else{
+		var isappointment = 1;
+		var appointmenttime = $("#appointmenttime").val();
+	}
 	if (mapcenter == "") {
 		warring("地图选择");
 	} else{
@@ -89,7 +103,9 @@ $("#createsub").click(function(){
 			lng:lng,
 			lat:lat,
 			starttime:starttime,
-			endtime:endtime
+			endtime:endtime,
+			isappointment:isappointment,
+			appointmenttime:appointmenttime
 		},
 		function(ret){
 			console.log(ret);

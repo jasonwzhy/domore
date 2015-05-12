@@ -71,7 +71,9 @@ class AgentshopController extends Controller {
 				"create_dt"	=>	$create_DT,
 				"buessiness_status"	=>	1,
 				"start_time" => $_POST["starttime"],
-				"end_time" => $_POST["endtime"]
+				"end_time" => $_POST["endtime"],
+				"is_appointment"	=>	$_POST["isappointment"],
+				"appointment_time"	=>	$_POST["appointmenttime"]
 			);
 			if (isset($_POST['shopagentid']) && $_POST['shopagentid'] != "") {
 				$agentdata["agent_id"] = $_POST['shopagentid'];

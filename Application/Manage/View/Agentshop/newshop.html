@@ -38,6 +38,29 @@
 								<div class="col-xs-4 dtpk"><input id="enddtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="截至" readonly></div>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-primary col-xs-6 active" id="noappointment">
+									<input type="radio" name="options" id="option1" autocomplete="off" checked>无需预约
+								</label>
+								<label class="btn btn-primary col-xs-6" id="appointment">
+									<input type="radio" name="options" id="option2" autocomplete="off">需要预约
+								</label>
+							</div>
+						</div>
+
+						<div class="form-group" id="appointmenttype" style="display:none;">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1">类型</span>
+								<select class="form-control" aria-describedby="basic-addon1" id="appointmenttime">
+									<option value="12">半天</option>
+									<option value="24">一天</option>
+									<option value="48">两天</option>
+								</select>
+							</div>
+						</div>
+
 						<div class="form-group col-xs-4 form-group-nopadding">
 							<select class="form-control" id="sprovice">
 								<option value="">-省/直辖市-</option>
