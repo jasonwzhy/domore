@@ -1,19 +1,49 @@
 var mapcenter = "";
 (function(exports){
-	
+	var toolBar, locationInfo;
 	var map = new AMap.Map('mapContainer', {
-		//resizeEnable: true,
+		resizeEnable: true,
 		//rotateEnable: true,
 		//dragEnable: true,
 		//zoomEnable: true,
 		//设置可缩放的级别
 		zooms: [9,18],
 		//传入2D视图，设置中心点和缩放级别
-		view: new AMap.View2D({
-			center: new AMap.LngLat(104.061986,30.658611),
-			zoom: 11
-		})
+		// view: new AMap.View2D({
+		// 	center: new AMap.LngLat(104.061986,30.658611),
+		// 	zoom: 18
+		// })
 	});
+	map.plugin(["AMap.ToolBar"],function(){
+		var toolBar = new AMap.ToolBar({
+			autoPosition:true,
+			ruler:false,
+			direction:false,
+			// locationMarker:false
+		});
+		toolBar.hide();
+		map.addControl(toolBar);
+		toolBar.doLocation();
+		var locallisten = AMap.event.addListener(toolBar,'location',function callback(e){	
+			locationInfo = e.lnglat;
+			toolBar.doLocation();
+		});
+		AMap.event.removeListener(locallisten);
+		toolBar.hideLocation();
+		toolBar.hide();
+	});
+	
+
+	// map.plugin(["AMap.ToolBar"],function(){		
+	// 		toolBar = new AMap.ToolBar(); //设置地位标记为自定义标记
+	// 		map.addControl(toolBar);		
+ //                        toolBar.doLocation();
+	// 		AMap.event.addListener(map,'location',function callback(e){	
+	// 			locationInfo = e.lnglat;		
+ //              toolBar.doLocation();
+	// 		});
+	// 	});
+
 	$(".markicon").show();
 	AMap.event.addListener(map,"moveend",function callback(e)
 		{
