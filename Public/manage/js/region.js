@@ -41,7 +41,8 @@ function getregion(pzcode,alevel){
 };
 function changesciyt(optiondata){
 	$("#scity").empty();
-	if (optiondata == "") {
+	console.log(optiondata);
+	if (!optiondata) {
 		//alert($("#sprovice").find("option:selected"));
 		$("#scity").append($("#sprovice").find("option:selected").clone());
 	} else{
