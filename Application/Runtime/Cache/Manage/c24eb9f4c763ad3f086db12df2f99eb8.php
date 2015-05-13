@@ -38,7 +38,7 @@
 					<li><a href="#">HOME</a></li>
 					<li><a href="#">通知中心</a></li>
 					<li><a href="#">我的商户</a></li>
-					<li><a href="#">我的场馆</a></li>
+					<li><a href="/manage/agentshop/myshop">我的场馆</a></li>
 					<li><a href="/manage/agentshop/signout">登出</a></li>
 				</div>
 				<div class="stmenuimg">
@@ -48,14 +48,17 @@
 			</ul>
 		</nav>
 		<div class="st-pusher">
-			<div class="st-content"><!-- this is the wrapper for the content -->
+			<div class="st-content">
+			<!-- this is the wrapper for the content -->
 				<div class="st-content-inner">
 					<nav class="navbar navbar-fixed-top">
 						<div class="container-fluid">
 							<div class="navbar-header toolbar" id="st-trigger-effects">
 								<a class="navbar-brand menu-button menu-left" href="" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 							</div>
-							<span class="navtext">新建场馆</span>
+							
+	<span class="navtext">新建场馆</span>
+
 						</div>
 					</nav>
 					
@@ -91,10 +94,33 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-xs-4 dtpk"><label for="startdtpicker">营业时间</label></div>
-								<div class="col-xs-4 dtpk"><input id="startdtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="开业时间" readonly></div>
-								<div class="col-xs-4 dtpk"><input id="enddtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="休息时间" readonly></div>
+								<div class="col-xs-4 dtpk"><input id="startdtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="起始" readonly></div>
+								<div class="col-xs-4 dtpk"><input id="enddtpicker" class="form-control"  data-date-format="hh:ii" value="" placeholder="截至" readonly></div>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-primary col-xs-6 active" id="noappointment">
+									<input type="radio" name="options" id="option1" autocomplete="off" checked>无需预约
+								</label>
+								<label class="btn btn-primary col-xs-6" id="appointment">
+									<input type="radio" name="options" id="option2" autocomplete="off">需要预约
+								</label>
+							</div>
+						</div>
+
+						<div class="form-group" id="appointmenttype" style="display:none;">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1">类型</span>
+								<select class="form-control" aria-describedby="basic-addon1" id="appointmenttime">
+									<option value="12">半天</option>
+									<option value="24">一天</option>
+									<option value="48">两天</option>
+								</select>
+							</div>
+						</div>
+
 						<div class="form-group col-xs-4 form-group-nopadding">
 							<select class="form-control" id="sprovice">
 								<option value="">-省/直辖市-</option>

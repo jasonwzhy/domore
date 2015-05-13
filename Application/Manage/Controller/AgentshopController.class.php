@@ -137,6 +137,7 @@ class AgentshopController extends Controller {
 				// $upload->savePath  =     $sid.'/';
 				$upload->subName   =     $shopid;
 				$info   =   $upload->uploadOne($_FILES['upimg']);
+				$this->ajaxReturn($info);
 				if(!$info) {
 					$this->error($upload->getError());
 				}else{
@@ -286,6 +287,30 @@ class AgentshopController extends Controller {
 			$this->assign($render);
 			$this->display('Agentshop/newagent');	
 		}
+	}
+	public function myshop(){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$myshopM = M("agentshop");
+		$render["memberlst"] = array();
+		$render["nomemberlst"] = array();
+		$condition = array(
+			"creator_id" => $_SESSION["staffid"]
+		);
+		$myshopLst = $myshopM->where($condition)->select();
+		foreach ($myshopLst as $shopitem) {
+			if ($shopitem["agent_id"] != NULL) {
+				$render["memberlst"][] = $shopitem;
+			}else{
+				$render["nomemberlst"][] = $shopitem;
+			}
+		}
+		$this->assign($render);
+		$this->display('Agentshop/myshop');
 	}
 	public function signout(){
 		unset($_SESSION['staffid']);

@@ -1,0 +1,77 @@
+<extend name="base2" />
+<block name="page-title">
+	<span class="navtext">我的场馆</span>
+</block>
+
+<block name="page-wrapper">
+	<ul class="nav nav-tabs">
+		<li role="presentation" id="hasagent" class="active">
+			<a href="#member" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">联盟场馆</a>
+		</li>
+		<li role="presentation" class="">
+			<a href="#nomember" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">非联盟场馆</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="member">
+			<div class="container">
+				<empty name="memberlst">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="myempty">
+								<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加联盟场馆哦!</p>
+							</div>
+						</div>
+					</div>
+				<else /> 
+					<foreach name="memberlst" item="member">
+						<div class="row shopitem">
+							<div class="col-xs-12">
+								<h5><{$member.agentshop_id}></h5>
+								<hr>
+								<strong><{$member.shop_name}></strong>
+								<h6><{$member.address}></h6>
+							</div>
+						</div>	
+					</foreach>
+				</empty>
+				
+				
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="nomember">
+			<div class="container">
+				<empty name="memberlst">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="myempty">
+								<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 没有非联盟场馆了!</p>
+							</div>
+						</div>
+					</div>
+				<else />
+					<foreach name="nomemberlst" item="nomember">
+						<div class="row shopitem">
+							<div class="col-xs-12">
+								<h5><{$nomember.agentshop_id}></h5>
+								<hr>
+								<strong><{$nomember.shop_name}></strong>
+								<h6><{$nomember.address}></h6>
+							</div>
+						</div>	
+					</foreach>
+				</empty>
+			</div>
+		</div>
+		<!-- <div class="container">
+			<div class="row">
+				<div class="col-xs-12 nextbtn">
+					<button type="button" class="col-xs-12 btn btn-default btn-block" id="createsub">下一步</button>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</block>
+<block name="page-js">
+
+</block>

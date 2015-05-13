@@ -2,29 +2,66 @@ $("#upimgbtn").click(function(){
 	 $('input[id=upimg]').click();
 
 })
+function dataURItoBlob(dataURI) {
+    // convert base64 to raw binary data held in a string 
+    var byteString 
+        ,mimestring 
+
+    if(dataURI.split(',')[0].indexOf('base64') !== -1 ) {
+        byteString = atob(dataURI.split(',')[1])
+    } else {
+        byteString = decodeURI(dataURI.split(',')[1])
+    }
+    
+
+    mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    
+    var content = new Array();
+    for (var i = 0; i < byteString.length; i++) {
+        content[i] = byteString.charCodeAt(i)
+    }
+
+    return new Blob([new Uint8Array(content)], {type: mimestring});
+}
 $("#upimg").change(function(){
 	if ($('input[id=upimg]').val() == "") {
 		
 	} else{
-		$('#upimg').localResizeIMG({
-		     width: 100,
-		     quality: 0.1,
-		     // before: function () {},
-		     success: function (result) {
-		     var img = new Image();
-		     img.src = result.base64;
-		     $('body').append(img);
-		     console.log(result);
-		     }
-		 });
 		// $("#upimg").aeImageResize({width:160,height:160});
 		//alert($('input[id=upimg]').val());
 		var formData = new FormData($( "#addshoppicform" )[0]);
-		//console.log(formData);
-		$.ajax({
+		console.log(formData);
+		var file = this.files[0];
+		// console.log(file);
+		 var url = webkitURL.createObjectURL(file);
+
+		 var img = new Image();
+		 
+		img.onload = function() {  
+  
+            //生成比例  
+            var width = img.width,  
+                    height = img.height,  
+                    scale = width / height;  
+            width = parseInt(800);  
+            height = parseInt(width / scale);  
+  
+            //生成canvas  
+            var $canvas = $('#myCanvas');  
+            var ctx = $canvas[0].getContext('2d');  
+            $canvas.attr({width : width, height : height});  
+            ctx.drawImage(img, 0, 0, width, height);  
+            var base64 = $canvas[0].toDataURL('image/jpeg',0.5);  
+  			// console.log(base64.substr(22));
+  			var blob = dataURItoBlob(base64);
+  			// console.log(blob);
+  			var fdata = new FormData();
+  			fdata.append("upimg",blob);
+  			console.log(fdata);
+  			$.ajax({
 			url: '/manage/agentshop/shopinfo',
 			type: 'POST',
-			data: formData,
+			data: fdata,
 			async: true,
 			cache: false,
 			contentType: false,
@@ -41,6 +78,15 @@ $("#upimg").change(function(){
 				alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
 			}
 		})
+  			
+            // //发送到服务端  
+            // $.post('upload.php',{formFile : base64.substr(22) },function(data){  
+            //     $('#php').html(data);  
+           }
+
+		img.src = url;
+		//console.log(formData);
+		
 	};
 	$("input[id=upimg]").val('');
 });

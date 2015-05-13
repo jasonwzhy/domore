@@ -29,8 +29,8 @@
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-    					<li><a href="/agentshop/newshop">新建场馆</a></li>
-    					<li><a href="/agentshop/newagent">新建商户</a></li>
+    					<li><a href="/manage/agentshop/newshop">新建场馆</a></li>
+    					<li><a href="/manage/agentshop/newagent">新建商户</a></li>
 					</ul>
 				</div>
 				<div class="stmenulogo">
@@ -38,8 +38,8 @@
 					<li><a href="#">HOME</a></li>
 					<li><a href="#">通知中心</a></li>
 					<li><a href="#">我的商户</a></li>
-					<li><a href="#">我的场馆</a></li>
-					<li><a href="/agentshop/signout">登出</a></li>
+					<li><a href="/manage/agentshop/myshop">我的场馆</a></li>
+					<li><a href="/manage/agentshop/signout">登出</a></li>
 				</div>
 				<div class="stmenuimg">
 					<img src="/Public/manage/img/profile.png" class="img-circle" width="80px">
@@ -48,14 +48,17 @@
 			</ul>
 		</nav>
 		<div class="st-pusher">
-			<div class="st-content"><!-- this is the wrapper for the content -->
+			<div class="st-content">
+			<!-- this is the wrapper for the content -->
 				<div class="st-content-inner">
 					<nav class="navbar navbar-fixed-top">
 						<div class="container-fluid">
 							<div class="navbar-header toolbar" id="st-trigger-effects">
 								<a class="navbar-brand menu-button menu-left" href="" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 							</div>
-							<span class="navtext">新建场馆</span>
+							
+	<span class="navtext">新建商户</span>
+
 						</div>
 					</nav>
 					

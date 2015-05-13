@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/normalize.css">
 	<!-- <link rel="stylesheet" type="text/css" href="/Public/manage/css/demo.css"> -->
-	<link rel="stylesheet" type="text/css" href="/Public/manage/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/Public/manage/css/base2.css">
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/component.css">
 	<script type="text/javascript" src="/Public/manage/js/modernizr.custom.js"></script>
 	<link rel="stylesheet" type="text/css" href="/Public/manage/css/bootstrap-datetimepicker.min.css">
@@ -38,7 +38,7 @@
 					<li><a href="#">HOME</a></li>
 					<li><a href="#">通知中心</a></li>
 					<li><a href="#">我的商户</a></li>
-					<li><a href="/manage/agentshop/myshop">我的场馆</a></li>
+					<li><a href="#">我的场馆</a></li>
 					<li><a href="/manage/agentshop/signout">登出</a></li>
 				</div>
 				<div class="stmenuimg">
@@ -49,70 +49,77 @@
 		</nav>
 		<div class="st-pusher">
 			<div class="st-content">
-			<!-- this is the wrapper for the content -->
-				<div class="st-content-inner">
+				<div class="st-content-inner"> 
 					<nav class="navbar navbar-fixed-top">
 						<div class="container-fluid">
 							<div class="navbar-header toolbar" id="st-trigger-effects">
 								<a class="navbar-brand menu-button menu-left" href="" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
 							</div>
 							
+	<span class="navtext">我的场馆</span>
+
 						</div>
 					</nav>
 					
-<div class="container newshopinfo">
-	<div class="row shopalbums">
-		<div class="col-xs-4" id="addimg">
-			<form id="addshoppicform">
-				<a href="#" id="upimgbtn"><img src="/Public/manage/img/addimg.png" alt="" class="img-rounded"></a>
-				<input type="file" name="upimg" id="upimg" value="" required="required" accept="image/*"  runat="server" style="display:none;" />
-			</form>
-		</div>
-		<canvas class="canvas" id="myCanvas" ></canvas>
-		<div class="col-xs-4">
-			<a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);">
-				<!-- <img src="" alt="" id="1" class="img-rounded"> -->
-				<div style="background-image:url('/Public/manage/img/hahaha.jpeg');background-size:cover;">
-					
-				</div>
-			</a>
-		</div>
-		
-	</div>
-	<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false" id="myModal">
-		<div class="modal-dialog modal-lg">
+	<ul class="nav nav-tabs">
+		<li role="presentation" id="hasagent" class="active">
+			<a href="#member" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">联盟场馆</a>
+		</li>
+		<li role="presentation" class="">
+			<a href="#nomember" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">非联盟场馆</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="member">
 			<div class="container">
-				<div class="row">
-					<button class="col-xs-12 btn btn-lg delshoppic btn-default btn-block" onclick="delshoppic(this);" >删除图片</button>
+				<?php if(empty($memberlst)): ?><div class="row">
+						<div class="col-xs-12">
+							<div class="myempty">
+								<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加联盟场馆哦!</p>
+							</div>
+						</div>
+					</div>
+				<?php else: ?> 
+					<?php if(is_array($memberlst)): foreach($memberlst as $key=>$member): ?><div class="row shopitem">
+							<div class="col-xs-12">
+								<h5><?php echo ($member["agentshop_id"]); ?></h5>
+								<hr>
+								<strong><?php echo ($member["shop_name"]); ?></strong>
+								<h6><?php echo ($member["address"]); ?></h6>
+							</div>
+						</div><?php endforeach; endif; endif; ?>
+				
+				
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="nomember">
+			<div class="container">
+				<?php if(empty($memberlst)): ?><div class="row">
+						<div class="col-xs-12">
+							<div class="myempty">
+								<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 没有非联盟场馆了!</p>
+							</div>
+						</div>
+					</div>
+				<?php else: ?>
+					<?php if(is_array($nomemberlst)): foreach($nomemberlst as $key=>$nomember): ?><div class="row shopitem">
+							<div class="col-xs-12">
+								<h5><?php echo ($nomember["agentshop_id"]); ?></h5>
+								<hr>
+								<strong><?php echo ($nomember["shop_name"]); ?></strong>
+								<h6><?php echo ($nomember["address"]); ?></h6>
+							</div>
+						</div><?php endforeach; endif; endif; ?>
+			</div>
+		</div>
+		<!-- <div class="container">
+			<div class="row">
+				<div class="col-xs-12 nextbtn">
+					<button type="button" class="col-xs-12 btn btn-default btn-block" id="createsub">下一步</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="form-group ">
-				<textarea class="form-control" rows="6" id="shopdesc" placeholder="场馆介绍"></textarea>
-			</div>
-			<div class="form-group">
-				<label for="exampleInputEmail1">场馆负责人信息</label>
-				<input type="email" class="form-control" id="shopGM" placeholder="场馆经理">
-			</div>
-			<div class="form-group">
-				<input type="email" class="form-control" id="shopGMtel" placeholder="场馆经理电话">
-			</div>
-			<div class="form-group">
-				<input type="email" class="form-control" id="shopGMemail" placeholder="场馆经理email">
-			</div>
-		</div>
-		<div class="col-xs-4">
-			<button type="button" class="col-xs-12 btn btn-default btn-block" id="editprv">上一步</button>
-		</div>
-		<div class="col-xs-8">
-			<button type="button" class="col-xs-12 btn btn-default btn-block" id="subbtn">完 成</button>
-		</div>
-	</div>
-	
-</div>
 
 				</div>
 			</div>
@@ -129,7 +136,7 @@
 			
 		</script>
 		
-	<script type="text/javascript" src="/Public/manage/js/newshopinfo.js"></script>
+
 
 	</body>
 </html>
