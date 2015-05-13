@@ -6,6 +6,18 @@ $("#upimg").change(function(){
 	if ($('input[id=upimg]').val() == "") {
 		
 	} else{
+		$('#upimg').localResizeIMG({
+		     width: 100,
+		     quality: 0.1,
+		     // before: function () {},
+		     success: function (result) {
+		     var img = new Image();
+		     img.src = result.base64;
+		     $('body').append(img);
+		     console.log(result);
+		     }
+		 });
+		// $("#upimg").aeImageResize({width:160,height:160});
 		//alert($('input[id=upimg]').val());
 		var formData = new FormData($( "#addshoppicform" )[0]);
 		//console.log(formData);
