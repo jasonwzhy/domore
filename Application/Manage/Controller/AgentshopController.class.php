@@ -119,25 +119,34 @@ class AgentshopController extends Controller {
 		// 创建店铺
 		// 访问时shopid在否 未加入
 
-		if (!isset($_SESSION["staffid"])) {
-			$this->assign('waitSecond',0);
-			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
-			$this->success('页面跳转中...');
-			return ;
-		}
+		// if (!isset($_SESSION["staffid"])) {
+		// 	$this->assign('waitSecond',0);
+		// 	$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+		// 	$this->success('页面跳转中...');
+		// 	return ;
+		// }
 		$shopid = $_SESSION['shopid'];
 		$render['error'] = "";
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				$agentshopalbumsM = M('agentshopalbums');
+				//$this->ajaxReturn($_FILES["myupimg"]);
 				$upload = new \Think\Upload();// 实例化上传类
 				$upload->maxSize   =     6145728 ;// 设置附件上传大小
 				$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
 				$upload->rootPath  =     './Uploads/shops/'; // 设置附件上传根目录
 				// $upload->savePath  =     $sid.'/';
 				$upload->subName   =     $shopid;
-				$info   =   $upload->uploadOne($_FILES['upimg']);
-				$this->ajaxReturn($info);
+				$info   =   $upload->uploadOne($_FILES['myupimg']);
+				move_uploaded_file($_FILES['myupimg']['tmp_name'],'./Uploads/123.jpg');
+				$this->ajaxReturn($_FILES['myupimg']);
+
+				$fileContent = file_get_contents($_FILES['myupimg']['tmp_name']);
+				$dataUrl = 'data:' . $fileType . ';base64,' . base64_encode($fileContent);
+				file_get_contents('./Uploads/123.jpg',$fileContent);
+				
+				$this->ajaxReturn($dataUrl);
+
 				if(!$info) {
 					$this->error($upload->getError());
 				}else{
@@ -311,6 +320,15 @@ class AgentshopController extends Controller {
 		}
 		$this->assign($render);
 		$this->display('Agentshop/myshop');
+	}
+	public function myagent(){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$this->display('Agentshop/myagent');
 	}
 	public function signout(){
 		unset($_SESSION['staffid']);

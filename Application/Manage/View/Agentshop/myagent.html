@@ -1,0 +1,32 @@
+<extend name="base2" />
+<block name="page-title">
+	<span class="navtext">我的商户</span>
+</block>
+
+<block name="page-wrapper">
+	<div class="container">
+		<empty name="memberlst">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="myempty">
+						<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加联盟场馆哦!</p>
+					</div>
+				</div>
+			</div>
+		<else /> 
+			<foreach name="memberlst" item="member">
+				<div class="row shopitem">
+					<div class="col-xs-12">
+						<h5><{$member.agentshop_id}></h5>
+						<hr>
+						<strong><{$member.shop_name}></strong>
+						<h6><{$member.address}></h6>
+					</div>
+				</div>	
+			</foreach>
+		</empty>
+	</div>
+</block>
+<block name="page-js">
+
+</block>

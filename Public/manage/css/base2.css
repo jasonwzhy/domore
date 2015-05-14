@@ -18,6 +18,7 @@ nav{
 }
 .shopitem{
 	margin-bottom: 15px;
+	background-color: #FAFAFA;
 }
 .shopitem hr{
 	margin-bottom: 10px;
@@ -183,3 +184,4 @@ nav{
 	border: 1px dotted darkgrey;
 	border-radius: 8px;
 }
+
