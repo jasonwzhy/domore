@@ -5,22 +5,23 @@
 
 <block name="page-wrapper">
 	<div class="container">
-		<empty name="memberlst">
+		<empty name="myagentlst">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="myempty">
-						<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加联盟场馆哦!</p>
+						<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加 商户 哦!</p>
 					</div>
 				</div>
 			</div>
 		<else /> 
-			<foreach name="memberlst" item="member">
+			<foreach name="myagentlst" item="myagent">
 				<div class="row shopitem">
 					<div class="col-xs-12">
-						<h5><{$member.agentshop_id}></h5>
+						<h5><{$myagent.agent_id}></h5>
 						<hr>
-						<strong><{$member.shop_name}></strong>
-						<h6><{$member.address}></h6>
+						<strong><{$myagent.agent_name}></strong>
+						<h6><{$myagent.agent_manager}></h6>
+						<h6><{$myagent.agentcount}></h6>
 					</div>
 				</div>	
 			</foreach>

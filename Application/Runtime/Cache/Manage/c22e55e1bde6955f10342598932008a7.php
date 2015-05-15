@@ -37,8 +37,8 @@
 					<img src="/Public/manage/img/logo2.png" >
 					<li><a href="#">HOME</a></li>
 					<li><a href="#">通知中心</a></li>
-					<li><a href="#">我的商户</a></li>
-					<li><a href="#">我的场馆</a></li>
+					<li><a href="/manage/agentshop/myagent">我的商户</a></li>
+					<li><a href="/manage/agentshop/myshop">我的场馆</a></li>
 					<li><a href="/manage/agentshop/signout">登出</a></li>
 				</div>
 				<div class="stmenuimg">
@@ -62,20 +62,21 @@
 					</nav>
 					
 	<div class="container">
-		<?php if(empty($memberlst)): ?><div class="row">
+		<?php if(empty($myagentlst)): ?><div class="row">
 				<div class="col-xs-12">
 					<div class="myempty">
-						<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加联盟场馆哦!</p>
+						<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加 商户 哦!</p>
 					</div>
 				</div>
 			</div>
 		<?php else: ?> 
-			<?php if(is_array($memberlst)): foreach($memberlst as $key=>$member): ?><div class="row shopitem">
+			<?php if(is_array($myagentlst)): foreach($myagentlst as $key=>$myagent): ?><div class="row shopitem">
 					<div class="col-xs-12">
-						<h5><?php echo ($member["agentshop_id"]); ?></h5>
+						<h5><?php echo ($myagent["agent_id"]); ?></h5>
 						<hr>
-						<strong><?php echo ($member["shop_name"]); ?></strong>
-						<h6><?php echo ($member["address"]); ?></h6>
+						<strong><?php echo ($myagent["agent_name"]); ?></strong>
+						<h6><?php echo ($myagent["agent_manager"]); ?></h6>
+						<h6><?php echo ($myagent["agentcount"]); ?></h6>
 					</div>
 				</div><?php endforeach; endif; endif; ?>
 	</div>

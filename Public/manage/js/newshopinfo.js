@@ -39,23 +39,23 @@ $("#upimg").change(function(){
 		 var img = new Image();
 		 
 		img.onload = function() {
-            //生成比例
-            var width = img.width,
-                height = img.height,  
+			//生成比例
+			var width = img.width,
+				height = img.height,  
 				scale = width / height;  
-			console.log(scale);
-            width = parseInt(800);  
-            height = parseInt(width / scale);
-            //生成canvas  
-            var $canvas = $('#myCanvas');  
-            var ctx = $canvas[0].getContext('2d');  
-            $canvas.attr({width : width, height : height});  
-            ctx.drawImage(img, 0, 0, width, height);  
-            var base64 = $canvas[0].toDataURL('image/jpeg',0.5);  
-  			var blob = dataURItoBlob(base64);
-  			var fdata = new FormData();
-  			fdata.append("myupimg",blob);
-  			$.ajax({
+			// console.log(scale);
+			width = parseInt(800);  
+			height = parseInt(width / scale);
+			//生成canvas  
+			var $canvas = $('#myCanvas');  
+			var ctx = $canvas[0].getContext('2d');  
+			$canvas.attr({width : width, height : height});  
+			ctx.drawImage(img, 0, 0, width, height);  
+			var base64 = $canvas[0].toDataURL('image/jpeg',0.5);  
+			var blob = dataURItoBlob(base64);
+			var fdata = new FormData();
+			fdata.append("myupimg",blob);
+			$.ajax({
 				url: '/manage/agentshop/shopinfo',
 				type: 'POST',
 				data: fdata,
@@ -64,11 +64,8 @@ $("#upimg").change(function(){
 				contentType: false,
 				processData: false,
 				success: function (returndata) {
-					//addpic(returndata.savepath+returndata.savename);
-					//console.log(returndata.savepath+returndata.savename);
 					console.log(returndata);
-					// addpic(returndata.imgpath,returndata.albumsid);
-
+					addpic(returndata.imgpath,returndata.albumsid);
 					alert("上传成功");
 				},
 				error: function (returndata) {
@@ -76,15 +73,9 @@ $("#upimg").change(function(){
 					alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
 				}
 			})
-  			
-            // //发送到服务端  
-            // $.post('upload.php',{formFile : base64.substr(22) },function(data){  
-            //     $('#php').html(data);  
-           }
-
+		}
 		img.src = url;
 		//console.log(formData);
-		
 	};
 	$("input[id=upimg]").val('');
 });

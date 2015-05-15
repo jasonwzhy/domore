@@ -67,6 +67,7 @@ class AgentshopController extends Controller {
 				"lon"	=>	$_POST["lng"],
 				"lat"	=>	$_POST["lat"],
 				"creator_id"	=>	$staffid,
+				"domore_manager_id" => $staffid,
 				"checkstatus_id"	=>	1,
 				"create_dt"	=>	$create_DT,
 				"buessiness_status"	=>	1,
@@ -119,47 +120,44 @@ class AgentshopController extends Controller {
 		// 创建店铺
 		// 访问时shopid在否 未加入
 
-		// if (!isset($_SESSION["staffid"])) {
-		// 	$this->assign('waitSecond',0);
-		// 	$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
-		// 	$this->success('页面跳转中...');
-		// 	return ;
-		// }
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
 		$shopid = $_SESSION['shopid'];
 		$render['error'] = "";
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				$agentshopalbumsM = M('agentshopalbums');
-				//$this->ajaxReturn($_FILES["myupimg"]);
-				$upload = new \Think\Upload();// 实例化上传类
-				$upload->maxSize   =     6145728 ;// 设置附件上传大小
-				$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-				$upload->rootPath  =     './Uploads/shops/'; // 设置附件上传根目录
-				// $upload->savePath  =     $sid.'/';
-				$upload->subName   =     $shopid;
-				$info   =   $upload->uploadOne($_FILES['myupimg']);
-				move_uploaded_file($_FILES['myupimg']['tmp_name'],'./Uploads/123.jpg');
-				$this->ajaxReturn($_FILES['myupimg']);
+				// $this->ajaxReturn($_FILES["myupimg"]);
+				// $upload = new \Think\Upload();// 实例化上传类
+				// $upload->maxSize   =     6145728 ;// 设置附件上传大小
+				// $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+				// $upload->rootPath  =     './Uploads/shops/'; // 设置附件上传根目录
+				// // $upload->savePath  =     $sid.'/';
+				// $upload->subName   =     $shopid;
+				// $info   =   $upload->uploadOne($_FILES['myupimg']);
+				$rootpath = "./Uploads/shops/".$shopid."/";
+				$fname = md5(uniqid(rand())).".jpg";
+				$filenamepath = $rootpath.$fname;
 
-				$fileContent = file_get_contents($_FILES['myupimg']['tmp_name']);
-				$dataUrl = 'data:' . $fileType . ';base64,' . base64_encode($fileContent);
-				file_get_contents('./Uploads/123.jpg',$fileContent);
-				
-				$this->ajaxReturn($dataUrl);
-
-				if(!$info) {
-					$this->error($upload->getError());
-				}else{
-					$imgpath = $upload->rootPath.$info["savepath"].$info["savename"];
-					$imgpath = substr($imgpath,1);
+				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$filenamepath);
+				if($saveret)
+				{
+					$filenamepath = substr($filenamepath,1);
 					$albumsdata = array(
 						"agentshop_id"	=>	$shopid,
-						"img_path"	=>	$imgpath
+						"img_path"	=>	$filenamepath
 					);
 					$shopalbums = $agentshopalbumsM->add($albumsdata);
-					$info['albumsid'] = $shopalbums;
-					$info["imgpath"] = $imgpath;
-					$this->ajaxReturn($info);
+					$render['albumsid'] = $shopalbums;
+					$render["imgpath"] = $filenamepath;
+					$this->ajaxReturn($render);
+				} else {
+					$render['error'] = "上传格式错误,请用jpg png jpeg等格式...";
+					$this->ajaxReturn($render);
 				}
 			}elseif(isset($_POST) && NULL != $_POST) {
 				$agentshopM = M('agentshop');
@@ -245,6 +243,7 @@ class AgentshopController extends Controller {
 					"moblie_no" => $_POST["managertel"],
 					"agent_manager_email" => $_POST["manageremail"],
 					"creator_id" => $staffid,
+					"domore_manager_id" => $staffid,
 					"business_status" => 1,
 					"checkstatus_id" => 1,
 					"create_dt" => $create_DT,
@@ -328,6 +327,25 @@ class AgentshopController extends Controller {
 			$this->success('页面跳转中...');
 			return ;
 		}
+		$myagentM = M("agent");
+		$shopM = M("agentshop");
+		$render["error"] = "";
+		$condition = array(
+			"creator_id" => $_SESSION["staffid"]
+		);
+		$myagentLst = $myagentM->where($condition)->select();
+		if ($myagentLst) {
+			foreach ($myagentLst as $key => $value) {
+				$agentid["agent_id"] = $value["agent_id"];
+				$agentshopcount = $shopM->where($agentid)->count();
+				$myagentLst[$key]["agentcount"] = $agentshopcount;
+			}
+		} else {
+			$myagentLst = array();
+		}
+
+		$render["myagentlst"] = $myagentLst;
+		$this->assign($render);
 		$this->display('Agentshop/myagent');
 	}
 	public function signout(){
