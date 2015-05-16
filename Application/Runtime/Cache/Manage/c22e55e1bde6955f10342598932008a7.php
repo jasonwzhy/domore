@@ -61,7 +61,7 @@
 						</div>
 					</nav>
 					
-	<div class="container">
+	<div class="container myagentcont">
 		<?php if(empty($myagentlst)): ?><div class="row">
 				<div class="col-xs-12">
 					<div class="myempty">
@@ -71,13 +71,31 @@
 			</div>
 		<?php else: ?> 
 			<?php if(is_array($myagentlst)): foreach($myagentlst as $key=>$myagent): ?><div class="row shopitem">
+					<a href="/manage/agentshop/agentdetail/0">
 					<div class="col-xs-12">
-						<h5><?php echo ($myagent["agent_id"]); ?></h5>
+						<div class="row">
+							<div class="col-xs-9">
+								<h5><?php echo ($myagent["agent_id"]); ?></h5>
+							</div>
+							<div class="col-xs-3">
+								<?php if(($myagent["agentcount"]) == "0"): ?><span class="noagentmark">无场馆</span><?php endif; ?>
+							</div>
+						</div>
+						
 						<hr>
-						<strong><?php echo ($myagent["agent_name"]); ?></strong>
-						<h6><?php echo ($myagent["agent_manager"]); ?></h6>
-						<h6><?php echo ($myagent["agentcount"]); ?></h6>
+						<div class="row">
+							<div class="col-xs-4">
+								<strong><?php echo ($myagent["agent_name"]); ?></strong>
+							</div>
+							<div class="col-xs-4">
+								<h6><?php echo ($myagent["agent_manager"]); ?></h6>
+							</div>
+							<div class="col-xs-4 text-center">
+								<h6><?php echo ($myagent["agentcount"]); ?></h6>		
+							</div>
+						</div>
 					</div>
+					</a>
 				</div><?php endforeach; endif; endif; ?>
 	</div>
 

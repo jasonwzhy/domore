@@ -22,7 +22,7 @@ nav{
 }
 .shopitem hr{
 	margin-bottom: 10px;
-	margin-top: 10px;
+	margin-top: 3px;
 }
 .shopitem h6{
 	color: #999999;
@@ -184,4 +184,14 @@ nav{
 	border: 1px dotted darkgrey;
 	border-radius: 8px;
 }
-
+.myagentcont{
+	margin-top: 50px;
+}
+.noagentmark{
+	background-color: #F47960;
+	text-align: center;
+	color: #FFF;
+	padding: 5px;
+	font-size: 12px;
+	line-height:3;
+}

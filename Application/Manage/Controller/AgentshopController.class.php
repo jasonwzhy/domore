@@ -348,6 +348,16 @@ class AgentshopController extends Controller {
 		$this->assign($render);
 		$this->display('Agentshop/myagent');
 	}
+	public function agentdetail($aid=0)
+	{
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$this->display('Agentshop/myagentdetail');
+	}
 	public function signout(){
 		unset($_SESSION['staffid']);
 		$this->assign('waitSecond',0);

@@ -52,14 +52,14 @@ $("#subbtn").click(function(){
 	var manageremail = $("#manageremail").val() ? $("#manageremail").val() : warring("负责人email");
 	if ($("#accountself").attr("class").indexOf("active")>=0) {
 		var accountself = 1;
-		var accountmanager = $("#accountmanager").val() ? $("#accountmanager").val() : warring("财务负责人");
-		var accountmanagertel = $("#accountmanagertel").val() ? $("#accountmanagertel").val() : warring("财务电话");
-		var accountmanageremail = $("#accountmanageremail").val();
-	} else{
-		var accountself = 0;
 		var accountmanager="";
 		var accountmanagertel="";
 		var accountmanageremail="";
+	} else{
+		var accountself = 0;
+		var accountmanager = $("#accountmanager").val() ? $("#accountmanager").val() : warring("财务负责人");
+		var accountmanagertel = $("#accountmanagertel").val() ? $("#accountmanagertel").val() : warring("财务电话");
+		var accountmanageremail = $("#accountmanageremail").val();
 	};
 	var compyaccountbank = $("#compyaccountbank").val();
 	var compyaccountname = $("#compyaccountname").val();
