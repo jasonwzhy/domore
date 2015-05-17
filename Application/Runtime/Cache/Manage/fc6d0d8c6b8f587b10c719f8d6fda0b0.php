@@ -22,7 +22,7 @@
 
 				</div>
 				
-	<span class="navtext">DB28-1342</span>
+	<span class="navtext"><?php echo ($agentdetail["agent_id"]); ?></span>
 
 			</div>
 		</nav>
@@ -32,7 +32,7 @@
 			<div class="col-xs-12">
 				<div class="row">
 					<div class="col-xs-10">
-						<h4>商家经理</h4>
+						<h4><?php echo ($agentdetail["agent_manager"]); ?></h4>
 					</div>
 					<div class="col-xs-2">
 						<a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
@@ -41,25 +41,25 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-8">
-						<h5>品牌: 传奇健身</h5>
+						<h5>品牌: <?php echo ($agentdetail["agent_name"]); ?></h5>
 					</div>
 					<div class="col-xs-4">
-						<h5>场馆: 5</h5>
+						<h5>场馆: <?php echo ($agentshopcount); ?></h5>
 					</div>
 				</div>
 				<hr>
 				<div class="row blacktext">
 					<div class="col-xs-6">
-						<h5>18628286543</h5>
+						<h5><?php echo ($agentdetail["agent_manager_tel"]); ?></h5>
 					</div>
 					<div class="col-xs-6">
-						<h5>1002301@qq.com</h5>
+						<h5><?php echo ($agentdetail["agent_manager_email"]); ?></h5>
 					</div>
 				</div>
 				<hr>
 				<div class="row blacktext">
 					<div class="col-xs-12">
-						<h5>成都市天府新区南宋御街打浦桥2号旌上云亭东区A座18层234室</h5>
+						<h5><?php echo ($agentdetail["agent_address"]); ?></h5>
 					</div>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 		<div class="row">
 			<div class="col-xs-12 managebtn">
 				<!-- <button type="button" id="subrelationbtn" agentid="" class="btn btn-primary btn-lg">管理关联场馆</button> -->
-				<a href="/manage/agentshop/mkrelation/1"  id="subrelationbtn" agentid="" class="btn btn-primary btn-lg">管理关联场馆</a> <!-- 添加相对应的agentid跳转 -->
+				<a href="/manage/agentshop/mkrelation/aid/<?php echo ($agentdetail["agent_id"]); ?>"  id="subrelationbtn" agentid="" class="btn btn-primary btn-lg">管理关联场馆</a> <!-- 添加相对应的agentid跳转 -->
 			</div>
 		</div>
 
@@ -79,78 +79,17 @@
 				<h6><?php echo ($member["address"]); ?></h6>
 			</div>
 		</div> -->
-		<div class="row shopitem">
-			<div class="col-xs-12">
-				<h5>DP28-01453</h5>
-				<hr>
-				<strong>传奇健身科华南路馆</strong>
-				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
-			</div>
-		</div>
-
-		<div class="row shopitem">
-			<div class="col-xs-12">
-				<h5>DP28-01453</h5>
-				<hr>
-				<strong>传奇健身科华南路馆</strong>
-				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
-			</div>
-		</div>
-
-		<div class="row shopitem">
-			<div class="col-xs-12">
-				<h5>DP28-01453</h5>
-				<hr>
-				<strong>传奇健身科华南路馆</strong>
-				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
-			</div>
-		</div>
-		<div class="row shopitem">
-			<div class="col-xs-12">
-				<h5>DP28-01453</h5>
-				<hr>
-				<strong>传奇健身科华南路馆</strong>
-				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
-			</div>
-		</div>
-	</div>
-<!-- 	<div class="container myagentcont">
-		<?php if(empty($myagentlst)): ?><div class="row">
+		<?php if(is_array($agetnshoplst)): foreach($agetnshoplst as $key=>$agetnshop): ?><div class="row shopitem">
 				<div class="col-xs-12">
-					<div class="myempty">
-						<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 还没有添加 商户 哦!</p>
-					</div>
+					<h5><?php echo ($agetnshop["agentshop_id"]); ?></h5>
+					<hr>
+					<strong><?php echo ($agetnshop["shop_name"]); ?></strong>
+					<h6><?php echo ($agetnshop["address"]); ?></h6>
 				</div>
-			</div>
-		<?php else: ?> 
-			<?php if(is_array($myagentlst)): foreach($myagentlst as $key=>$myagent): ?><div class="row shopitem">
-					<a href="#">
-					<div class="col-xs-12">
-						<div class="row">
-							<div class="col-xs-9">
-								<h5><?php echo ($myagent["agent_id"]); ?></h5>
-							</div>
-							<div class="col-xs-3">
-								<?php if(($myagent["agentcount"]) == "0"): ?><span class="noagentmark">无场馆</span><?php endif; ?>
-							</div>
-						</div>
-						
-						<hr>
-						<div class="row">
-							<div class="col-xs-4">
-								<strong><?php echo ($myagent["agent_name"]); ?></strong>
-							</div>
-							<div class="col-xs-4">
-								<h6><?php echo ($myagent["agent_manager"]); ?></h6>
-							</div>
-							<div class="col-xs-4 text-center">
-								<h6><?php echo ($myagent["agentcount"]); ?></h6>		
-							</div>
-						</div>
-					</div>
-					</a>
-				</div><?php endforeach; endif; endif; ?>
-	</div> -->
+			</div><?php endforeach; endif; ?>
+
+	</div>
+
 
 
 		</div><!--  st-pusher -->
@@ -159,7 +98,5 @@
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
 		
 		
-	<script src="/Public/manage/js/agentdetail.js"></script>
-
 	</body>
 </html>

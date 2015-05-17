@@ -53,6 +53,7 @@ class AgentshopController extends Controller {
 			*/
 			$agentshopM = M('agentshop');
 			$render['error']="";
+			$region = M('Region');
 			$staffid = $_SESSION['staffid'];//session 中 登录员工的id,调试赞用1
 			$create_DT = date('Y-m-d H:i:s',time());
 			$agentdata = array(
@@ -76,9 +77,22 @@ class AgentshopController extends Controller {
 				"is_appointment"	=>	$_POST["isappointment"],
 				"appointment_time"	=>	$_POST["appointmenttime"]
 			);
+			$zonecode = $region->where("region_id=".$_POST["scityid"])->find();
+			$zonecode = substr($zonecode["telcode"], 1);
+			$sncountc = array(
+					"city_id" => $_POST["scityid"],
+					"shoptype_id" => $_POST["shoptypeid"]
+				);
+			$acount = $agentshopM->where($sncountc)->count();
+			$acount = $acount+1+60;
+			$sncode = "P".$zonecode."-".sprintf("%02d",$_POST["shoptypeid"]).sprintf("%03d",$acount);
 			if (isset($_POST['shopagentid']) && $_POST['shopagentid'] != "") {
-				$agentdata["agent_id"] = $_POST['shopagentid'];
-			}		
+				$agentdata["agent_id"] = $_POST['shopagentid'];//联盟商户member
+				$agentdata["shop_sn"] = "D".$sncode;
+			}
+			else{//非联盟nomember
+				$agentdata["shop_sn"] = $sncode;
+			}
 			$retagentshop=$agentshopM->add($agentdata);
 			if ($retagentshop) {
 				$_SESSION['shopid'] = $retagentshop;
@@ -348,7 +362,7 @@ class AgentshopController extends Controller {
 		$this->assign($render);
 		$this->display('Agentshop/myagent');
 	}
-	public function agentdetail($aid=0)
+	public function agentdetail($aid)
 	{
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -356,18 +370,73 @@ class AgentshopController extends Controller {
 			$this->success('页面跳转中...');
 			return ;
 		}
-		$this->assign($aid);
-		$this->display('Agentshop/myagentdetail');
+		$myagentM = M("agent");
+		$shopM = M("agentshop");
+		$agentID["agent_id"] = $aid;
+		$render = array();
+		$agentdetaildata = $myagentM->where($agentID)->find();
+		if ($agentdetaildata) {
+			$agentshopcount = $shopM->where($agentID)->count();
+			$agetnshopLst = $shopM->where($agentID)->select();
+			$render["agentdetail"] = $agentdetaildata;
+			$render["agentshopcount"] = $agentshopcount;
+			$render["agetnshoplst"] = $agetnshopLst;
+			$this->assign($render);
+			$this->display('Agentshop/myagentdetail');
+			return ;
+		} else {
+			
+		}
 	}
-	public function mkrelation($aid=0){
+	public function mkrelation($aid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
 			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
-		
+		$myagentM = M("agent");
+		$shopM = M("agentshop");
+		$agentID["agent_id"] = $aid;
+		$noagentID["agent_id"] = array("EXP","IS NULL");
+		$render = array();
+		//应当添加检测agentid是否存在
+		$membershopLst = $shopM->where($agentID)->select();
+		$nomembershopLst = $shopM->where($noagentID)->select();
+		$render["membershoplst"] = $membershopLst;
+		$render["nomembershoplst"] = $nomembershopLst;
+		$render["agentid"] = $aid;
+		$this->assign($render);
 		$this->display('Agentshop/mkagentrelation');
+	}
+	public function agentaddshop()
+	{
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$agentM = M("agent");
+		$shopM = M("agentshop");
+		$render["error"] = "";
+		if (IS_POST) {
+			$agentiddata['agent_id'] = $_POST["agentid"];
+			foreach ($_POST["ids"] as $shopid) {
+				$shopdata = $shopM->where("agentshop_id=".$shopid)->find();
+				$agentiddata["shop_sn"] = "D".$shopdata["shop_sn"];
+				$condition["agentshop_id"] = $shopid;
+				$shopM->where($condition)->save($agentiddata);
+			}
+			$this->ajaxReturn($render);
+			return ; 
+		} else {
+			$render["error"] = "error";
+			$this->ajaxReturn($render);
+			return ;
+			# code...
+		}
+		
 	}
 	public function signout(){
 		unset($_SESSION['staffid']);

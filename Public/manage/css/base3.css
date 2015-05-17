@@ -87,6 +87,13 @@ nav{
 	margin-right: 0px;
 	margin-left: 0px;
 }
+.relationcontainer .btn-primary{
+	width: 100%;
+	border-radius: 0px;
+	background-color: #52BBEB;
+	border-color: #52BBEB;
+	margin-top: 10px;
+}
 .relationcontainer hr{
 	border: 1px solid #46ABCE;
 }
@@ -114,3 +121,21 @@ nav{
 .reshopitem.member{
 	background-color: #52BBEB;
 }
+.reshopitem.nomember{
+	background-color: #F4F4F4;	
+}
+.reshopitem.nomember hr{
+	border: 1px solid #E6E6E6;
+}
+.reshopitem.nomember h5{
+	color:#52BBEB;
+}
+.reshopitem.nomember.active{
+	background-color: #F47960;
+}
+.reshopitem.nomember.active h5{
+	color: #FFF;
+}
+.reshopitem.nomember.active hr{
+	border: 1px solid #DD6554;
+ }

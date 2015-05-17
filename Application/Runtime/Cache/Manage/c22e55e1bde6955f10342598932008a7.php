@@ -71,7 +71,7 @@
 			</div>
 		<?php else: ?> 
 			<?php if(is_array($myagentlst)): foreach($myagentlst as $key=>$myagent): ?><div class="row shopitem">
-					<a href="/manage/agentshop/agentdetail/0">
+					<a href="/manage/agentshop/agentdetail/aid/<?php echo ($myagent["agent_id"]); ?>">
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-xs-9">

@@ -1,8 +1,0 @@
-$(".subrelationbtn").click(){
-	
-}
-function consubmit(){
-
-
-
-}

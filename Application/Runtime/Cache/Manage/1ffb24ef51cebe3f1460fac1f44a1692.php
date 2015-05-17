@@ -29,19 +29,26 @@
 		
 	<div class="row relationcontainer">
 		<div class="col-xs-12">
-
-			<div class="row reshopitem member">
-				<div class="col-xs-12">
-					<h5>P28-01453</h5>
-					<hr>
-					<strong>传奇健身科华南路馆</strong>
-					<h6>成都市武侯区科华南路326号伊云中心12层</h6>
-				</div>
-			</div>
-
+			<?php if(is_array($membershoplst)): foreach($membershoplst as $key=>$membershop): ?><div class="row reshopitem member">
+					<div class="col-xs-12">
+						<h5><?php echo ($membershop["agentshop_id"]); ?></h5>
+						<hr>
+						<strong><?php echo ($membershop["shop_name"]); ?></strong>
+						<h6><?php echo ($membershop["address"]); ?></h6>
+					</div>
+				</div><?php endforeach; endif; ?>
+			<?php if(is_array($nomembershoplst)): foreach($nomembershoplst as $key=>$nomembershop): ?><div class="row reshopitem nomember" id="<?php echo ($nomembershop["agentshop_id"]); ?>">
+					<div class="col-xs-12">
+						<h5><?php echo ($nomembershop["agentshop_id"]); ?></h5>
+						<hr>
+						<strong><?php echo ($nomembershop["shop_name"]); ?></strong>
+						<h6><?php echo ($nomembershop["address"]); ?></h6>
+					</div>
+				</div><?php endforeach; endif; ?>
 		</div>
-		
+		<button type="button" id="mkagentrelation" agentid="<?php echo ($agentid); ?>" class="btn btn-primary btn-lg">确 定</button>
 	</div>
+
 
 
 		</div><!--  st-pusher -->
@@ -50,5 +57,7 @@
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
 		
 		
+	<script src="/Public/manage/js/mkagentrelation.js"></script>
+
 	</body>
 </html>

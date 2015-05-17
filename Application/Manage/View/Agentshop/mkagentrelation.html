@@ -9,17 +9,32 @@
 <block name="page-wrapper">
 	<div class="row relationcontainer">
 		<div class="col-xs-12">
-
-			<div class="row reshopitem member">
-				<div class="col-xs-12">
-					<h5>P28-01453</h5>
-					<hr>
-					<strong>传奇健身科华南路馆</strong>
-					<h6>成都市武侯区科华南路326号伊云中心12层</h6>
+			<foreach name="membershoplst" item="membershop">
+				<div class="row reshopitem member">
+					<div class="col-xs-12">
+						<h5><{$membershop.agentshop_id}></h5>
+						<hr>
+						<strong><{$membershop.shop_name}></strong>
+						<h6><{$membershop.address}></h6>
+					</div>
 				</div>
-			</div>
-
+			</foreach>
+			<foreach name="nomembershoplst" item="nomembershop">
+				<div class="row reshopitem nomember" id="<{$nomembershop.agentshop_id}>">
+					<div class="col-xs-12">
+						<h5><{$nomembershop.agentshop_id}></h5>
+						<hr>
+						<strong><{$nomembershop.shop_name}></strong>
+						<h6><{$nomembershop.address}></h6>
+					</div>
+				</div>
+			</foreach>
 		</div>
-		
+		<button type="button" id="mkagentrelation" agentid="<{$agentid}>" class="btn btn-primary btn-lg">确 定</button>
 	</div>
+
+</block>
+
+<block name="page-js">
+	<script src="__PUBLIC__/manage/js/mkagentrelation.js"></script>
 </block>
