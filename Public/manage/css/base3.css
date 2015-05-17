@@ -16,6 +16,13 @@ nav{
 	top: 15px;
 	left: 42%;
 }
+.navtext{
+	color: #A89F9B;
+	position: absolute;;
+	font-size: 17px;
+	top: 15px;
+	left: 35%;
+}
 .detailcontainer{
 	margin-top: 50px;
 }
@@ -28,6 +35,7 @@ nav{
 	padding-right: 10px;
 	color: #fff;
 	border-radius: 2px;
+	margin-bottom: 10px;
 }
 .agentdetail span{
 	line-height: 2;
@@ -41,4 +49,68 @@ nav{
 }
 .agentdetail .blacktext{
 	color: #666666;
+}
+.managebtn{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.managebtn .btn-primary{
+	width: 100%;
+	border-radius: 2px;
+	background-color: #52BBEB;
+	border-color: #52BBEB;
+}
+
+.shopitem{
+	margin-bottom: 5px;
+	background-color: #FAFAFA;
+	margin-left: -5px;
+	margin-right: -5px;
+	margin-top: 15px;
+}
+.shopitem hr{
+	margin-bottom: 10px;
+	margin-top: 3px;
+	/*border: 1px solid #46ABCE;*/
+}
+.shopitem h6{
+	color: #666666;
+}
+.shopitem strong{
+	color: #666666;	
+}
+.shopitem h5{
+	color: #666666;
+}
+.relationcontainer{
+	margin-top: 50px;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+.relationcontainer hr{
+	border: 1px solid #46ABCE;
+}
+.reshopitem{
+	margin-bottom: 5px;
+	background-color: #FAFAFA;
+	margin-left: -5px;
+	margin-right: -5px;
+	margin-top: 15px;
+}
+.reshopitem hr{
+	margin-bottom: 10px;
+	margin-top: 3px;
+	/*border: 1px solid #46ABCE;*/
+}
+.reshopitem h6{
+	color: #666666;
+}
+.reshopitem strong{
+	color: #666666;	
+}
+.reshopitem h5{
+	color: #FFF;
+}
+.reshopitem.member{
+	background-color: #52BBEB;
 }

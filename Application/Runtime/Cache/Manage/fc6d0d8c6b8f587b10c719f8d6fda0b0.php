@@ -64,6 +64,55 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-12 managebtn">
+				<!-- <button type="button" id="subrelationbtn" agentid="" class="btn btn-primary btn-lg">管理关联场馆</button> -->
+				<a href="/manage/agentshop/mkrelation/1"  id="subrelationbtn" agentid="" class="btn btn-primary btn-lg">管理关联场馆</a> <!-- 添加相对应的agentid跳转 -->
+			</div>
+		</div>
+
+		<!-- <div class="row shopitem">
+			<div class="col-xs-12">
+				<h5><?php echo ($member["agentshop_id"]); ?></h5>
+				<hr>
+				<strong><?php echo ($member["shop_name"]); ?></strong>
+				<h6><?php echo ($member["address"]); ?></h6>
+			</div>
+		</div> -->
+		<div class="row shopitem">
+			<div class="col-xs-12">
+				<h5>DP28-01453</h5>
+				<hr>
+				<strong>传奇健身科华南路馆</strong>
+				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
+			</div>
+		</div>
+
+		<div class="row shopitem">
+			<div class="col-xs-12">
+				<h5>DP28-01453</h5>
+				<hr>
+				<strong>传奇健身科华南路馆</strong>
+				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
+			</div>
+		</div>
+
+		<div class="row shopitem">
+			<div class="col-xs-12">
+				<h5>DP28-01453</h5>
+				<hr>
+				<strong>传奇健身科华南路馆</strong>
+				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
+			</div>
+		</div>
+		<div class="row shopitem">
+			<div class="col-xs-12">
+				<h5>DP28-01453</h5>
+				<hr>
+				<strong>传奇健身科华南路馆</strong>
+				<h6>成都市武侯区科华南路326号伊云中心12层</h6>
+			</div>
+		</div>
 	</div>
 <!-- 	<div class="container myagentcont">
 		<?php if(empty($myagentlst)): ?><div class="row">
@@ -110,7 +159,7 @@
 		<script type="text/javascript" src="/Public/manage/js/bootstrap.js"></script>
 		
 		
-
+	<script src="/Public/manage/js/agentdetail.js"></script>
 
 	</body>
 </html>

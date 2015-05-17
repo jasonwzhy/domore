@@ -17,8 +17,11 @@ nav{
 	left: 42%;
 }
 .shopitem{
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	background-color: #FAFAFA;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 15px;
 }
 .shopitem hr{
 	margin-bottom: 10px;
