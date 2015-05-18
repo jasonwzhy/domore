@@ -349,7 +349,6 @@ class AgentshopController extends Controller {
 			"creator_id" => $_SESSION["staffid"]
 		);
 		$myshopLst = $myshopM->where($condition)->select();
-		var_dump($myshopLst);
 		foreach ($myshopLst as $shopitem) {
 			if ($shopitem["agent_id"] != NULL) {
 				$render["memberlst"][] = $shopitem;
