@@ -62,7 +62,6 @@ $("#appointment").click(function(){
 });
 
 $("#createsub").click(function(){
-	$("#createsub").text("场馆资料提交中...").attr("disabled","true");
 	var shoptype = $("#shoptype").val() ? $("#shoptype").val() : warring("场馆类型");
 	var shopname = $("#shopname").val() ? $("#shopname").val() : warring("场馆名");
 	var shoptel	= $("#shoptel").val() ? $("#shoptel").val() : warring("场馆联系电话");
@@ -90,6 +89,7 @@ $("#createsub").click(function(){
 	if($("#hasagent").attr("class") == "active"){
 		agentid = $("#sagent").val() ? $("#sagent").val() : warring("所属商户");
 	}
+	$("#createsub").text("场馆资料提交中...").attr("disabled","true");
 	$.post("/manage/agentshop/newshop",
 		{
 			shopagentid:agentid,
