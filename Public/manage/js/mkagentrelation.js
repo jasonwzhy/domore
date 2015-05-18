@@ -21,7 +21,7 @@ $("#mkagentrelation").click(function(){
 		},
 		function(ret){
 			if (ret.error == "") {//success
-				alert('success');
+				alert('商户关联场馆成功');
 				window.location.href="/manage/agentshop/myagent";
 			}else{//err
 				alert(ret.error);

@@ -174,7 +174,7 @@ $("#subbtn").click(function(){
 		},
 		function(ret){
 			if (ret.error == "") {//success
-				alert('success');
+				alert('创建商户成功');
 				window.location.href="/manage/agentshop/newshop";
 			}else{//err
 				alert(ret.error);
