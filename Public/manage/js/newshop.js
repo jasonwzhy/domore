@@ -62,6 +62,7 @@ $("#appointment").click(function(){
 });
 
 $("#createsub").click(function(){
+	$("#createsub").text("场馆资料提交中...").attr("disabled","true");
 	var shoptype = $("#shoptype").val() ? $("#shoptype").val() : warring("场馆类型");
 	var shopname = $("#shopname").val() ? $("#shopname").val() : warring("场馆名");
 	var shoptel	= $("#shoptel").val() ? $("#shoptel").val() : warring("场馆联系电话");
@@ -111,6 +112,7 @@ $("#createsub").click(function(){
 			console.log(ret);
 			if ("" != ret.error ) {
 				alert(ret.error);
+				$("#createsub").text("重新提交").removeAttr("disabled");
 			}
 			else{
 				alert("店铺创建成功!");

@@ -224,23 +224,39 @@ class AgentshopController extends Controller {
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				// $agentshopalbumsM = M('agentshopalbums');
-				$upload = new \Think\Upload();// 实例化上传类
-				$upload->maxSize   =     6145728 ;// 设置附件上传大小
-				$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-				$upload->rootPath  =     './Uploads/agents/'; // 设置附件上传根目录
-				// $upload->savePath  =     $sid.'/';
-				$upload->subName   =     "";
-				$info   =   $upload->uploadOne($_FILES['agentimg']);
-				if(!$info) {
-					$this->error($upload->getError());
+				// $upload = new \Think\Upload();// 实例化上传类
+				// $upload->maxSize   =     6145728 ;// 设置附件上传大小
+				// $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+				// $upload->rootPath  =     './Uploads/agents/'; // 设置附件上传根目录
+				// $upload->subName   =     "";
+				// $info   =   $upload->uploadOne($_FILES['agentimg']);
+				// if(!$info) {
+				// 	$this->error($upload->getError());
+				// }else{
+				// 	$imgpath = $upload->rootPath.$info["savepath"].$info["savename"];
+				// 	$imgpath = substr($imgpath,1);
+				// 	$info["imgpath"] = $imgpath;
+				// 	$this->ajaxReturn($info);
+				// }
+				$render = array();
+				$rootpath = "./Uploads/agents/";
+				$fname = md5(uniqid(rand())).".jpg";
+				$filenamepath = $rootpath.$fname;
+
+				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$filenamepath);
+				if($saveret)
+				{
+					$filenamepath = substr($filenamepath,1);
+					$render["imgpath"] = $filenamepath;
+					$this->ajaxReturn($render);
 				}else{
-					$imgpath = $upload->rootPath.$info["savepath"].$info["savename"];
-					$imgpath = substr($imgpath,1);
-					$info["imgpath"] = $imgpath;
-					$this->ajaxReturn($info);
+					$render['error'] = "上传格式错误,请用jpg png jpeg等格式...";
+					$this->ajaxReturn($render);
 				}
+
 			}
 			elseif (isset($_POST) && NULL != $_POST) {
+				$agentshopM = M('agentshop');
 				$agentM = M("agent");
 				$render["error"]="";
 				$passwd = rand(10000,99999);
@@ -264,9 +280,18 @@ class AgentshopController extends Controller {
 					"passwd"	=>	$passwd
 					// "first_account"=>""
 				);
+				$regionM = M('Region');
+
+				$zonecode = $regionM->where("region_id=".$_POST["scity"])->find();
+				$zonecode = substr($zonecode["telcode"],1);
+
+				$sncountc = array("city_id" => $_POST["scity"]);
+				$acount = $agentM->where($sncountc)->count();
+				$acount = $acount+1+60;
+				$sncode = "B".$zonecode."-".sprintf("%05d",$acount);
+				$agentdata["agent_sn"] = $sncode;
 				$retagent=$agentM->add($agentdata);
 				if ($retagent) {
-
 					if ($_POST["accountself"] == 1) {
 						$accountmanager = $_POST["manager"];
 						$accountmanagertel = $_POST["managertel"];

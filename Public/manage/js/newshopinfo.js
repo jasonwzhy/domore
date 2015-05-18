@@ -24,19 +24,25 @@ function dataURItoBlob(dataURI) {
     console.log(content);
     return new Blob([new Uint8Array(content)], {type: mimestring});
 }
+function loadding(){
+	$("#addshoppicform").addClass("loadding");
+	$("#addplusspan").removeClass("glyphicon-plus");
+}
+function loadend(){
+	$("#addshoppicform").removeClass("loadding");
+	$("#addplusspan").addClass("glyphicon-plus");
+}
 $("#upimg").change(function(){
 	if ($('input[id=upimg]').val() == "") {
 		
 	} else{
-		// $("#upimg").aeImageResize({width:160,height:160});
-		//alert($('input[id=upimg]').val());
+		loadding();
 		var formData = new FormData($( "#addshoppicform" )[0]);
-		console.log(formData);
+		// console.log(formData);
 		var file = this.files[0];
 		// console.log(file);
-		 var url = URL.createObjectURL(file);
-
-		 var img = new Image();
+		var url = URL.createObjectURL(file);
+		var img = new Image();
 		 
 		img.onload = function() {
 			//生成比例
@@ -65,12 +71,14 @@ $("#upimg").change(function(){
 				processData: false,
 				success: function (returndata) {
 					console.log(returndata);
+					loadend();
 					addpic(returndata.imgpath,returndata.albumsid);
 					alert("上传成功");
 				},
 				error: function (returndata) {
 					console.log(returndata);
 					alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
+					loadend();
 				}
 			})
 		}
@@ -111,6 +119,7 @@ function delshoppic(thisobj){
 }
 
 $("#subbtn").click(function(){
+	$("#subbtn").text("提交中...").attr("disabled","true");
 	var shopdesc = $("#shopdesc").val();
 	var shopmanager = $("#shopGM").val();
 	var shopmanagertel = $("#shopGMtel").val();
@@ -125,6 +134,7 @@ $("#subbtn").click(function(){
 		function(ret){
 			if (ret.error != "") {//success
 				alert(ret.error);
+				$("#subbtn").text("重新提交").removeAttr("disabled");
 				console.log(ret);
 			}else{
 				alert("提交成功!");

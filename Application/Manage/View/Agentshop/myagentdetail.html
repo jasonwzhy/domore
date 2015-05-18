@@ -1,6 +1,6 @@
 <extend name="base3" />
 <block name="page-title">
-	<span class="navtext"><{$agentdetail.agent_id}></span>
+	<span class="navtext"><{$agentdetail.agent_sn}></span>
 </block>
 <block name="page-nav-aherf">
 	<a class="navbar-brand menu-button menu-left" href="/manage/agentshop/myagent" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
@@ -62,7 +62,7 @@
 		<foreach name="agetnshoplst" item="agetnshop">
 			<div class="row shopitem">
 				<div class="col-xs-12">
-					<h5><{$agetnshop.agentshop_id}></h5>
+					<h5><{$agetnshop.shop_sn}></h5>
 					<hr>
 					<strong><{$agetnshop.shop_name}></strong>
 					<h6><{$agetnshop.address}></h6>

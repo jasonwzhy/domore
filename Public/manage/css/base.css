@@ -173,6 +173,11 @@ nav{
 	font-size: 25px;
 	color: #52BBEB;
 }
+.loadding{
+	background-image:url("/Public/manage/img/loading.gif");
+	background-position:center;
+	background-repeat:no-repeat;
+}
 #upimg{
 	/*padding-top: 40%;
 	padding-bottom: 40%;*/

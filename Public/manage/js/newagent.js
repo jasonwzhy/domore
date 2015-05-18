@@ -2,37 +2,105 @@ $("#upimgbtn").click(function(){
 	 $('input[id=agentimg]').click();
 
 })
+function dataURItoBlob(dataURI) {
+    // convert base64 to raw binary data held in a string 
+    var byteString 
+        ,mimestring 
+
+    if(dataURI.split(',')[0].indexOf('base64') !== -1 ) {
+        byteString = atob(dataURI.split(',')[1])
+    } else {
+        byteString = decodeURI(dataURI.split(',')[1])
+    }
+    
+
+    mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    
+    var content = new Array();
+    for (var i = 0; i < byteString.length; i++) {
+        content[i] = byteString.charCodeAt(i)
+    }
+    console.log(mimestring);
+    console.log(content);
+    return new Blob([new Uint8Array(content)], {type: mimestring});
+}
+
 $("#agentimg").change(function(){
 	if ($('input[id=agentimg]').val() == "") {
 		
 	} else{
-		//alert($('input[id=agentimg]').val());
+		$("#upimgbtn").text("上传中...").attr("disabled","true");
 		var formData = new FormData($( "#addagenticform" )[0]);
-		//console.log(formData);
-		$.ajax({
-			url: '/manage/agentshop/newagent',
-			type: 'POST',
-			data: formData,
-			async: true,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function (returndata) {
-				//addpic(returndata.savepath+returndata.savename);
-				//console.log(returndata.savepath+returndata.savename);
-				// console.log(returndata);
-				// addpic(returndata.imgpath,returndata.albumsid);
-				$("#agentimglabel").text("已上传");
-				$("#agentimglabel").attr("imgpath",returndata.imgpath);
-				alert("上传成功");
-			},
-			error: function (returndata) {
-				alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
-			}
-		})
+		var file = this.files[0];
+		// console.log(file);
+		var url = URL.createObjectURL(file);
+		var img = new Image();
+		img.onload = function() {
+			//生成比例
+			var width = img.width,
+				height = img.height,  
+				scale = width / height;  
+			// console.log(scale);
+			width = parseInt(800);  
+			height = parseInt(width / scale);
+			//生成canvas  
+			var $canvas = $('#myCanvas');  
+			var ctx = $canvas[0].getContext('2d');  
+			$canvas.attr({width : width, height : height});  
+			ctx.drawImage(img, 0, 0, width, height);  
+			var base64 = $canvas[0].toDataURL('image/jpeg',0.5);  
+			var blob = dataURItoBlob(base64);
+			var fdata = new FormData();
+			fdata.append("myupimg",blob);
+			$.ajax({
+				url: '/manage/agentshop/newagent',
+				type: 'POST',
+				data: fdata,
+				async: true,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (returndata) {
+					$("#agentimglabel").text("已上传");
+					$("#upimgbtn").text("重新上传").removeAttr("disabled");
+					$("#agentimglabel").attr("imgpath",returndata.imgpath);
+					alert("上传成功");
+				},
+				error: function (returndata) {
+					alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
+				}
+			})
+		}
+		img.src = url;
 	};
-	// $("input[id=agentimg]").val('');
+	$('input[id=agentimg]').val('');
 });
+
+// $("#agentimg").change(function(){
+// 	if ($('input[id=agentimg]').val() == "") {
+		
+// 	} else{
+// 		var formData = new FormData($( "#addagenticform" )[0]);
+// 		$.ajax({
+// 			url: '/manage/agentshop/newagent',
+// 			type: 'POST',
+// 			data: formData,
+// 			async: true,
+// 			cache: false,
+// 			contentType: false,
+// 			processData: false,
+// 			success: function (returndata) {
+// 				$("#agentimglabel").text("已上传");
+// 				$("#agentimglabel").attr("imgpath",returndata.imgpath);
+// 				alert("上传成功");
+// 			},
+// 			error: function (returndata) {
+// 				alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
+// 			}
+// 		})
+// 	};
+// });
+
 $("#accountself").click(function(){
 	$("#accountform").hide();
 });
