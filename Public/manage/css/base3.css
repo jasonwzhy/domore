@@ -139,3 +139,31 @@ nav{
 .reshopitem.nomember.active hr{
 	border: 1px solid #DD6554;
  }
+.shopclasscontainer{
+	margin-top: 70px;
+}
+.shopclasscontainer .btn-primary
+{
+	width: 100%;
+	background-color: #52BBEB;
+	border-color: #52BBEB;
+	border-radius: 2px;
+}
+.panel-group{
+	margin-top: 5px;
+}
+/*.panel.panel-default{
+	background-color:#52BBEB;
+	border-color:#0F82AA;
+	color:#FFF;
+}*/
+.panel-default>.panel-heading{
+	background-color:#52BBEB;
+	border-color:#0F82AA;
+	color: #FFF;
+	text-align: center;
+}
+.panel-default>.panel-heading a{
+	padding-left: 40%;
+	padding-right: 40%;
+}

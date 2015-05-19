@@ -463,6 +463,9 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+	public function shopclass(){
+		$this->display('Agentshop/shopclass');
+	}
 	public function signout(){
 		unset($_SESSION['staffid']);
 		$this->assign('waitSecond',0);
