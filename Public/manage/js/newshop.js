@@ -26,9 +26,13 @@ var mapcenter = "";
 		toolBar.doLocation();
 		var locallisten = AMap.event.addListener(toolBar,'location',function callback(e){	
 			locationInfo = e.lnglat;
-			toolBar.doLocation();
+			// toolBar.doLocation();
+			
+			if (toolBar.doLocation() == undefined) {
+				AMap.event.removeListener(locallisten);
+			};
 		});
-		AMap.event.removeListener(locallisten);
+		// AMap.event.removeListener(locallisten);
 		// toolBar.hideLocation();
 		// toolBar.hide();
 	});
