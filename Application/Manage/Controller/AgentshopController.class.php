@@ -466,6 +466,34 @@ class AgentshopController extends Controller {
 	public function shopclass(){
 		$this->display('Agentshop/shopclass');
 	}
+	public function upyuntest()
+	{
+		// require_once('upyun.class.php');
+		// require_once('upyun.class.php');
+		if (IS_POST) {
+			if ($_FILES != NULL) {
+				import("Manage.Util.upyun");
+				$upyun = new \UpYun('domoretest', 'domore', 'openwang');
+				// $fh = fopen('./Uploads/123.jpg', 'rb');
+				$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
+				$opts = array(
+					\UpYun::X_GMKERL_TYPE => 'fix_both',
+					\UpYun::X_GMKERL_VALUE => '300x200'
+				);
+				$rsp = $upyun->writeFile('/demo/12.png', $fh, True, $opts);   // 上传图片，自动创建目录
+				fclose($fh);
+				$this->ajaxReturn($rsp);
+			} else {
+				# code...
+			}
+			
+			# code...
+		} else {
+			# code...
+			$this->display('Agentshop/upyum');
+		}
+		
+	}
 	public function signout(){
 		unset($_SESSION['staffid']);
 		$this->assign('waitSecond',0);

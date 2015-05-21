@@ -3,26 +3,26 @@ $("#upimgbtn").click(function(){
 
 })
 function dataURItoBlob(dataURI) {
-    // convert base64 to raw binary data held in a string 
-    var byteString 
-        ,mimestring 
+	// convert base64 to raw binary data held in a string 
+	var byteString 
+		,mimestring 
 
-    if(dataURI.split(',')[0].indexOf('base64') !== -1 ) {
-        byteString = atob(dataURI.split(',')[1])
-    } else {
-        byteString = decodeURI(dataURI.split(',')[1])
-    }
-    
+	if(dataURI.split(',')[0].indexOf('base64') !== -1 ) {
+		byteString = atob(dataURI.split(',')[1])
+	} else {
+		byteString = decodeURI(dataURI.split(',')[1])
+	}
+	
 
-    mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0]
-    
-    var content = new Array();
-    for (var i = 0; i < byteString.length; i++) {
-        content[i] = byteString.charCodeAt(i)
-    }
-    console.log(mimestring);
-    console.log(content);
-    return new Blob([new Uint8Array(content)], {type: mimestring});
+	mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0]
+	
+	var content = new Array();
+	for (var i = 0; i < byteString.length; i++) {
+		content[i] = byteString.charCodeAt(i)
+	}
+	console.log(mimestring);
+	console.log(content);
+	return new Blob([new Uint8Array(content)], {type: mimestring});
 }
 function loadding(){
 	$("#addshoppicform").addClass("loadding");
