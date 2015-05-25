@@ -153,9 +153,35 @@ class AgentshopController extends Controller {
 				// // $upload->savePath  =     $sid.'/';
 				// $upload->subName   =     $shopid;
 				// $info   =   $upload->uploadOne($_FILES['myupimg']);
-				$rootpath = "./Uploads/shops/".$shopid."/";
+				import("Manage.Util.upyun");
+				// $upyun = new \UpYun('domoretest', 'domore', 'openwang');
+				$upyun = new \UpYun('domoreimages', 'domore', 'zxh123456');
+				try {
+					
+				} catch (Exception $e) {
+					
+				}
+
+				$rootpath = "/img/shops/".$shopid."/";
 				$fname = md5(uniqid(rand())).".jpg";
 				$filenamepath = $rootpath.$fname;
+				$domain = "images.lifecare.cc";
+				$filenamepath = $domain + $filenamepath;
+				$render['imgpath'] = $filenamepath;
+
+				// $fh = fopen('./Uploads/123.jpg', 'rb');
+				$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
+				// $opts = array(
+				// 	\UpYun::X_GMKERL_TYPE => 'fix_both',
+				// 	\UpYun::X_GMKERL_VALUE => '300x200'
+				// );
+				$rsp = $upyun->writeFile($filenamepath, $fh, True);   // 上传图片，自动创建目录
+				
+				fclose($fh);
+				
+				// $rootpath = "./Uploads/shops/".$shopid."/";
+				// $fname = md5(uniqid(rand())).".jpg";
+				// $filenamepath = $rootpath.$fname;
 
 				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$filenamepath);
 				if($saveret)
@@ -473,7 +499,7 @@ class AgentshopController extends Controller {
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				import("Manage.Util.upyun");
-				$upyun = new \UpYun('domoretest', 'domore', 'openwang');
+				$upyun = new \UpYun('domoreimages', 'domore', 'zxh123456');
 				// $fh = fopen('./Uploads/123.jpg', 'rb');
 				$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
 				$opts = array(
