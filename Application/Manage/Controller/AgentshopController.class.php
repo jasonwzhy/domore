@@ -131,74 +131,72 @@ class AgentshopController extends Controller {
 		return $stypedata;
 	}
 	public function shopinfo(){
-		// 创建店铺
-		// 访问时shopid在否 未加入
-
+		// 创建场馆 完善场馆信息
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
 			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
 			$this->success('页面跳转中...');
 			return ;
 		}
+		//添加判断session['shopid']正常
+		#code...
+		#{
+		#
+		#}
 		$shopid = $_SESSION['shopid'];
+
 		$render['error'] = "";
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				$agentshopalbumsM = M('agentshopalbums');
-				// $this->ajaxReturn($_FILES["myupimg"]);
-				// $upload = new \Think\Upload();// 实例化上传类
-				// $upload->maxSize   =     6145728 ;// 设置附件上传大小
-				// $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-				// $upload->rootPath  =     './Uploads/shops/'; // 设置附件上传根目录
-				// // $upload->savePath  =     $sid.'/';
-				// $upload->subName   =     $shopid;
-				// $info   =   $upload->uploadOne($_FILES['myupimg']);
+
 				import("Manage.Util.upyun");
-				// $upyun = new \UpYun('domoretest', 'domore', 'openwang');
+				//图片上传至upyun
 				$upyun = new \UpYun('domoreimages', 'domore', 'zxh123456');
+				$fname = md5(uniqid(rand())).".jpg";
 				try {
-					
+					$upyun_rootpath = "/img/shops/".$shopid."/";
+					$domain = "images.lifecare.cc";
+					$upyun_filenamepath = $domain.$upyun_rootpath.$fname;
+					$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
+					// $opts = array(
+					// 	\UpYun::X_GMKERL_TYPE => 'fix_both',
+					// 	\UpYun::X_GMKERL_VALUE => '300x200'
+					// );
+					$rsp = $upyun->writeFile($filenamepath, $fh, True);   // 上传图片，自动创建目录
+					fclose($fh);
+					$render['imgpath'] = $upyun_filenamepath;
 				} catch (Exception $e) {
-					
+					$render['imgpath'] = "";
+					$e->getCode();
+					$render['error'] = "上传错误".$e->getMessage();
+					$this->ajaxReturn($render);
+				}
+				//本地备份图片
+				$localbak_rootpath = "./Uploads/shops/".$shopid."/";
+				$localbak_filenamepath = $localbak_rootpath.$fname;
+
+				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$localbak_filenamepath);
+				if(!$saveret)
+				{
+					$localbak_filenamepath = "";
 				}
 
-				$rootpath = "/img/shops/".$shopid."/";
-				$fname = md5(uniqid(rand())).".jpg";
-				$filenamepath = $rootpath.$fname;
-				$domain = "images.lifecare.cc";
-				$filenamepath = $domain + $filenamepath;
-				$render['imgpath'] = $filenamepath;
-
-				// $fh = fopen('./Uploads/123.jpg', 'rb');
-				$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
-				// $opts = array(
-				// 	\UpYun::X_GMKERL_TYPE => 'fix_both',
-				// 	\UpYun::X_GMKERL_VALUE => '300x200'
-				// );
-				$rsp = $upyun->writeFile($filenamepath, $fh, True);   // 上传图片，自动创建目录
-				
-				fclose($fh);
-				
-				// $rootpath = "./Uploads/shops/".$shopid."/";
-				// $fname = md5(uniqid(rand())).".jpg";
-				// $filenamepath = $rootpath.$fname;
-
-				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$filenamepath);
-				if($saveret)
-				{
-					$filenamepath = substr($filenamepath,1);
-					$albumsdata = array(
-						"agentshop_id"	=>	$shopid,
-						"img_path"	=>	$filenamepath
-					);
-					$shopalbums = $agentshopalbumsM->add($albumsdata);
+				$localbak_filenamepath = substr($localbak_filenamepath,1);
+				$albumsdata = array(
+					"agentshop_id"	=>	$shopid,
+					"img_path"	=>	$upyun_filenamepath,
+					"localbak_imgpath" => $localbak_filenamepath
+				);
+				$shopalbums = $agentshopalbumsM->add($albumsdata);
+				if ($shopalbums) {
 					$render['albumsid'] = $shopalbums;
-					$render["imgpath"] = $filenamepath;
 					$this->ajaxReturn($render);
 				} else {
-					$render['error'] = "上传格式错误,请用jpg png jpeg等格式...";
-					$this->ajaxReturn($render);
-				}
+					$render['error'] = "上传错误";
+					$this->ajaxReturn($render);	
+				}				
+
 			}elseif(isset($_POST) && NULL != $_POST) {
 				$agentshopM = M('agentshop');
 				$condition["agentshop_id"] = $shopid;
@@ -249,25 +247,14 @@ class AgentshopController extends Controller {
 		$create_DT = date('Y-m-d H:i:s',time());
 		if (IS_POST) {
 			if ($_FILES != NULL) {
-				// $agentshopalbumsM = M('agentshopalbums');
-				// $upload = new \Think\Upload();// 实例化上传类
-				// $upload->maxSize   =     6145728 ;// 设置附件上传大小
-				// $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-				// $upload->rootPath  =     './Uploads/agents/'; // 设置附件上传根目录
-				// $upload->subName   =     "";
-				// $info   =   $upload->uploadOne($_FILES['agentimg']);
-				// if(!$info) {
-				// 	$this->error($upload->getError());
-				// }else{
-				// 	$imgpath = $upload->rootPath.$info["savepath"].$info["savename"];
-				// 	$imgpath = substr($imgpath,1);
-				// 	$info["imgpath"] = $imgpath;
-				// 	$this->ajaxReturn($info);
-				// }
 				$render = array();
-				$rootpath = "./Uploads/agents/";
+
 				$fname = md5(uniqid(rand())).".jpg";
-				$filenamepath = $rootpath.$fname;
+				$upyun_rootpath = "/img/agents/";
+				$upyun_filenamepath = $upyun_rootpath.$fname;
+
+				$local_rootpath = "./Uploads/agents/";
+				$local_filenamepath = $local_rootpath.$fname;
 
 				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$filenamepath);
 				if($saveret)
