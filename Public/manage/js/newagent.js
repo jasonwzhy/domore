@@ -64,6 +64,7 @@ $("#agentimg").change(function(){
 					$("#agentimglabel").text("已上传");
 					$("#upimgbtn").text("重新上传").removeAttr("disabled");
 					$("#agentimglabel").attr("imgpath",returndata.imgpath);
+					$("#agentimglabel").attr("bakimgpath",returndata.bakimgpath);
 					alert("上传成功");
 				},
 				error: function (returndata) {
@@ -115,6 +116,7 @@ $("#subbtn").click(function(){
 	var agentname = $("#agentname").val() ? $("#agentname").val() : warring("公司名");
 	var regno = $("#regno").val() ? $("#regno").val() : warring("注册号");
 	var agentimgpath = $("#agentimglabel").attr("imgpath") ? $("#agentimglabel").attr("imgpath") : warring("上传照片");
+	var agentimgpathbak = $("#agentimglabel").attr("bakimgpath") ? $("#agentimglabel").attr("bakimgpath") : "";
 	var manager = $("#manager").val() ? $("#manager").val() : warring("负责人姓名");
 	var managertel = $("#managertel").val() ? $("#managertel").val() : warring("负责人电话");
 	var manageremail = $("#manageremail").val() ? $("#manageremail").val() : warring("负责人email");
@@ -154,6 +156,7 @@ $("#subbtn").click(function(){
 			agentname:agentname,
 			regno:regno,
 			agentimgpath:agentimgpath,
+			agentimgpathbak:agentimgpathbak,
 			manager:manager,
 			managertel:managertel,
 			manageremail:manageremail,

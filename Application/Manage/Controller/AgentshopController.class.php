@@ -152,10 +152,10 @@ class AgentshopController extends Controller {
 
 				import("Manage.Util.upyun");
 				//图片上传至upyun
-				$upyun = new \UpYun('domoreimages', 'domore', 'zxh123456');
+				$upyun = new \UpYun('domoreimages', 'domore', 'domre123456');
 				$fname = md5(uniqid(rand())).".jpg";
 				try {
-					$upyun_rootpath = "/img/shops/".$shopid."/";
+					$upyun_rootpath = "/domoreimg/shops/".$shopid."/";
 					$domain = "images.lifecare.cc";
 					$upyun_filenamepath = $domain.$upyun_rootpath.$fname;
 					$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
@@ -249,24 +249,37 @@ class AgentshopController extends Controller {
 			if ($_FILES != NULL) {
 				$render = array();
 
-				$fname = md5(uniqid(rand())).".jpg";
-				$upyun_rootpath = "/img/agents/";
-				$upyun_filenamepath = $upyun_rootpath.$fname;
+				import("Manage.Util.upyun");
+				$upyun = new \UpYun('domoreimages', 'domore', 'domre123456');
+				$fname = md5(uniqid(rand())).".jpg";				
+				try {
+					//upyun img path
+					$upyun_rootpath = "/domoreimg/agents/";
+					$domain = "images.lifecare.cc";
+					$upyun_filenamepath = $domain.$upyun_rootpath.$fname;
+					$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
+					$rsp = $upyun->writeFile($upyun_filenamepath, $fh, True);// 上传图片，自动创建目录
+					fclose($fh);
+					$render['imgpath'] = $upyun_filenamepath;
+				} catch (Exception $e) {
+					$render['imgpath'] = "";
+					$e->getCode();
+					$render['error'] = "上传错误".$e->getMessage();
+					$this->error($render,true);
+					return ;
+				}
 
 				$local_rootpath = "./Uploads/agents/";
 				$local_filenamepath = $local_rootpath.$fname;
-
-				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$filenamepath);
+				$saveret = move_uploaded_file($_FILES['myupimg']['tmp_name'],$local_filenamepath);
 				if($saveret)
 				{
-					$filenamepath = substr($filenamepath,1);
-					$render["imgpath"] = $filenamepath;
-					$this->ajaxReturn($render);
+					$local_filenamepath = substr($local_filenamepath,1);
+					$render["bakimgpath"] = $local_filenamepath;
 				}else{
-					$render['error'] = "上传格式错误,请用jpg png jpeg等格式...";
-					$this->ajaxReturn($render);
+					$render["bakimgpath"] = "";
 				}
-
+				$this->ajaxReturn($render);
 			}
 			elseif (isset($_POST) && NULL != $_POST) {
 				$agentshopM = M('agentshop');
@@ -281,6 +294,7 @@ class AgentshopController extends Controller {
 					"agent_name" => $_POST["agentname"],
 					"reg_no" => $_POST["regno"],
 					"license_img" => $_POST["agentimgpath"],
+					"license_img_localbak" => $_POST["agentimgpathbak"],
 					"agent_manager" => $_POST["manager"],
 					"agent_manager_tel" => $_POST["managertel"],
 					"moblie_no" => $_POST["managertel"],
