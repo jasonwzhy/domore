@@ -68,7 +68,9 @@ $("#agentimg").change(function(){
 					alert("上传成功");
 				},
 				error: function (returndata) {
+					console.log(returndata);
 					alert("图片上传失败,请将图片控制在3M以内,并且用 jpg | gif | png | jpeg格式");
+					$("#upimgbtn").text("重新上传").removeAttr("disabled");
 				}
 			})
 		}

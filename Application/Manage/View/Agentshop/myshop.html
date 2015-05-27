@@ -26,12 +26,14 @@
 				<else /> 
 					<foreach name="memberlst" item="member">
 						<div class="row shopitem">
-							<div class="col-xs-12">
-								<h5><{$member.shop_sn}></h5>
-								<hr>
-								<strong><{$member.shop_name}></strong>
-								<h6><{$member.address}></h6>
-							</div>
+							<a href="/manage/agentshop/shopdetail/sid/<{$member.agentshop_id}>">
+								<div class="col-xs-12">
+									<h5><{$member.shop_sn}></h5>
+									<hr>
+									<strong><{$member.shop_name}></strong>
+									<h6><{$member.address}></h6>
+								</div>
+							</a>
 						</div>
 					</foreach>
 				</empty>
@@ -52,12 +54,14 @@
 				<else />
 					<foreach name="nomemberlst" item="nomember">
 						<div class="row shopitem">
-							<div class="col-xs-12">
-								<h5><{$nomember.shop_sn}></h5>
-								<hr>
-								<strong><{$nomember.shop_name}></strong>
-								<h6><{$nomember.address}></h6>
-							</div>
+							<a href="/manage/agentshop/shopdetail/sid/<{$nomember.agentshop_id}>">
+								<div class="col-xs-12">
+									<h5><{$nomember.shop_sn}></h5>
+									<hr>
+									<strong><{$nomember.shop_name}></strong>
+									<h6><{$nomember.address}></h6>
+								</div>
+							</a>
 						</div>	
 					</foreach>
 				</empty>

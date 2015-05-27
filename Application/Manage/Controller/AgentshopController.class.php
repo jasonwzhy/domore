@@ -95,6 +95,16 @@ class AgentshopController extends Controller {
 			}
 			$retagentshop=$agentshopM->add($agentdata);
 			if ($retagentshop) {
+				//同时添加shopprice空记录
+				$shoppriceM = M("agentshopprice");
+				$agentshoppriceD = array(
+					"agentshop_id" =>	$retagentshop,
+					"market_domore_price" => 0,
+					"market_domore_contract_price" => 0,
+					"isonsale" => 0
+				);
+				$retagentshopprice = $shoppriceM->add($agentshoppriceD);
+
 				$_SESSION['shopid'] = $retagentshop;
 				$render["agentshopid"] = $retagentshop;
 				$agentdir = "./Uploads/shops/".$retagentshop;
@@ -152,7 +162,7 @@ class AgentshopController extends Controller {
 
 				import("Manage.Util.upyun");
 				//图片上传至upyun
-				$upyun = new \UpYun('domoreimages', 'domore', 'domre123456');
+				$upyun = new \UpYun('domoreimages', 'domore', 'domore123456');
 				$fname = md5(uniqid(rand())).".jpg";
 				try {
 					$upyun_rootpath = "/domoreimg/shops/".$shopid."/";
@@ -163,7 +173,7 @@ class AgentshopController extends Controller {
 					// 	\UpYun::X_GMKERL_TYPE => 'fix_both',
 					// 	\UpYun::X_GMKERL_VALUE => '300x200'
 					// );
-					$rsp = $upyun->writeFile($filenamepath, $fh, True);   // 上传图片，自动创建目录
+					$rsp = $upyun->writeFile($upyun_rootpath.$fname, $fh, True);   // 上传图片，自动创建目录
 					fclose($fh);
 					$render['imgpath'] = $upyun_filenamepath;
 				} catch (Exception $e) {
@@ -250,7 +260,7 @@ class AgentshopController extends Controller {
 				$render = array();
 
 				import("Manage.Util.upyun");
-				$upyun = new \UpYun('domoreimages', 'domore', 'domre123456');
+				$upyun = new \UpYun('domoreimages', 'domore', 'domore123456');
 				$fname = md5(uniqid(rand())).".jpg";				
 				try {
 					//upyun img path
@@ -258,7 +268,7 @@ class AgentshopController extends Controller {
 					$domain = "images.lifecare.cc";
 					$upyun_filenamepath = $domain.$upyun_rootpath.$fname;
 					$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
-					$rsp = $upyun->writeFile($upyun_filenamepath, $fh, True);// 上传图片，自动创建目录
+					$rsp = $upyun->writeFile($upyun_rootpath.$fname, $fh, True);// 上传图片，自动创建目录
 					fclose($fh);
 					$render['imgpath'] = $upyun_filenamepath;
 				} catch (Exception $e) {
@@ -386,6 +396,60 @@ class AgentshopController extends Controller {
 		$this->assign($render);
 		$this->display('Agentshop/myshop');
 	}
+	public function shopdetail($sid){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$myshopM = M("agentshop");
+		$shoppriceM = M("agentshopprice");
+		
+		$agentshopID["agentshop_id"] = $sid;
+
+		$shopdetaildata = $myshopM->where($agentshopID)->find();
+		if ($shopdetaildata) {
+			$shoppricedetaildata = $shoppriceM->where($agentshopID)->find();
+			$render["shopprice"] = $shoppricedetaildata;
+			$render["shopdetail"] = $shopdetaildata;
+			$this->assign($render);
+			$this->display('Agentshop/myshopdetail');
+		} else {
+			//没有agentshop_id时返回界面;
+		}
+	}
+	public function updateshopprice()
+	{
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->error('非法操作');
+			return ;
+		}
+		if (IS_POST) {
+			$render['error']="";
+			$shoppriceM = M("agentshopprice");
+
+			$agentshopid["agentshop_id"] = $_POST["agentshopid"];
+
+			$uppricedata = array(
+				"market_price" => $_POST["marketprice"],
+				"market_domore_price" => $_POST["domoreprice"],
+				"market_domore_contract_price" => $_POST["domorecontractprice"],
+				"idle_domore_price" => $_POST["idledomoreprice"],
+				"idle_contract_price" => $_POST["idlecontractprice"]
+			);
+			$retupprice = $shoppriceM->where($agentshopid)->save($uppricedata);
+			if (!$retupprice) {
+				$render['error']="提交失败";
+			}
+			$this->ajaxReturn($render);
+		} else {
+			# code...
+		}
+		
+	}
 	public function myagent(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -437,7 +501,7 @@ class AgentshopController extends Controller {
 			$this->display('Agentshop/myagentdetail');
 			return ;
 		} else {
-			
+			//没有agentid时返回界面;
 		}
 	}
 	public function mkrelation($aid){
@@ -500,14 +564,14 @@ class AgentshopController extends Controller {
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				import("Manage.Util.upyun");
-				$upyun = new \UpYun('domoreimages', 'domore', 'zxh123456');
+				$upyun = new \UpYun('domoreimages', 'domore', 'domore123456');
 				// $fh = fopen('./Uploads/123.jpg', 'rb');
 				$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
 				$opts = array(
 					\UpYun::X_GMKERL_TYPE => 'fix_both',
 					\UpYun::X_GMKERL_VALUE => '300x200'
 				);
-				$rsp = $upyun->writeFile('/demo/12.png', $fh, True, $opts);   // 上传图片，自动创建目录
+				$rsp = $upyun->writeFile('/demo/1.png', $fh, True, $opts);   // 上传图片，自动创建目录
 				fclose($fh);
 				$this->ajaxReturn($rsp);
 			} else {
