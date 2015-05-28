@@ -88,7 +88,7 @@ $("#upimg").change(function(){
 	$("input[id=upimg]").val('');
 });
 function addpic(imgpath,albumsid){
-	$("#addimg").before('<div class="col-xs-4 shoppic" style="overflow:auto"><a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);"><img src="'+imgpath+'" id="'+albumsid+'" class="shoppic img-responsive img-rounded" alt="Responsive image"></a></div>');
+	$("#addimg").before('<div class="col-xs-4 shoppic" style="overflow:auto"><a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);"><img src="http://'+imgpath+'" id="'+albumsid+'" class="shoppic img-responsive img-rounded" alt="Responsive image"></a></div>');
 };
 
 // $(".shoppic").click(function(){
