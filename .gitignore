@@ -4,3 +4,5 @@
 *.log
 
 Application/Runtime/Cache/Manage/*
+
+Application/Runtime/Cache/Manage/*.php
