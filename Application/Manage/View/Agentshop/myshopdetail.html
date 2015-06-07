@@ -82,7 +82,7 @@
 		</div>
 		<div class="row editpricetitle">
 			<div class="col-xs-12">
-				<h3>场馆价格</h3>
+				<h3>票券信息</h3>
 			</div>
 		</div>
 		<div class="form-group">
@@ -90,7 +90,12 @@
 				<span class="input-group-addon">门市价</span><input type="text" class="form-control" id="marketprice" name="marketprice" value="<{$shopprice.market_price}>">
 			</div>
 		</div>
-		<label>动么价</label>
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon">时长(分钟)</span><input type="text" class="form-control" id="timelimit" name="timelimit" value="<{$shopprice.time_limit}>">
+			</div>
+		</div>
+		<label>随时票</label>
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon">协议价</span><input type="text" class="form-control" id="domorecontractprice" name="domorecontractprice" value="<{$shopprice.market_domore_contract_price}>">
@@ -131,6 +136,7 @@
 			var idlecontractprice = $("#idlecontractprice").val() ? $("#idlecontractprice").val() : 0;
 			var idledomoreprice = $("#idledomoreprice").val() ? $("#idledomoreprice").val() : 0;
 			var agentshopid = $("#subeditpricebtn").attr('sid');
+			var timelimit = $("#timelimit").val() ? $("#timelimit").val() : 0;
 			$.post("/manage/agentshop/updateshopprice",
 				{
 					agentshopid:agentshopid,
@@ -138,7 +144,8 @@
 					domorecontractprice:domorecontractprice,
 					domoreprice:domoreprice,
 					idlecontractprice:idlecontractprice,
-					idledomoreprice:idledomoreprice
+					idledomoreprice:idledomoreprice,
+					timelimit:timelimit
 				},
 				function(ret){
 					if ("" != ret.error) {
