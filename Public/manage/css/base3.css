@@ -182,8 +182,8 @@ nav{
 .editdomoreprice
 {
 	width: 100%;
-	height: 500px;
-	background-color: #FCFCFC;
+	height: 100%;
+	background-color: #F6F6F6;
 	display: none;
 	position: absolute;
 	top: 0;
@@ -198,4 +198,27 @@ nav{
 }
 .editdomoreprice .btn{
 	width: 100%;
+}
+.tagcontainer{
+	padding-left: 10px;
+	padding-right: 15px;
+}
+.tagcontainer .col-xs-3{
+	padding-left: 5px;
+	padding-right: 0px;
+}
+.tagbg{
+	padding-top: 5px;
+	padding-bottom: 5px; 
+	background-color: #FFF;
+	width: 100%;
+	margin-bottom: 5px;
+	font-size: 16px;
+	text-align: center;
+	color: #000;
+	border-radius: 2px;
+}
+.tagbg.active{
+	background-color: #52BBEB;
+	color: #FFF;
 }
