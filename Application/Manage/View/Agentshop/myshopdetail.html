@@ -121,9 +121,15 @@
 		<div class="row">
 			<div class="tagcontainer">
 				<foreach name="shoptags" item="shoptag" >
-					<div class="col-xs-3">
-						<div class="tagbg" id="<{$shoptag.shoptag_id}>" value="<{$shoptag.type_tag}>"><{$shoptag.type_name}></div>
-					</div>
+					<if condition="$shoptag.checked eq 1">
+						<div class="col-xs-3">
+							<div class="tagbg active" id="<{$shoptag.shoptag_id}>" value="<{$shoptag.type_tag}>"><{$shoptag.type_name}></div>
+						</div>
+					<else />
+						<div class="col-xs-3">
+							<div class="tagbg" id="<{$shoptag.shoptag_id}>" value="<{$shoptag.type_tag}>"><{$shoptag.type_name}></div>
+						</div>
+					</if>
 				</foreach>
 				<!-- <div class="col-xs-3">
 					<div class="tagbg"> 健身</div>
@@ -155,6 +161,7 @@
 </block>
 <block name="page-js">
 	<script type="text/javascript">
+		console.log(<{$shoptags}>);
 		$(".editdmprice").click(function(){
 			$(".editdomoreprice").toggle(500);
 		});
@@ -166,6 +173,14 @@
 			var idledomoreprice = $("#idledomoreprice").val() ? $("#idledomoreprice").val() : 0;
 			var agentshopid = $("#subeditpricebtn").attr('sid');
 			var timelimit = $("#timelimit").val() ? $("#timelimit").val() : 0;
+			var shoptag = "";
+			$(".tagbg").each(function(){
+				if ($(this).attr("class").indexOf("active")>=0) {
+					shoptag += $(this).attr("value")+",";
+				}
+			});
+			shoptag = shoptag.substring(0,shoptag.length-1);
+			console.log(shoptag);
 			$.post("/manage/agentshop/updateshopprice",
 				{
 					agentshopid:agentshopid,
@@ -174,14 +189,16 @@
 					domoreprice:domoreprice,
 					idlecontractprice:idlecontractprice,
 					idledomoreprice:idledomoreprice,
-					timelimit:timelimit
+					timelimit:timelimit,
+					shoptag:shoptag
 				},
 				function(ret){
-					if ("" != ret.error) {
-						alert(ret.error);
-					} else{
-						location.reload();
-					};
+					location.reload();
+					// if ("" != ret.error) {
+					// 	alert(ret.error);
+					// } else{
+					// 	location.reload();
+					// };
 				}
 			);
 		});

@@ -415,6 +415,14 @@ class AgentshopController extends Controller {
 			$shoptypedata = $shoptypeM->select();
 			$render["shopprice"] = $shoppricedetaildata;
 			$render["shopdetail"] = $shopdetaildata;
+			$shop_tag = $shopdetaildata["shop_tag"];
+			foreach ($shoptypedata as $index => $value) {
+				if (strstr($shop_tag,$value["type_tag"])) {
+					$shoptypedata[$index]["checked"] = 1;
+				}else{
+					$shoptypedata[$index]["checked"] = 0;
+				}
+			}
 			$render["shoptags"] = $shoptypedata;
 			$this->assign($render);
 			$this->display('Agentshop/myshopdetail');
@@ -435,7 +443,6 @@ class AgentshopController extends Controller {
 			$shoppriceM = M("agentshopprice");
 
 			$agentshopid["agentshop_id"] = $_POST["agentshopid"];
-
 			$uppricedata = array(
 				"market_price" => $_POST["marketprice"],
 				"market_domore_price" => $_POST["domoreprice"],
@@ -447,7 +454,13 @@ class AgentshopController extends Controller {
 			$retupprice = $shoppriceM->where($agentshopid)->save($uppricedata);
 			if (!$retupprice) {
 				$render['error']="提交失败";
+				$render['errcode']=$retupprice;
 			}
+			$agentshopM = M("agentshop");
+			$upagentshop = array(
+				"shop_tag" => $_POST["shoptag"]
+			);
+			$retagentshop = $agentshopM->where($agentshopid)->save($upagentshop);
 			$this->ajaxReturn($render);
 		} else {
 			# code...
