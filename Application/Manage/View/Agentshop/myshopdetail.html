@@ -117,10 +117,15 @@
 				<span class="input-group-addon">平台价</span><input type="text" class="form-control" id="idledomoreprice" name="idledomoreprice" value="<{$shopprice.idle_domore_price}>">
 			</div>
 		</div>
-		<label>闲时价</label>
+		<label>包含项目</label>
 		<div class="row">
 			<div class="tagcontainer">
-				<div class="col-xs-3">
+				<foreach name="shoptags" item="shoptag" >
+					<div class="col-xs-3">
+						<div class="tagbg" id="<{$shoptag.shoptag_id}>" value="<{$shoptag.type_tag}>"><{$shoptag.type_name}></div>
+					</div>
+				</foreach>
+				<!-- <div class="col-xs-3">
 					<div class="tagbg"> 健身</div>
 				</div>
 				<div class="col-xs-3">
@@ -137,13 +142,13 @@
 				</div>
 				<div class="col-xs-3">
 					<div class="tagbg"> 健身</div>
-				</div>
+				</div> -->
 			</div>	
 		</div>
 
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-primary btn-lg" id="subeditpricebtn" sid="<{$shopdetail.agentshop_id}>">完成</button>
+				<button class="btn btn-primary" id="subeditpricebtn" sid="<{$shopdetail.agentshop_id}>">完成</button>
 			</div>
 		</div>
 	</div>
@@ -179,6 +184,13 @@
 					};
 				}
 			);
+		});
+		$(".tagbg").click(function(){
+			if ($(this).attr("class").indexOf("active")>=0) {
+				$(this).attr("class","tagbg");
+			}else{
+				$(this).attr("class","tagbg active");
+			}
 		});
 	</script>
 </block>

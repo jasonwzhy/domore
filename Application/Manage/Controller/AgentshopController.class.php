@@ -405,14 +405,17 @@ class AgentshopController extends Controller {
 		}
 		$myshopM = M("agentshop");
 		$shoppriceM = M("agentshopprice");
+		$shoptypeM = M("shoptag");
 		
 		$agentshopID["agentshop_id"] = $sid;
 
 		$shopdetaildata = $myshopM->where($agentshopID)->find();
 		if ($shopdetaildata) {
 			$shoppricedetaildata = $shoppriceM->where($agentshopID)->find();
+			$shoptypedata = $shoptypeM->select();
 			$render["shopprice"] = $shoppricedetaildata;
 			$render["shopdetail"] = $shopdetaildata;
+			$render["shoptags"] = $shoptypedata;
 			$this->assign($render);
 			$this->display('Agentshop/myshopdetail');
 		} else {
