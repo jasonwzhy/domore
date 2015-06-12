@@ -571,6 +571,15 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+	public function editshop($sid){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$this->display('Agentshop/editshop');
+	}
 	public function shopclass(){
 		$this->display('Agentshop/shopclass');
 	}
