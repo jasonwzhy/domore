@@ -449,7 +449,8 @@ class AgentshopController extends Controller {
 				"market_domore_contract_price" => $_POST["domorecontractprice"],
 				"idle_domore_price" => $_POST["idledomoreprice"],
 				"idle_contract_price" => $_POST["idlecontractprice"],
-				"time_limit" => $_POST["timelimit"]
+				"time_limit" => $_POST["timelimit"],
+				"descp" => $_POST["descp"]
 			);
 			$retupprice = $shoppriceM->where($agentshopid)->save($uppricedata);
 			if (!$retupprice) {

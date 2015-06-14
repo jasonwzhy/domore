@@ -15,6 +15,7 @@ $("#subeditpricebtn").click(function(){
 			shoptag += $(this).attr("value")+",";
 		}
 	});
+	var descp = $("#descp").val() ? $("#descp").val() : '';
 	shoptag = shoptag.substring(0,shoptag.length-1);
 	console.log(shoptag);
 	$.post("/manage/agentshop/updateshopprice",
@@ -26,7 +27,8 @@ $("#subeditpricebtn").click(function(){
 			idlecontractprice:idlecontractprice,
 			idledomoreprice:idledomoreprice,
 			timelimit:timelimit,
-			shoptag:shoptag
+			shoptag:shoptag,
+			descp:descp
 		},
 		function(ret){
 			location.reload();

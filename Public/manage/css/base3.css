@@ -1,5 +1,9 @@
 html,body{
 	width:100%;
+	background-color: #F6F6F6;
+}
+html{
+	height: 100%;
 }
 nav{
 	background-color: #F4F4F4;
@@ -23,11 +27,15 @@ nav{
 	top: 15px;
 	left: 35%;
 }
+label{
+	color: #A89F9B;
+	font-size: 16px;
+}
 .detailcontainer{
 	margin-top: 50px;
 }
 .agentdetail{
-	background-color: #52BBEB;
+	background-color: #fff;
 	margin-top: 10px;
 	margin-left: -5px;
 	margin-right: -5px;
@@ -36,6 +44,12 @@ nav{
 	color: #fff;
 	border-radius: 2px;
 	margin-bottom: 10px;
+}
+.agentdetail h4{
+	color: #000;
+}
+.agentdetail h5{
+	color: #000;	
 }
 .agentdetail span{
 	line-height: 2;
@@ -221,4 +235,8 @@ nav{
 .tagbg.active{
 	background-color: #52BBEB;
 	color: #FFF;
+}
+#subeditpricebtn{
+	background-color: #52BBEB;
+	border-color: #52BBEB;
 }

@@ -21,13 +21,13 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-4">
-						<h4>场馆经理:<{$shopdetail.shop_manager}></h4>
+						<h5>场馆经理:<{$shopdetail.shop_manager}></h5>
 					</div>
 					<div class="col-xs-4">
-						<h4><{$shopdetail.shop_manager_tel}></h4>
+						<h5><{$shopdetail.shop_manager_tel}></h5>
 					</div>
 					<div class="col-xs-4">
-						<h4><{$shopdetail.shop_manager_email}></h4>
+						<h5><{$shopdetail.shop_manager_email}></h5>
 					</div>
 				</div>
 				<hr>
@@ -132,6 +132,10 @@
 					</if>
 				</foreach>
 			</div>	
+		</div>
+		<label>温馨提示</label>
+		<div class="form-group">
+			<textarea class="form-control" rows="3" id="descp" placeholder="有什么需要提前准备的,注意的告诉用户吗?"><{$shopprice.descp}></textarea>
 		</div>
 
 		<div class="row">
