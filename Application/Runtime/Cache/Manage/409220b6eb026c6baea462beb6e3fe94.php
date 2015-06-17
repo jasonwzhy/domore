@@ -47,6 +47,17 @@
 				
 			</ul>
 		</nav>
+		
+		<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false" id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="container">
+				<div class="row">
+					<button class="col-xs-12 btn btn-lg delshoppic btn-default btn-block" onclick="delshoppic(this);" >删除图片</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 		<div class="st-pusher">
 			<div class="st-content">
 			<!-- this is the wrapper for the content -->
@@ -66,30 +77,22 @@
 	<div class="row shopalbums">
 		<div class="col-xs-4" id="addimg">
 			<form id="addshoppicform">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-plus" id="addplusspan" aria-hidden="true"></span>
 				<!-- <a href="#" id="upimgbtn"><img src="/Public/manage/img/addimg.png" alt="" class="img-rounded"></a> -->
 				<input type="file" name="upimg" id="upimg" value="" required="required" accept="image/*"  runat="server"  /> <!-- style="display:none;" -->
 			</form>
 		</div>
 		<canvas class="canvas" id="myCanvas" style="display:none;"></canvas>
-		<!-- <div class="col-xs-4">
+		<div class="col-xs-4">
 			<a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);">
-				<img src="" alt="" id="1" class="img-rounded">
-				<div style="background-image:url('/Public/manage/img/hahaha.jpeg');background-size:cover;">
+				<!-- <img src="" alt="" id="1" class="img-rounded"> -->
+				<div class="picitem" style="background-image:url('/Public/manage/img/hahaha.jpeg');background-size:cover;height:100px;">
 				</div>
 			</a>
 		</div>
-		 -->
+		
 	</div>
-	<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false" id="myModal">
-		<div class="modal-dialog modal-lg">
-			<div class="container">
-				<div class="row">
-					<button class="col-xs-12 btn btn-lg delshoppic btn-default btn-block" onclick="delshoppic(this);" >删除图片</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="form-group ">
@@ -106,10 +109,10 @@
 				<input type="email" class="form-control" id="shopGMemail" placeholder="场馆经理email">
 			</div>
 		</div>
-		<div class="col-xs-4">
+	<!-- 	<div class="col-xs-4">
 			<button type="button" class="col-xs-12 btn btn-default btn-block" id="editprv">上一步</button>
-		</div>
-		<div class="col-xs-8">
+		</div> -->
+		<div class="col-xs-12">
 			<button type="button" class="col-xs-12 btn btn-default btn-block" id="subbtn">完 成</button>
 		</div>
 	</div>

@@ -31,7 +31,7 @@
 		<div class="col-xs-12">
 			<?php if(is_array($membershoplst)): foreach($membershoplst as $key=>$membershop): ?><div class="row reshopitem member">
 					<div class="col-xs-12">
-						<h5><?php echo ($membershop["agentshop_id"]); ?></h5>
+						<h5><?php echo ($membershop["shop_sn"]); ?></h5>
 						<hr>
 						<strong><?php echo ($membershop["shop_name"]); ?></strong>
 						<h6><?php echo ($membershop["address"]); ?></h6>
@@ -39,7 +39,7 @@
 				</div><?php endforeach; endif; ?>
 			<?php if(is_array($nomembershoplst)): foreach($nomembershoplst as $key=>$nomembershop): ?><div class="row reshopitem nomember" id="<?php echo ($nomembershop["agentshop_id"]); ?>">
 					<div class="col-xs-12">
-						<h5><?php echo ($nomembershop["agentshop_id"]); ?></h5>
+						<h5><?php echo ($nomembershop["shop_sn"]); ?></h5>
 						<hr>
 						<strong><?php echo ($nomembershop["shop_name"]); ?></strong>
 						<h6><?php echo ($nomembershop["address"]); ?></h6>

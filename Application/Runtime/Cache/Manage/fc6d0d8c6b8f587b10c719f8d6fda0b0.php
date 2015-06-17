@@ -22,7 +22,7 @@
 
 				</div>
 				
-	<span class="navtext"><?php echo ($agentdetail["agent_id"]); ?></span>
+	<span class="navtext"><?php echo ($agentdetail["agent_sn"]); ?></span>
 
 			</div>
 		</nav>
@@ -35,7 +35,7 @@
 						<h4><?php echo ($agentdetail["agent_manager"]); ?></h4>
 					</div>
 					<div class="col-xs-2">
-						<a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+						<a href="/manage/agentshop/editagent/aid/<?php echo ($agentdetail["agent_id"]); ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 					</div>
 				</div>
 				<hr>
@@ -81,7 +81,7 @@
 		</div> -->
 		<?php if(is_array($agetnshoplst)): foreach($agetnshoplst as $key=>$agetnshop): ?><div class="row shopitem">
 				<div class="col-xs-12">
-					<h5><?php echo ($agetnshop["agentshop_id"]); ?></h5>
+					<h5><?php echo ($agetnshop["shop_sn"]); ?></h5>
 					<hr>
 					<strong><?php echo ($agetnshop["shop_name"]); ?></strong>
 					<h6><?php echo ($agetnshop["address"]); ?></h6>

@@ -159,7 +159,6 @@ class AgentshopController extends Controller {
 		if (IS_POST) {
 			if ($_FILES != NULL) {
 				$agentshopalbumsM = M('agentshopalbums');
-
 				import("Manage.Util.upyun");
 				//图片上传至upyun
 				$upyun = new \UpYun('domoreimages', 'domore', 'domore123456');
@@ -314,7 +313,8 @@ class AgentshopController extends Controller {
 					"business_status" => 1,
 					"checkstatus_id" => 1,
 					"create_dt" => $create_DT,
-					"passwd"	=>	$passwd
+					"passwd"	=>	$passwd,
+					"first_account" => $_POST["faccount"]
 					// "first_account"=>""
 				);
 				$regionM = M('Region');
@@ -406,6 +406,7 @@ class AgentshopController extends Controller {
 		$myshopM = M("agentshop");
 		$shoppriceM = M("agentshopprice");
 		$shoptypeM = M("shoptag");
+		$shopactivityM = M("shopactivity");
 		
 		$agentshopID["agentshop_id"] = $sid;
 
@@ -413,8 +414,10 @@ class AgentshopController extends Controller {
 		if ($shopdetaildata) {
 			$shoppricedetaildata = $shoppriceM->where($agentshopID)->find();
 			$shoptypedata = $shoptypeM->select();
+			$shopactivitydata = $shopactivityM->where($agentshopID)->select();
 			$render["shopprice"] = $shoppricedetaildata;
 			$render["shopdetail"] = $shopdetaildata;
+			$render["shopactivitylst"] = $shopactivitydata;
 			$shop_tag = $shopdetaildata["shop_tag"];
 			foreach ($shoptypedata as $index => $value) {
 				if (strstr($shop_tag,$value["type_tag"])) {
@@ -579,7 +582,298 @@ class AgentshopController extends Controller {
 			$this->success('页面跳转中...');
 			return ;
 		}
-		$this->display('Agentshop/editshop');
+		$shopM = M("agentshop");
+		$shoptypeM = M("shoptype");
+		$agentM = M("agent");
+		$agentdata = $agentM->select();
+		$render["agentlist"] = $agentdata;
+		$shoptypelst = $shoptypeM->select();
+		$render["shoptypelst"] = $shoptypelst;
+
+		$shopId["agentshop_id"] = $sid;
+		$shopdata = $shopM->where($shopId)->find();
+		if ($shopdata) {
+			$regionM = M("region");
+			$provicecon["area_level"] = 1;
+			$provicedata = $regionM->where($provicecon)->select();
+
+			$citycon["area_level"] = 2;
+			$proviceId["region_id"] = $shopdata["province_id"];
+			$cityonpIddata = $regionM->where($proviceId)->find();
+			$citycon["parent_zipcode"] = $cityonpIddata["zipcode"];
+			$citydata = $regionM->where($citycon)->select();
+
+			$zonecon["area_level"] = 3;
+			$cityId["region_id"] = $shopdata["city_id"];
+			$zoneonpIddata = $regionM->where($cityId)->find();
+			$zonecon["parent_zipcode"] = $zoneonpIddata["zipcode"];
+			$zonedata = $regionM->where($zonecon)->select();
+			$render["provicedata"] = $provicedata;
+			$render["citydata"] = $citydata;
+			$render["zonedata"] = $zonedata;
+
+			$shoptypeId["shoptype_id"] = $shopdata["shoptype_id"];
+			$theshoptype = $shoptypeM->where($shoptypeId)->find();
+			$shopdata["typename"] = $theshoptype["type_name"];
+			
+			$render["shopdata"] = $shopdata;
+			$this->assign($render);
+			$this->display('Agentshop/editshop');
+		}else{
+			redirect('/manage/agentshop/myshop', 0, '页面跳转中...');
+		}
+		
+	}
+	public function subshopedit(){
+		if (!isset($_SESSION["staffid"])) {
+			$render["error"] = "forbidden";
+			$this->ajaxReturn($render);
+			return ;
+		}
+		if (IS_POST) {
+			$agentshopM = M("agentshop");
+
+			$agentshopid["agentshop_id"] = $_POST["agentshopid"];
+			if ($_POST["agentid"] == NULL) {
+				$agentId = NULL;
+				// $this->ajaxReturn($_POST["agentid"]);
+			}else{
+				$agentId = $_POST["agentid"];
+			}
+			$agentshopupdata = array(
+				"agent_id" => $agentId,
+				"shop_name" => $_POST["shopname"],
+				"shop_tel" => $_POST["shoptel"],
+				"shop_tel2" => $_POST["shoptel2"],
+				"province_id" => $_POST["proviceid"],
+				"city_id" => $_POST["cityid"],
+				"area_id" => $_POST["areaid"],
+				"address" => $_POST["address"],
+				"lon" => $_POST["lng"],
+				"lat" => $_POST["lat"],
+				"shoptype_id" => $_POST["shoptypeid"],
+				"is_appointment" => $_POST["isappointment"],
+				"appointment_time" => $_POST["appointmenttime"],
+				"start_time" => $_POST["starttime"],
+				"end_time" => $_POST["endtime"]
+			);
+			$shpoupdateresp = $agentshopM->where($agentshopid)->save($agentshopupdata);
+			if ($shpoupdateresp) {
+				$render["error"]="";
+			}else{
+				$render["error"]="err";
+			}
+			$this->ajaxReturn($render);
+
+		}
+
+	}
+	public function editshopinfo($sid){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$_SESSION['shopid'] = $sid;
+
+		$agentshopM = M("agentshop");
+		$agentshopalbumsM = M("agentshopalbums");
+		$shopId["agentshop_id"] = $sid;
+		$agentshopdata = $agentshopM->where($shopId)->find();
+		if ($agentshopdata) {
+			$agentshopalbumsdata = $agentshopalbumsM->where($shopId)->select();
+			$render["shopdata"] = $agentshopdata;
+			$render["agentshopalbumsdata"] = $agentshopalbumsdata;
+			$this->assign($render);
+			$this->display('Agentshop/editshopinfo');
+		}else{
+			redirect('/manage/agentshop/myshop', 0, '页面跳转中...');
+		}
+		// $this->display('Agentshop/editshopinfo');
+	}
+	public function subshopinfoedit(){
+		if (!isset($_SESSION["staffid"])) {
+			$render["error"] = "forbidden";
+			$this->ajaxReturn($render);
+			return ;
+		}
+
+		if (IS_POST) {
+			$agentshopM = M("agentshop");
+			$agetnshopId["agentshop_id"] = $_POST["agetnshopid"];
+			$shopinfoupdata = array(
+				"shop_desc" => $_POST["shopdesc"],
+				"shop_manager" => $_POST["shopmanager"],
+				"shop_manager_tel" => $_POST["shopmanagertel"],
+				"shop_manager_email" => $_POST["shopmanageremail"]
+			);
+			$shopupdataresp = $agentshopM->where($agetnshopId)->save($shopinfoupdata);
+			if ($shopupdataresp) {
+				$render["error"] = "";
+			}else{
+				$render["error"] = "err";
+			}
+			$this->ajaxReturn($render);
+		}
+
+	}
+	public function editagent($aid){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$agentM = M("agent");
+		$agentId["agent_id"] = $aid;
+		$agentdata = $agentM->where($agentId)->find();
+		if ($agentdata) {
+			$regionM = M("region");
+			$provicecon["area_level"] = 1;
+			$provicedata = $regionM->where($provicecon)->select();
+
+			$citycon["area_level"] = 2;
+			$proviceId["region_id"] = $agentdata["province_id"];
+			$cityonpIddata = $regionM->where($proviceId)->find();
+			$citycon["parent_zipcode"] = $cityonpIddata["zipcode"];
+			$citydata = $regionM->where($citycon)->select();
+
+			$zonecon["area_level"] = 3;
+			$cityId["region_id"] = $agentdata["city_id"];
+			$zoneonpIddata = $regionM->where($cityId)->find();
+			$zonecon["parent_zipcode"] = $zoneonpIddata["zipcode"];
+			$zonedata = $regionM->where($zonecon)->select();
+			
+			$render["provicedata"] = $provicedata;
+			$render["citydata"] = $citydata;
+			$render["zonedata"] = $zonedata;
+
+			$render["agentdata"] = $agentdata;
+			
+			$agentaccountM = M("agentaccount");
+			$agentaccountdata = $agentaccountM->where($agentId)->find();
+			$render["agentaccount"] = $agentaccountdata;
+
+			$this->assign($render);
+			$this->display('Agentshop/editagent');
+		}else{
+			redirect('/manage/agentshop/myagent', 0, '页面跳转中...');
+		}
+	}
+	public function subagentedit(){
+		if (!isset($_SESSION["staffid"])) {
+			$render["error"] = "forbidden";
+			$this->ajaxReturn($render);
+			return ;
+		}
+		if (IS_POST) {
+			$agentId["agent_id"] = $_POST["agentid"];
+			$agentM = M("agent");
+			$agentaccountM = M("agentaccount");
+
+			$agentupdata = array(
+				"province_id" => $_POST["sprovice"],
+				"city_id" => $_POST["scity"],
+				"area_id" => $_POST["sarea"],
+				"agent_address" => $_POST["address"],
+				"agent_name" => $_POST["agentname"],
+				"reg_no" => $_POST["regno"],
+				"agent_manager" => $_POST["manager"],
+				"agent_manager_tel" => $_POST["managertel"],
+				"agent_manager_email" => $_POST["manageremail"]
+			);
+			$agentaccountupdata = array(
+				"agent_accounting" => $_POST["accountmanager"],
+				"agent_accounting_tel" => $_POST["accountmanagertel"],
+				"agent_accounting_email" => $_POST["accountmanageremail"]
+			);
+			$agentdataresp = $agentM->where($agentId)->save($agentupdata);
+			$agentaccountM->where($agentId)->save($agentaccountupdata);
+			if ($agentdataresp) {
+				$render["error"] = "";
+			}else{
+				$render["error"] = "err";
+			}
+
+			
+		}
+	}
+	public function addactivity(){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		if (IS_POST) {
+			$render['error']="";
+			$shopactivityM = M("shopactivity");
+			$activitydata = array(
+				"agentshop_id" => $_POST["shopid"],
+				"activity_title" => $_POST["actname"],
+				"startdt" => $_POST["actstartdt"],
+				"enddt" => $_POST["actenddt"],
+				"activity_desc" => $_POST["actdesc"]
+			);
+			$addactivityret = $shopactivityM->add($activitydata);
+			if ($addactivityret) {
+				$render["aid"] = $addactivityret;
+			}else{
+				$render["error"] = "Add error";
+			}
+			$this->ajaxReturn($render);
+		}
+	}
+	public function editactivity($acid){
+		if (!isset($_SESSION["staffid"])) {
+			$this->assign('waitSecond',0);
+			$this->assign("jumpUrl",__ROOT__."/manage/agentshop/signin");
+			$this->success('页面跳转中...');
+			return ;
+		}
+		$activityM = M("shopactivity");
+		$shopactivityId["shopactivity_id"] = $acid;
+		$activitydata = $activityM->where($shopactivityId)->find();
+		if ($activitydata) {
+			$render["activitydata"] = $activitydata;
+			$this->assign($render);
+			$this->display('Agentshop/editactivity');
+		}
+	}
+	public function subactivityedit(){
+		if (!isset($_SESSION["staffid"])) {
+			$render["error"] = "forbidden";
+			$this->ajaxReturn($render);
+			return ;
+		}
+		if (IS_POST && isset($_POST['actid']) && ($_POST['actid'] != NULL) && ($_POST['actid'] != "0")) {
+			$activityM = M("shopactivity");
+			$activityId["shopactivity_id"] = $_POST["actid"];
+			$activityupdata = array(
+				"activity_title" => $_POST["actname"],
+				"startdt" => $_POST["actstartdt"],
+				"enddt" => $_POST["actenddt"],
+				"activity_desc" => $_POST["actdesc"]
+			);
+			$activityupresp = $activityM->where($activityId)->save($activityupdata);
+			if ($activityupresp) {
+				$render["error"] = "";
+				$this->ajaxReturn($render);
+			}
+		}
+	}
+	public function delactivity(){
+		if (!isset($_SESSION["staffid"])) {
+			$render["error"] = "forbidden";
+			$this->ajaxReturn($render);
+			return ;
+		}
+		if (IS_POST && isset($_POST['actid']) && ($_POST['actid'] != NULL) && ($_POST['actid'] != "0")) {
+			$activityM = M("shopactivity");
+			$shopactivityId["shopactivity_id"] = $_POST["actid"];
+			$activityM->where($shopactivityId)->delete();
+		}
 	}
 	public function shopclass(){
 		$this->display('Agentshop/shopclass');

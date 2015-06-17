@@ -1,0 +1,59 @@
+<extend name="base4" />
+<block name="page-title">
+	<span class="navtext">编辑活动信息: <{$shopdata.shop_sn}></span>
+</block>
+<block name="page-nav-aherf">
+	<a class="navbar-brand menu-button menu-left" href="/manage/agentshop/myshop" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+</block>
+<block name="page-wrapper">
+<div class="container editactivity">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>活动详情</h3>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">活动名称</span><input type="text" class="form-control" id="actname" name="actname" value="<{$activitydata.activity_title}>">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">开始时间</span><input type="datetime-local" class="form-control" id="actstartdt" name="actstartdt">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">结束时间</span><input type="datetime-local" class="form-control" id="actenddt" name="actenddt">
+				</div>
+			</div>
+			<label>服务内容描述</label>
+			<div class="form-group">
+				<textarea class="form-control" rows="6" id="actdesc" placeholder="协议包含的服务项目、时间长短等。"><{$activitydata.activity_desc}></textarea>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<button class="btn btn-primary" id="delactbtn" sid="<{$activitydata.agentshop_id}>" actid="<{$activitydata.shopactivity_id}>">删除</button>
+				</div>
+				<div class="col-xs-8">
+					<button class="btn btn-primary" id="editactbtn" sid="<{$activitydata.agentshop_id}>" actid="<{$activitydata.shopactivity_id}>">完成</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+
+<block name="page-js">
+	<script type="text/javascript" src="__PUBLIC__/manage/js/editactivity.js"></script>
+	<script type="text/javascript">
+		var startdt = "<{$activitydata.startdt}>";
+		var enddt = "<{$activitydata.enddt}>";
+		startdt = startdt.replace(" ","T");
+		enddt = enddt.replace(" ","T");
+		$("#actstartdt").val(startdt);
+		$("#actenddt").val(enddt);
+	</script>
+</block>

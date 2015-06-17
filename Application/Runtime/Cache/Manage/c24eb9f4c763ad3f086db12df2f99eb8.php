@@ -47,6 +47,7 @@
 				
 			</ul>
 		</nav>
+		
 		<div class="st-pusher">
 			<div class="st-content">
 			<!-- this is the wrapper for the content -->
@@ -88,8 +89,8 @@
 						</div>
 						<div class="form-group">
 							<label>场馆电话</label>
-							<input type="number" class="form-control" id="shoptel" name="shoptel" placeholder="前台电话1">
-							<input type="number" class="form-control" id="shoptel2" name="shoptel2" placeholder="前台电话2" style="margin-top:-1px;">
+							<input type="text" class="form-control" id="shoptel" name="shoptel" placeholder="前台电话1">
+							<input type="text" class="form-control" id="shoptel2" name="shoptel2" placeholder="前台电话2" style="margin-top:-1px;">
 						</div>
 						<div class="form-group">
 							<div class="row">

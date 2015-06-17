@@ -1,0 +1,75 @@
+<extend name="base4" />
+<block name="page-title">
+	<span class="navtext">编辑场馆信息: <{$shopdata.shop_sn}></span>
+</block>
+<block name="page-nav-aherf">
+	<a class="navbar-brand menu-button menu-left" href="/manage/agentshop/myshop" id="" data-effect="st-effect-2"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+</block>
+<block name="page-wrapper">
+<div class="container newshopinfo">
+	<div class="row shopalbums">
+		<!-- <div class="col-xs-4 shoppic">
+				<div class="picitem" id="123" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);" style="background-image:url(http://images.lifecare.cc/domoreimg/shops/2/c1dca0c13d8dd85834927ff4481a07dd.jpg)"></div>
+		</div> -->
+		<foreach name="agentshopalbumsdata" item="shopalbums">
+			<div class="col-xs-4 shoppic">
+				<div class="picitem" id="<{$shopalbums.agentshopalbums_id}>" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);" style="background-image:url(http://<{$shopalbums.img_path}>)"></div>
+			</div>
+		</foreach>
+
+		<div class="col-xs-4" id="addimg">
+			<form id="addshoppicform">
+				<span class="glyphicon glyphicon-plus" id="addplusspan" aria-hidden="true"></span>
+				<!-- <a href="#" id="upimgbtn"><img src="__PUBLIC__/manage/img/addimg.png" alt="" class="img-rounded"></a> -->
+				<input type="file" name="upimg" id="upimg" value="" required="required" accept="image/*"  runat="server"  /> <!-- style="display:none;" -->
+			</form>
+		</div>
+		<canvas class="canvas" id="myCanvas" style="display:none;"></canvas>
+		<!-- <div class="col-xs-4">
+			<a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);">
+				<img src="" alt="" id="1" class="img-rounded">
+				<div style="background-image:url('__PUBLIC__/manage/img/hahaha.jpeg');background-size:cover;">
+				</div>
+			</a>
+		</div>
+		 -->
+	</div>
+	<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false" id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="container">
+				<div class="row">
+					<button class="col-xs-12 btn btn-lg delshoppic btn-default btn-block" onclick="delshoppic(this);" >删除图片</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group ">
+				<textarea class="form-control" rows="6" id="shopdesc" placeholder="场馆介绍"><{$shopdata.shop_desc}></textarea>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputEmail1">场馆负责人信息</label>
+				<input type="text" class="form-control" id="shopGM" placeholder="场馆经理" value="<{$shopdata.shop_manager}>">
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control" id="shopGMtel" placeholder="场馆经理电话" value="<{$shopdata.shop_manager_tel}>">
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" id="shopGMemail" placeholder="场馆经理email" value="<{$shopdata.shop_manager_email}>">
+			</div>
+		</div>
+	<!-- 	<div class="col-xs-4">
+			<button type="button" class="col-xs-12 btn btn-default btn-block" id="editprv">上一步</button>
+		</div> -->
+		<div class="col-xs-12">
+			<button type="button" class="col-xs-12 btn btn-default btn-block" sid="<{$shopdata.agentshop_id}>" id="subbtn">完 成</button>
+		</div>
+	</div>
+	
+</div>
+</block>
+
+<block name="page-js">
+	<script type="text/javascript" src="__PUBLIC__/manage/js/editshopinfo.js"></script>
+</block>

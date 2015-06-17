@@ -75,7 +75,7 @@
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-xs-9">
-								<h5><?php echo ($myagent["agent_id"]); ?></h5>
+								<h5><?php echo ($myagent["agent_sn"]); ?></h5>
 							</div>
 							<div class="col-xs-3">
 								<?php if(($myagent["agentcount"]) == "0"): ?><span class="noagentmark">无场馆</span><?php endif; ?>

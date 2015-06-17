@@ -81,12 +81,14 @@
 					</div>
 				<?php else: ?> 
 					<?php if(is_array($memberlst)): foreach($memberlst as $key=>$member): ?><div class="row shopitem">
-							<div class="col-xs-12">
-								<h5><?php echo ($member["agentshop_id"]); ?></h5>
-								<hr>
-								<strong><?php echo ($member["shop_name"]); ?></strong>
-								<h6><?php echo ($member["address"]); ?></h6>
-							</div>
+							<a href="/manage/agentshop/shopdetail/sid/<?php echo ($member["agentshop_id"]); ?>">
+								<div class="col-xs-12">
+									<h5><?php echo ($member["shop_sn"]); ?></h5>
+									<hr>
+									<strong><?php echo ($member["shop_name"]); ?></strong>
+									<h6><?php echo ($member["address"]); ?></h6>
+								</div>
+							</a>
 						</div><?php endforeach; endif; endif; ?>
 				
 				
@@ -94,7 +96,7 @@
 		</div>
 		<div role="tabpanel" class="tab-pane" id="nomember">
 			<div class="container">
-				<?php if(empty($memberlst)): ?><div class="row">
+				<?php if(empty($nomemberlst)): ?><div class="row">
 						<div class="col-xs-12">
 							<div class="myempty">
 								<p class="text-center"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 没有非联盟场馆了!</p>
@@ -103,12 +105,14 @@
 					</div>
 				<?php else: ?>
 					<?php if(is_array($nomemberlst)): foreach($nomemberlst as $key=>$nomember): ?><div class="row shopitem">
-							<div class="col-xs-12">
-								<h5><?php echo ($nomember["agentshop_id"]); ?></h5>
-								<hr>
-								<strong><?php echo ($nomember["shop_name"]); ?></strong>
-								<h6><?php echo ($nomember["address"]); ?></h6>
-							</div>
+							<a href="/manage/agentshop/shopdetail/sid/<?php echo ($nomember["agentshop_id"]); ?>">
+								<div class="col-xs-12">
+									<h5><?php echo ($nomember["shop_sn"]); ?></h5>
+									<hr>
+									<strong><?php echo ($nomember["shop_name"]); ?></strong>
+									<h6><?php echo ($nomember["address"]); ?></h6>
+								</div>
+							</a>
 						</div><?php endforeach; endif; endif; ?>
 			</div>
 		</div>

@@ -45,21 +45,22 @@ label{
 	border-radius: 2px;
 	margin-bottom: 10px;
 }
-.agentdetail h4{
+.agentdetail h3,h4,h5,h6{
 	color: #000;
-}
-.agentdetail h5{
-	color: #000;	
+	font-weight: normal;
 }
 .agentdetail span{
 	line-height: 2;
 	font-size: 18px;
+	color: #999999;
+}
+.agentdetail .glyphicon-plus{
 	color: #77D2F2;
 }
 .agentdetail hr{
 	margin-bottom: 3px;
 	margin-top: 3px;
-	border:1px #46ABCE solid; 
+	/*border:1px #46ABCE solid; */
 }
 .agentdetail .blacktext{
 	color: #666666;
@@ -210,6 +211,11 @@ label{
 .editdomoreprice .editpricetitle{
 	text-align: center;
 }
+.editpricetitle h3{
+	color: #000;
+	font-weight: normal;
+	font-size: 20px;
+}
 .editdomoreprice .btn{
 	width: 100%;
 }
@@ -237,6 +243,29 @@ label{
 	color: #FFF;
 }
 #subeditpricebtn{
+	background-color: #52BBEB;
+	border-color: #52BBEB;
+}
+.addactivity{
+	width: 100%;
+	height: 100%;
+	background-color: #F6F6F6;
+	display: none;
+	position: absolute;
+	top: 0;
+	z-index: 1500;
+	font-size: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 10px;
+}
+.addactivity h3{
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 40px;
+}
+#submitactbtn{
+	width: 100%;
 	background-color: #52BBEB;
 	border-color: #52BBEB;
 }

@@ -1,6 +1,7 @@
 $("#sprovice").change(function(){
 	var getzcode = $("#sprovice").find("option:selected").attr("zcode");
 	$("#sprovice option[value='']").remove();
+	console.log(getzcode);
 	if ($(this).val() == "") {
 		return 
 	} else{

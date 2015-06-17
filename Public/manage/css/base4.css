@@ -1,0 +1,167 @@
+html,body{
+	width:100%;
+	background-color: #F6F6F6;
+}
+html{
+	height: 100%;
+}
+nav{
+	background-color: #F47960;
+	border-color:  #F47960;
+}
+.navbar-header > a{
+	font-size: 25px;
+	color: #FFF;
+}
+.navtext{
+	color: #fff;
+	position: absolute;;
+	font-size: 17px;
+	top: 15px;
+	left: 32%;
+}
+
+.editshop-content{
+	margin-top: 70px;
+}
+.btn-group{
+	width: 100%;
+}
+.btn-group .btn-default{
+	width: 100%;
+	height: 50px;
+}
+.btn-group .dropdown-menu{
+	width: 100%;
+	border-radius: 0;
+	background-color: #F47960;
+}
+.btn-primary.active{
+	background-color:#C5C5C5;
+	border-color:#C5C5C5;
+}
+.btn-primary{
+	background-color:#F2F2F2;
+	border-color:#F2F2F2;
+	color: #A89F9B;
+}
+.btn-primary:focus, .btn-primary:hover{
+	background-color:#C5C5C5;
+	border-color:#C5C5C5;
+}
+.form-control{
+	border-radius:2px;
+}
+.input-group-addon{
+	border-radius: 2px;
+	background-color: #FCFCFC;
+	color: #A89F9B;
+}
+.form-group .input-group{
+	margin-top: -1px;
+}
+.form-group-nopadding{
+	padding-left: 0;
+	padding-right: 0;
+}
+#mapContainer ,#lmmapContainer{
+	/*height:130px;*/
+	width:100%;
+	height:auto; min-height:300px;
+	margin-bottom: 15px;
+}
+.markicon{
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	opacity: 1;
+	left: 46%;
+	top:30%;
+	z-index:10;
+	display: none;
+}
+/*---------------edit shop info --------------*/
+.newshopinfo{
+	margin-top: 60px;
+}
+.newshopinfo img{
+	width: 100%;
+	height: auto;
+}
+.shopalbums{
+	margin-bottom: 20px;
+}
+#addshoppicform{
+	background-color: #FAFAFA;
+	position:relative;
+	/*height: auto;*/
+	height: 70px;
+	width: 100px;
+	/*padding-top: 30%;
+	padding-bottom: 30%;*/
+	/*padding-left: 35%;*/
+	text-align: center;
+	font-size: 25px;
+	color: #52BBEB;
+}
+#addplusspan{
+	line-height: 2.5;
+}
+.loadding{
+	background-image:url("/Public/manage/img/loading.gif");
+	background-position:center;
+	background-repeat:no-repeat;
+}
+#upimg{
+	/*padding-top: 40%;
+	padding-bottom: 40%;*/
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	left:0;
+	top: 0;
+	opacity: 0;
+}
+.picitem{
+	height: 70px;
+	width: 100px;
+	background-size : 100% 100%;
+}
+.shoppic{
+	margin-bottom: 10px;
+}
+.delshoppic{
+	background-color: #FFF;
+	color: #514E4A;
+	margin-top: 50%;
+}
+/*---------------edit agent -------------*/
+.newagent{
+	margin-top: 60px;
+}
+.editactivity{
+	margin-top: 60px;
+}
+.editactivity h3{
+	text-align: center;
+	color: #999999;
+	margin-bottom:20px;
+}
+.editactivity label{
+	color:#A89F9B;
+}
+#delactbtn{
+	width: 100%;
+	background-color: #FF9900;
+	border-color: #FF9900;
+	color:#FFF;
+	border-radius: 2px;
+}
+#editactbtn{
+	width: 100%;
+	background-color: #52BBEB;
+	border-color: #52BBEB;
+	color:#FFF;
+	border-radius: 2px;
+}
+

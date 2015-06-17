@@ -1,5 +1,9 @@
 $(".editdmprice").click(function(){
-	$(".editdomoreprice").toggle(500);
+	$(".editdomoreprice").toggle(200);
+});
+$(".addactivitybtn").click(function(){
+	console.log("log");
+	$(".addactivity").toggle(200);
 });
 $("#subeditpricebtn").click(function(){
 	var marketprice = $("#marketprice").val() ? $("#marketprice").val() : 0;
@@ -40,6 +44,25 @@ $("#subeditpricebtn").click(function(){
 		}
 	);
 });
+$("#submitactbtn").click(function(){
+	var actname = $("#actname").val() ? $("#actname").val() : warring("活动名称");
+	var actstartdt = $("#actstartdt").val() ? $("#actstartdt").val() : warring("活动开始时间");
+	var actenddt = $("#actenddt").val() ? $("#actenddt").val() : warring("活动结束时间");
+	var actdesc = $("#actdesc").val() ? $("#actdesc").val() : warring("活动描述");
+	var shopid = $("#submitactbtn").attr("sid");
+	$.post("/manage/agentshop/addactivity",
+		{
+			actname:actname,
+			actstartdt:actstartdt,
+			actenddt:actenddt,
+			actdesc:actdesc,
+			shopid:shopid
+		},
+		function(ret){
+			location.reload();
+		}
+	);
+});
 $(".tagbg").click(function(){
 	if ($(this).attr("class").indexOf("active")>=0) {
 		$(this).attr("class","tagbg");
@@ -47,3 +70,8 @@ $(".tagbg").click(function(){
 		$(this).attr("class","tagbg active");
 	}
 });
+function warring(errstr)
+{
+	alert(errstr+" 不能为空!");
+	throw "";
+}
