@@ -1,10 +1,4 @@
-var startdt = "<{$activitydata.startdt}>";
-var enddt = "<{$activitydata.enddt}>";
-startdt = startdt.replace(" ","T");
-enddt = enddt.replace(" ","T");
 
-$("#actstartdt").val(startdt);
-$("#actenddt").val(enddt);
 
 $("#delactbtn").click(function(){
 	var actid = $("#delactbtn").attr("actid");

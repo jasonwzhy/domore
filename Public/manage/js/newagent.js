@@ -48,7 +48,7 @@ $("#agentimg").change(function(){
 			var ctx = $canvas[0].getContext('2d');  
 			$canvas.attr({width : width, height : height});  
 			ctx.drawImage(img, 0, 0, width, height);  
-			var base64 = $canvas[0].toDataURL('image/jpeg',0.5);  
+			var base64 = $canvas[0].toDataURL('image/jpeg',0.8);  
 			var blob = dataURItoBlob(base64);
 			var fdata = new FormData();
 			fdata.append("myupimg",blob);
