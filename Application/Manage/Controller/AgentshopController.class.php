@@ -16,6 +16,11 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+	/**
+	*	@登陆页面
+	*
+	*
+	*/
 	public function signin(){
 		if (IS_POST) {
 			$render["error"]="";
@@ -37,6 +42,12 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+	/***
+	*
+	*	@添加场馆(店铺)页面&
+	*	@创建结果提交页面(POST)
+	*
+	*/
 	public function newshop(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -123,6 +134,10 @@ class AgentshopController extends Controller {
 			$this->display('Agentshop/newshop');
 		}
 	}
+	/**
+	*	@通用获得身份关联查询
+	*
+	*/
 	public function getregion($pzcode,$alevel,$isajax=1){
 		$region = M('Region');
 		$condition['parent_zipcode'] = $pzcode;
@@ -634,10 +649,15 @@ class AgentshopController extends Controller {
 			$agentshopM = M("agentshop");
 
 			$agentshopid["agentshop_id"] = $_POST["agentshopid"];
+			$agentshopdata = $agentshopM->where($agentshopid)->find();
+			$agentsn = $agentshopdata["shop_sn"];
 			if ($_POST["agentid"] == NULL) {
 				$agentId = NULL;
+				$newagentsn = substr($agentsn,-9);
 				// $this->ajaxReturn($_POST["agentid"]);
 			}else{
+				$newagentsn = substr($agentsn,-9);
+				$newagentsn = "D".$newagentsn;
 				$agentId = $_POST["agentid"];
 			}
 			$agentshopupdata = array(
@@ -655,7 +675,8 @@ class AgentshopController extends Controller {
 				"is_appointment" => $_POST["isappointment"],
 				"appointment_time" => $_POST["appointmenttime"],
 				"start_time" => $_POST["starttime"],
-				"end_time" => $_POST["endtime"]
+				"end_time" => $_POST["endtime"],
+				"shop_sn" => $newagentsn
 			);
 			$shpoupdateresp = $agentshopM->where($agentshopid)->save($agentshopupdata);
 			if ($shpoupdateresp) {

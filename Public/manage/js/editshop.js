@@ -119,6 +119,7 @@ $("#createsub").click(function(){
 			endtime:endtime
 		},
 		function(ret){
+			// console.log(ret);
 			window.location.href="/manage/agentshop/editshopinfo/sid/"+agentshopid;
 			// if ("" != ret.error ) {
 			// 	alert(ret.error);
