@@ -83,13 +83,12 @@
 			</form>
 		</div>
 		<canvas class="canvas" id="myCanvas" style="display:none;"></canvas>
-		<div class="col-xs-4">
+		<!-- <div class="col-xs-4">
 			<a href="#" type="button" class="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="onshoppic(this);">
-				<!-- <img src="" alt="" id="1" class="img-rounded"> -->
 				<div class="picitem" style="background-image:url('/Public/manage/img/hahaha.jpeg');background-size:cover;height:100px;">
 				</div>
 			</a>
-		</div>
+		</div> -->
 		
 	</div>
 

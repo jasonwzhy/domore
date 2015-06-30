@@ -16,9 +16,9 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+
 	/**
 	*	@登陆页面
-	*
 	*
 	*/
 	public function signin(){
@@ -42,6 +42,7 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+
 	/***
 	*
 	*	@添加场馆(店铺)页面&
@@ -134,9 +135,12 @@ class AgentshopController extends Controller {
 			$this->display('Agentshop/newshop');
 		}
 	}
+
 	/**
 	*	@通用获得身份关联查询
-	*
+	*	@pzcode:上级zipcode
+	*	@alevel:级数1-3(省市区)
+	*	@isajax:是否ajax请求
 	*/
 	public function getregion($pzcode,$alevel,$isajax=1){
 		$region = M('Region');
@@ -150,11 +154,22 @@ class AgentshopController extends Controller {
 		}
 		
     }
+
+    /**
+    *	@获取shoptype
+    */
 	public function getshoptype(){
 		$stype = M('shoptype');
 		$stypedata = $stype->select();
 		return $stypedata;
 	}
+
+	/**
+	*	@为新建的场馆完善场馆信息页面&提交&相册提交
+	*	@GET: 初始化表单页面
+	*	@POST: 提交创建
+	*	@POST & &_FILES: 场馆相册照片提交
+	*/
 	public function shopinfo(){
 		// 创建场馆 完善场馆信息
 		if (!isset($_SESSION["staffid"])) {
@@ -243,6 +258,11 @@ class AgentshopController extends Controller {
 			$this->display('Agentshop/newshopinfo');
 		}
 	}
+
+	/**
+	*	@删除场馆相册照片
+	*	@POST:albumsid(相册照片ID)
+	*/
 	public function delshoppic(){
 		$agentshopalbumsM = M('agentshopalbums');
 		$render['error'] = "";
@@ -260,6 +280,12 @@ class AgentshopController extends Controller {
 			}
 		}
 	}
+
+	/**
+	*	@创建新商户
+	*	@GET: 初始化表单页面
+	*	@POST: 提交创建
+	*/
 	public function newagent(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -387,6 +413,12 @@ class AgentshopController extends Controller {
 			$this->display('Agentshop/newagent');	
 		}
 	}
+
+
+	/**
+	*	@我的场馆列表
+	*
+	*/
 	public function myshop(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -411,6 +443,13 @@ class AgentshopController extends Controller {
 		$this->assign($render);
 		$this->display('Agentshop/myshop');
 	}
+
+
+	/**
+	*	@GET: 商铺详情
+	*	@sid: 商铺id
+	*
+	*/
 	public function shopdetail($sid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -448,6 +487,13 @@ class AgentshopController extends Controller {
 			//没有agentshop_id时返回界面;
 		}
 	}
+
+
+	/**
+	*	@更新商铺价格\Tag\详情
+	*	@GET: 显示表单页面
+	*	@POST: 提交更新信息
+	*/
 	public function updateshopprice()
 	{
 		if (!isset($_SESSION["staffid"])) {
@@ -486,6 +532,12 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+
+
+	/**
+	*	@我的商户列表页面
+	*
+	*/
 	public function myagent(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -514,6 +566,12 @@ class AgentshopController extends Controller {
 		$this->assign($render);
 		$this->display('Agentshop/myagent');
 	}
+
+
+	/**
+	*	@商户详情页面
+	*
+	*/
 	public function agentdetail($aid)
 	{
 		if (!isset($_SESSION["staffid"])) {
@@ -540,6 +598,13 @@ class AgentshopController extends Controller {
 			//没有agentid时返回界面;
 		}
 	}
+
+
+	/**
+	*	@商户关联店铺页面
+	*	@aid: 商户ID
+	*
+	*/
 	public function mkrelation($aid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -561,6 +626,13 @@ class AgentshopController extends Controller {
 		$this->assign($render);
 		$this->display('Agentshop/mkagentrelation');
 	}
+
+
+	/**
+	*	@商户关联店铺操作
+	*	@POST:agent_id商户id
+	*	@POST:ids 关联操作所关联的店铺列表
+	*/
 	public function agentaddshop()
 	{
 		if (!isset($_SESSION["staffid"])) {
@@ -590,6 +662,11 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+
+	/**
+	*	@修改店铺页面
+	*
+	*/
 	public function editshop($sid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -639,6 +716,12 @@ class AgentshopController extends Controller {
 		}
 		
 	}
+
+	/**
+	*	@提交修改店铺
+	*	@POST
+	*
+	*/
 	public function subshopedit(){
 		if (!isset($_SESSION["staffid"])) {
 			$render["error"] = "forbidden";
@@ -689,6 +772,12 @@ class AgentshopController extends Controller {
 		}
 
 	}
+
+	/**
+	*	@修改店铺详情页面
+	*
+	*
+	*/
 	public function editshopinfo($sid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -713,6 +802,12 @@ class AgentshopController extends Controller {
 		}
 		// $this->display('Agentshop/editshopinfo');
 	}
+
+	/**
+	*	@提交修改店铺详情
+	*	@POST
+	*
+	*/
 	public function subshopinfoedit(){
 		if (!isset($_SESSION["staffid"])) {
 			$render["error"] = "forbidden";
@@ -739,6 +834,12 @@ class AgentshopController extends Controller {
 		}
 
 	}
+
+	/**
+	*	@修改商户页面
+	*
+	*
+	*/
 	public function editagent($aid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -782,6 +883,12 @@ class AgentshopController extends Controller {
 			redirect('/manage/agentshop/myagent', 0, '页面跳转中...');
 		}
 	}
+
+	/**
+	*	@提交商户修改
+	*	@POST
+	*
+	*/
 	public function subagentedit(){
 		if (!isset($_SESSION["staffid"])) {
 			$render["error"] = "forbidden";
@@ -820,6 +927,11 @@ class AgentshopController extends Controller {
 			
 		}
 	}
+
+	/**
+	*	@添加活动页面功能
+	*
+	*/
 	public function addactivity(){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -846,6 +958,12 @@ class AgentshopController extends Controller {
 			$this->ajaxReturn($render);
 		}
 	}
+
+	/**
+	*
+	*	@修改活动页面
+	*
+	*/
 	public function editactivity($acid){
 		if (!isset($_SESSION["staffid"])) {
 			$this->assign('waitSecond',0);
@@ -862,6 +980,11 @@ class AgentshopController extends Controller {
 			$this->display('Agentshop/editactivity');
 		}
 	}
+
+	/**
+	*	@提交修改活动功能
+	*
+	*/
 	public function subactivityedit(){
 		if (!isset($_SESSION["staffid"])) {
 			$render["error"] = "forbidden";
@@ -884,6 +1007,12 @@ class AgentshopController extends Controller {
 			}
 		}
 	}
+
+	/**
+	*
+	*	@删除活动
+	*
+	*/
 	public function delactivity(){
 		if (!isset($_SESSION["staffid"])) {
 			$render["error"] = "forbidden";
@@ -896,37 +1025,39 @@ class AgentshopController extends Controller {
 			$activityM->where($shopactivityId)->delete();
 		}
 	}
-	public function shopclass(){
-		$this->display('Agentshop/shopclass');
-	}
-	public function upyuntest()
-	{
-		// require_once('upyun.class.php');
-		// require_once('upyun.class.php');
-		if (IS_POST) {
-			if ($_FILES != NULL) {
-				import("Manage.Util.upyun");
-				$upyun = new \UpYun('domoreimages', 'domore', 'domore123456');
-				// $fh = fopen('./Uploads/123.jpg', 'rb');
-				$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
-				$opts = array(
-					\UpYun::X_GMKERL_TYPE => 'fix_both',
-					\UpYun::X_GMKERL_VALUE => '300x200'
-				);
-				$rsp = $upyun->writeFile('/demo/1.png', $fh, True, $opts);   // 上传图片，自动创建目录
-				fclose($fh);
-				$this->ajaxReturn($rsp);
-			} else {
-				# code...
-			}
+	// public function shopclass(){
+	// 	$this->display('Agentshop/shopclass');
+	// }
+
+	
+	// public function upyuntest()
+	// {
+	// 	// require_once('upyun.class.php');
+	// 	// require_once('upyun.class.php');
+	// 	if (IS_POST) {
+	// 		if ($_FILES != NULL) {
+	// 			import("Manage.Util.upyun");
+	// 			$upyun = new \UpYun('domoreimages', 'domore', 'domore123456');
+	// 			// $fh = fopen('./Uploads/123.jpg', 'rb');
+	// 			$fh = fopen($_FILES['myupimg']['tmp_name'],'rb');
+	// 			$opts = array(
+	// 				\UpYun::X_GMKERL_TYPE => 'fix_both',
+	// 				\UpYun::X_GMKERL_VALUE => '300x200'
+	// 			);
+	// 			$rsp = $upyun->writeFile('/demo/1.png', $fh, True, $opts);   // 上传图片，自动创建目录
+	// 			fclose($fh);
+	// 			$this->ajaxReturn($rsp);
+	// 		} else {
+	// 			# code...
+	// 		}
 			
-			# code...
-		} else {
-			# code...
-			$this->display('Agentshop/upyum');
-		}
+	// 		# code...
+	// 	} else {
+	// 		# code...
+	// 		$this->display('Agentshop/upyum');
+	// 	}
 		
-	}
+	// }
 	public function signout(){
 		unset($_SESSION['staffid']);
 		$this->assign('waitSecond',0);
